@@ -1,3 +1,5 @@
+![Project Banner](https://raw.githubusercontent.com/Xzar-x/images/refs/heads/main/hashmap.png)
+
 hashmap.py 🗺️ - Smart Hash Identifier & Hashcat Helper
 
 ![Python Version](https://img.shields.io/badge/python-3.6+-blue.svg)

@@ -58,14 +58,15 @@ python hashmap.py "5f4dcc3b5aa765d61d8327deb882cf99"
 
 🏆 Comparison with Other Tools
 
-Feature hashmap.py hashid Haiti hashpy
-Scoring System ✅ Multi-factor ❌ Basic ❌ Basic ⚠️ Limited
-Hash Types ✅ 70+ ✅ 200+ ✅ 200+ ⚠️ ~50
-Hashcat Integration ✅ Excellent ⚠️ Basic ✅ Good ⚠️ Basic
-Confidence Levels ✅ Percentage-based ❌ Binary ❌ Binary ⚠️ Limited
-Auto-Update ✅ Yes ❌ No ❌ No ❌ No
-Verbose Analysis ✅ Detailed ❌ No ❌ No ❌ No
-Export Options ✅ Multiple ❌ No ⚠️ Limited ❌ No
+| Feature | hashmap.py | hashid | Haiti | hashpy |
+|---|---|---|---|---|
+| Scoring System | ✅ Multi-factor | ❌ Basic | ❌ Basic | ⚠️ Limited |
+| Hash Types | ✅ 70+ | ✅ 200+ | ✅ 200+ | ⚠️ ~50 |
+| Hashcat Integration | ✅ Excellent | ⚠️ Basic | ✅ Good | ⚠️ Basic |
+| Confidence Levels | ✅ Percentage-based | ❌ Binary | ❌ Binary | ⚠️ Limited |
+| Auto-Update | ✅ Yes | ❌ No | ❌ No | ❌ No |
+| Verbose Analysis | ✅ Detailed | ❌ No | ❌ No | ❌ No |
+| Export Options | ✅ Multiple | ❌ No | ⚠️ Limited | ❌ No |
 
 Why hashmap.py is superior:
 

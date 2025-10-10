@@ -2,7 +2,7 @@ hashmap.py 🗺️ - Smart Hash Identifier & Hashcat Helper
 
 ![Python Version](https://img.shields.io/badge/python-3.6+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Features](https://img.shields.io/badge/features-70+_hash_types-orange.svg)
+![Features](https://img.shields.io/badge/features-150+_hash_types-orange.svg)
 
 Advanced hash type detection with intelligent scoring system and hashcat integration
 
@@ -26,7 +26,7 @@ python hashmap.py "5f4dcc3b5aa765d61d8327deb882cf99"
 🔍 Advanced Detection Engine
 
 · Multi-factor scoring: Pattern matching, length analysis, charset validation, and heuristics
-· 70+ hash types: From common MD5/SHA to advanced KDFs like Argon2 and bcrypt
+· 150+ hash types: From common MD5/SHA to advanced KDFs like Argon2 and bcrypt
 · Smart confidence scoring: Probability-based rankings instead of binary matches
 
 🛠️ Hashcat Integration

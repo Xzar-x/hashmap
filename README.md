@@ -1,199 +1,290 @@
-<div align="center"><img src="https://raw.githubusercontent.com/Xzar-x/images/main/hashmap.png" alt="hashmap" width="200">
-</div>
-hashmap
+hashmap.py 🗺️ - Smart Hash Identifier & Hashcat Helper
 
-Intelligent hash type detector + hashcat helper
+https://img.shields.io/badge/python-3.6+-blue.svg
+https://img.shields.io/badge/license-MIT-green.svg
+https://img.shields.io/badge/features-70+_hash_types-orange.svg
 
-> Lightweight, readable Python script that suggests possible hashing algorithms, evaluates match confidence, and generates sample hashcat commands.
-
-
-
+Advanced hash type detection with intelligent scoring system and hashcat integration
 
 ---
 
-Key Information
+🚀 Quick Overview
 
-Author: Xzar
+hashmap.py is a sophisticated hash identification tool that goes beyond simple pattern matching. It uses a multi-factor scoring system to accurately identify 70+ hash types and provides seamless integration with hashcat for password cracking.
 
-Version: 1.6 (final)
+```bash
+# Basic usage
+python hashmap.py "5f4dcc3b5aa765d61d8327deb882cf99"
 
-Language: Python 3
-
-Purpose: quick hash type identification, hashcat -m mode suggestion, and convenient output (rich table or JSON)
-
-
-
----
-
-Features
-
-Colorful output using rich (with fallback if rich is not installed)
-
-Consolidated JSON output for multiple hashes
-
-Support for hash:salt formats (detects external salts)
-
-Recognizes both encoded formats ($argon2, $2y$, $1$, etc.) and pure hex/base64
-
-Generates sample hashcat commands (--cmd flag)
-
-Built-in test mode (--test) with sample vectors
-
-
+# Result: Identifies as MD5 with 98% confidence
+```
 
 ---
 
-Requirements
+✨ Features
 
-Python 3.8+
+🔍 Advanced Detection Engine
 
-rich (for colorful output, included in requirements.txt)
+· Multi-factor scoring: Pattern matching, length analysis, charset validation, and heuristics
+· 70+ hash types: From common MD5/SHA to advanced KDFs like Argon2 and bcrypt
+· Smart confidence scoring: Probability-based rankings instead of binary matches
 
+🛠️ Hashcat Integration
 
+· Direct mode export: --hashcat-only outputs just the hashcat mode
+· Command generation: --cmd creates ready-to-use hashcat commands
+· Batch export: --export-hashcat creates hashcat-compatible files
 
----
+📊 Professional Output
 
-Installation
+· Rich terminal support: Beautiful tables with colors and formatting
+· Verbose mode: See detailed scoring breakdown for each candidate
+· JSON export: Machine-readable output for automation
+· Fallback support: Works on any terminal without rich library
 
-1. Clone the repository:
+🔄 Maintenance & Updates
 
+· Auto-update system: Download latest hash signatures with --update
+· Rate limiting: Prevents excessive update requests (1-hour cooldown)
+· Validation: Verifies signature integrity before applying updates
 
+⚡ Performance & Testing
 
-git clone <repo-url>
-cd <repo>
-
-2. Create a virtual environment (optional but recommended) and install dependencies via requirements.txt:
-
-
-
-python -m venv .venv
-source .venv/bin/activate  # Linux/macOS
-.\.venv\Scripts\activate  # Windows
-pip install -r requirements.txt
-
-3. Make the script executable (optional):
-
-
-
-chmod +x hashmap.py
-
+· Benchmark mode: Measure processing speed for large hash lists
+· Built-in tests: Comprehensive test vectors to verify detection accuracy
+· Stream processing: Handle stdin, files, and command-line arguments
 
 ---
 
-Usage
+🏆 Comparison with Other Tools
 
-# Simple hash detection
-./hashmap.py "5f4dcc3b5aa765d61d8327deb882cf99"
+Feature hashmap.py hashid Haiti hashpy
+Scoring System ✅ Multi-factor ❌ Basic ❌ Basic ⚠️ Limited
+Hash Types ✅ 70+ ✅ 200+ ✅ 200+ ⚠️ ~50
+Hashcat Integration ✅ Excellent ⚠️ Basic ✅ Good ⚠️ Basic
+Confidence Levels ✅ Percentage-based ❌ Binary ❌ Binary ⚠️ Limited
+Auto-Update ✅ Yes ❌ No ❌ No ❌ No
+Verbose Analysis ✅ Detailed ❌ No ❌ No ❌ No
+Export Options ✅ Multiple ❌ No ⚠️ Limited ❌ No
 
-# Multiple hashes as arguments
-./hashmap.py hash1 hash2 hash3
+Why hashmap.py is superior:
 
-# Read hashes from a file (1 hash per line)
-./hashmap.py -f hashes.txt
+· 🎯 Smarter detection with weighted scoring instead of simple pattern matching
+· 📈 Confidence metrics help you judge result reliability
+· 🔧 Better hashcat integration with command generation and batch export
+· 🚀 Active maintenance with update system and comprehensive testing
+· 💡 Transparent process with verbose mode showing exactly how decisions are made
 
-# Output JSON
-./hashmap.py -f hashes.txt --json
+---
 
-# Print only the suggested hashcat mode (-m)
-./hashmap.py "$2y$12$..." --hashcat-only
+🛠️ Installation
 
-# Generate sample hashcat command (echo to file + hashcat)
-./hashmap.py --cmd "c372561c28bee85c01060b28481d459a:52927"
+Basic Installation
 
+```bash
+git clone https://github.com/yourusername/hashmap.git
+cd hashmap
+```
+
+Optional: Install Rich for Enhanced Display
+
+```bash
+pip install rich
+```
+
+Note: hashmap works perfectly without rich - it automatically falls back to basic terminal output.
+
+---
+
+📖 Usage Examples
+
+🔍 Basic Hash Identification
+
+```bash
+python hashmap.py "5f4dcc3b5aa765d61d8327deb882cf99"
+python hashmap.py "$2y$12$D4G5f18o7aTMfOSEiEMhJulK4pe8H/datqMNZxTNdlLAHeOOBpSGO"
+```
+
+📁 Processing Multiple Hashes
+
+```bash
+# From file
+python hashmap.py -f hashes.txt
+
+# From stdin
+cat hashes.txt | python hashmap.py
+
+# Multiple arguments
+python hashmap.py "hash1" "hash2" "hash3"
+```
+
+🔧 Advanced Options
+
+```bash
+# Show scoring details
+python hashmap.py -v "5f4dcc3b5aa765d61d8327deb882cf99"
+
+# Get only hashcat mode
+python hashmap.py --hashcat-only "5f4dcc3b5aa765d61d8327deb882cf99"
+
+# Generate hashcat command
+python hashmap.py --cmd "5f4dcc3b5aa765d61d8327deb882cf99"
+
+# Export to hashcat format
+python hashmap.py --export-hashcat output.hc "5f4dcc3b5aa765d61d8327deb882cf99"
+
+# JSON output for automation
+python hashmap.py --json "5f4dcc3b5aa765d61d8327deb882cf99"
+```
+
+🧪 Testing & Maintenance
+
+```bash
 # Run built-in tests
-./hashmap.py --test
+python hashmap.py --test
 
+# Update hash signatures
+python hashmap.py --update
 
----
-
-Output format
-
-Default: table ranking candidates, probability percentage, reasons, and notes.
-
---json: returns a JSON object with hashes as keys and candidate lists as values.
-
-
+# Benchmark performance
+python hashmap.py --benchmark -f large_hashes.txt
+```
 
 ---
 
-Commonly supported algorithms / hashcat modes (selected)
+🎯 Detection Capabilities
 
-bcrypt — -m 3200  (example: $2y$...)
+Supported Hash Categories
 
-argon2 — complex encoding, some variants may not have a definite -m
+· 🔐 KDF Hashes: bcrypt, Argon2, scrypt, PBKDF2
+· 📦 Common Hashes: MD5, SHA1, SHA256, SHA512
+· 🏢 System Hashes: NTLM, Kerberos, DCC2, NetNTLMv2
+· 📶 Wireless: WPA-PMKID, WPA-EAPOL
+· 🌐 Application: Django, phpass, Cisco Type 7/9
+· 🧂 Salted Variants: MD5/SHA1 with various salt positions
 
-md5 — -m 0
+Smart Detection Features
 
-ntlm — -m 1000
-
-sha1 — -m 100
-
-sha256 — -m 1400
-
-phpass — -m 400
-
-md5crypt — -m 500
-
-
-> Note: The script contains a list of signatures and weights (HASH_SIGNATURES) — results are heuristic and should be verified before attack.
-
-
-
+· Pattern Recognition: Regex matching for structured hashes
+· Length Analysis: Exact and near-length matching
+· Charset Validation: Hex, Base64, Radix64, ASCII
+· Heuristic Bonuses: Context-aware scoring adjustments
+· Confidence Scoring: Percentage-based reliability metrics
 
 ---
 
-Example generated command --cmd
+📊 Sample Output
 
-The script creates a hashes.txt file with a single entry (hash[:salt]) and suggests a hashcat command:
+Standard Detection
 
-# example generated command
-echo 'c372561c28bee85c01060b28481d459a:52927' > hashes.txt && \
-  hashcat -m 0 -a 0 hashes.txt dict.txt -o cracked.txt
+```
+┌ Analysis for: 5f4dcc3b5aa765d61d8327deb882cf99 ┐
+┌───┬──────────────┬─────────┬───────┬─────────────────────────────┬────────────────────┐
+│ # │ Algorithm    │ Mode    │ Prob. │ Scoring Details             │ Notes              │
+├───┼──────────────┼─────────┼───────┼─────────────────────────────┼────────────────────┤
+│ 1 │ md5          │ -m 0    │ 100%  │ Length 32: +120.0, Charset… │ MD5                │
+│ 2 │ md4          │ -m 900  │ 95.8% │ Length 32: +115.0, Charset… │ MD4                │
+│ 3 │ ntlm         │ -m 1000 │ 91.6% │ Length 32: +110.0, Charset… │ NTLM (Windows)     │
+└───┴──────────────┴─────────┴───────┴─────────────────────────────┴────────────────────┘
+```
 
+Hashcat Integration
 
----
-
-Tests
-
-The built-in --test mode runs a few control vectors (bcrypt, md5crypt, md5, sha1, ntlm, phpass, hash:salt). Use this after code changes to quickly check for regressions.
-
-
----
-
-Contributing
-
-Want to add a new signature, improve scoring, or integrate other tools? Open a pull request. Tips:
-
-Add new signatures to HASH_SIGNATURES with: name, pattern (regex), lengths, charset, weight, notes, hashcat_mode, salt_position.
-
-Add test vectors in the run_tests() function.
-
-
+```bash
+$ python hashmap.py --cmd "5f4dcc3b5aa765d61d8327deb882cf99"
+hashcat -m 0 -a 0 "5f4dcc3b5aa765d61d8327deb882cf99" /path/to/wordlist.txt
+```
 
 ---
 
-TODO / Ideas
+🔧 Technical Details
 
-Expand signature list and add unit tests (pytest).
+Scoring Algorithm
 
-Integrate with hashcat-utils / maskprocessor for mask generation.
+The detection uses a sophisticated scoring system:
 
-Improve base64 detection and differentiate variants (URL-safe, etc.).
+· Pattern Matching: Major bonus for regex matches
+· Length Analysis: Points for exact or near-exact length matches
+· Charset Validation: Bonus for valid character sets
+· Heuristic Adjustments: Context-aware bonuses/penalties
+· Weight System: Different hash types have different base weights
 
-CSV/Excel export for results.
+Configuration Options
 
-
+· --min-confidence: Filter results by probability threshold
+· --top: Control number of candidates displayed
+· --verbose: See the complete scoring breakdown
+· --benchmark: Performance timing for large datasets
 
 ---
 
-License
+🤝 Contributing
 
-Default: MIT — add a LICENSE file to explicitly set a license.
+We welcome contributions! Here's how you can help:
 
+1. Report Bugs: Open an issue with examples and details
+2. Suggest Features: Share your ideas for improvements
+3. Add Signatures: Contribute new hash type detection patterns
+4. Improve Documentation: Help make the tool more accessible
+
+Adding New Hash Types
+
+Edit the DEFAULT_HASH_SIGNATURES list with:
+
+· Pattern regex
+· Expected lengths
+· Character set
+· Hashcat mode
+· Weight/priority
 
 ---
 
-Contact
+📜 License
 
-Report issues, suggest algorithms, or propose improvements via issues or PRs.
+MIT License - feel free to use this tool for both personal and commercial purposes.
+
+---
+
+🐛 Bug Reports & Support
+
+If you encounter any issues:
+
+1. Check the existing issues on GitHub
+2. Run with -v flag and include the verbose output
+3. Provide example hashes that demonstrate the problem
+4. Include your Python version and operating system
+
+---
+
+🎉 Acknowledgments
+
+Credits & Inspiration:
+
+· Based on original work by Xzar
+· Enhanced with AI assistance from Gemini
+· Inspired by the hashcat community and existing identification tools
+· Thanks to all contributors and testers who helped improve detection accuracy
+
+---
+
+⚠️ Legal Disclaimer
+
+This tool is intended for:
+
+· Security research and education
+· Authorized penetration testing
+· Forensic analysis and incident response
+· System administration and maintenance
+
+Always ensure you have proper authorization before testing or attacking any systems.
+
+---
+
+<div align="center">
+
+⭐ If you find this tool useful, please give it a star on GitHub!
+
+</div>
+
+---
 

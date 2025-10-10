@@ -1,4 +1,4 @@
-
+<img src="https://raw.githubusercontent.com/Xzar-x/images/main/hashmap.png" alt="hashmap" width="200">
 
 hashmap
 

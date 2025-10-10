@@ -1,64 +1,199 @@
-Doskonale, skrypt hashmap.py to inteligentne narzędzie do identyfikacji typów hashy. Z przyjemnością wygeneruję piękny plik README.md, który podkreśli jego funkcjonalność i profesjonalizm.
-Pamiętam, że zajmujesz się cyberbezpieczeństwem i masz rangę hacker na HTB, a także tworzysz projekty na swoim profilu GitHub (https://github.com/Xzar-x), więc przygotuję opis w profesjonalnym stylu, zgodnym z Twoimi zainteresowaniami.
-🚀 hashmap.py — Smart Hash Identifier & Hashcat Helper
-(Uwaga: Powyższe zdjęcie jest placeholderem. Proszę zastąpić link do hashmap.png swoim faktycznym linkiem po jego umieszczeniu na platformie takiej jak Imgur lub bezpośrednio w repozytorium.)
-hashmap.py to zaawansowane narzędzie w Pythonie przeznaczone dla pentesterów i specjalistów od cyberbezpieczeństwa. Wykorzystuje zaawansowany silnik scoringowy do precyzyjnej identyfikacji typu hasha (w tym hashy z solą) oraz sugeruje najbardziej prawdopodobny tryb hashcat -m, automatyzując tym samym jeden z kluczowych etapów łamania haseł.
-🌟 Kluczowe Funkcje
- * Inteligentny Silnik Scoringowy: Wykorzystuje wieloczynnikową analizę (długość, wzorzec Regex, zestaw znaków, a nawet entropia Shannona) do precyzyjnego oszacowania prawdopodobieństwa dla wielu kandydatów jednocześnie.
- * Wsparcie dla Soli (Salt): Identyfikuje hashe z solą wbudowaną ($2y$, $1$) oraz z solą zewnętrzną (hash:salt).
- * Integracja z Hashcat: Bezpośrednie mapowanie na numery trybów hashcat -m dla najpopularniejszych algorytmów.
- * Generator Komend: Opcja --cmd generuje gotową do użycia komendę hashcat dla najlepszego kandydata.
- * Czytelny i Kolorowy Output: Wykorzystuje bibliotekę rich do estetycznego i czytelnego wyświetlania wyników w konsoli.
- * Testy Wektorowe: Wbudowany zestaw testów (--test) do szybkiej weryfikacji funkcjonalności detekcji.
- * Obsługa Wielu Hashy: Możliwość podania hashy bezpośrednio w argumentach lub wczytania ich z pliku (-f).
- * Output JSON: Opcja --json do łatwej integracji z innymi narzędziami i skryptami.
-💻 Instalacja
- * Sklonuj repozytorium:
-   git clone https://github.com/Xzar-x/hashmap.git
-cd hashmap
 
- * Zainstaluj zależności (opcjonalnie, ale zalecane dla kolorowego outputu):
-   pip install rich
 
-⚙️ Użycie
-1. Podstawowa Identyfikacja Hasza
-Podaj hash jako argument. Narzędzie wyświetli ranking najlepszych kandydatów.
-python3 hashmap.py '$2y$12$D4G5f18o7aTMfOSEiEMhJulK4pe8H/datqMNZxTNdlLAHeOOBpSGO'
+hashmap
 
-2. Generowanie Komendy Hashcat
-Użyj opcji --cmd, aby uzyskać gotową komendę do rozpoczęcia łamania.
-python3 hashmap.py '5f4dcc3b5aa765d61d8327deb882cf99' --cmd
-# Wynik: echo '5f4dcc3b5aa765d61d8327deb882cf99' > hashes.txt && hashcat -m 0 -a 0 hashes.txt dict.txt -o cracked.txt
+Intelligent hash type detector + hashcat helper
 
-3. Identyfikacja z Solą
-Narzędzie poprawnie zidentyfikuje typ hasha, nawet jeśli podano go wraz z solą zewnętrzną (hash:salt).
-python3 hashmap.py 'c372561c28bee85c01060b28481d459a:52927'
+> Lightweight, readable Python script that suggests possible hashing algorithms, evaluates match confidence, and generates sample hashcat commands.
 
-4. Wczytywanie Hashy z Pliku
-Użyj opcji -f lub --file, aby przetwarzać hashe z pliku (jeden hash na linię).
-python3 hashmap.py -f hashes_do_analizy.txt
 
-5. Tryb Testowy
-Weryfikacja poprawności działania na wbudowanych haszach testowych.
-python3 hashmap.py --test
 
-📝 Składnia (CLI)
-hashmap.py <hash> [<hash2> ...] 
-hashmap.py -f <file_with_hashes> 
-hashmap.py -h
 
-| Opcja | Opis |
-|---|---|
-| <hash> | Jeden lub więcej hashy do analizy. |
-| -f, --file | Plik z hashmi (jeden hash na linię). |
-| --cmd | Wygeneruj sugerowaną komendę hashcat dla najlepszego kandydata. |
-| --hashcat-only | Wyświetl tylko sugerowany numer trybu hashcat -m. |
-| --json | Wyświetl skonsolidowany wynik JSON dla wszystkich hashy. |
-| -k, --top | Pokaż top K kandydatów (domyślnie: 8). |
-| --test | Uruchom wbudowane wektory testowe. |
-| -h, --help | Pokaż pełną pomoc. |
-🛠️ Wkład
-Ten projekt został stworzony przez Xzar (autora tego skryptu).
-Wkład (pull requests) jest mile widziany. Proszę o zachowanie wysokich standardów kodowania (jak profesjonalny programista, zgodnie z Twoimi instrukcjami) i przestrzeganie konwencji projektu.
-📄 Licencja
-Ten projekt jest dostępny na licencji [Wprowadź nazwę Licencji, np. MIT].
+---
+
+Key Information
+
+Author: Xzar
+
+Version: 1.6 (final)
+
+Language: Python 3
+
+Purpose: quick hash type identification, hashcat -m mode suggestion, and convenient output (rich table or JSON)
+
+
+
+---
+
+Features
+
+Colorful output using rich (with fallback if rich is not installed)
+
+Consolidated JSON output for multiple hashes
+
+Support for hash:salt formats (detects external salts)
+
+Recognizes both encoded formats ($argon2, $2y$, $1$, etc.) and pure hex/base64
+
+Generates sample hashcat commands (--cmd flag)
+
+Built-in test mode (--test) with sample vectors
+
+
+
+---
+
+Requirements
+
+Python 3.8+
+
+rich (for colorful output, included in requirements.txt)
+
+
+
+---
+
+Installation
+
+1. Clone the repository:
+
+
+
+git clone <repo-url>
+cd <repo>
+
+2. Create a virtual environment (optional but recommended) and install dependencies via requirements.txt:
+
+
+
+python -m venv .venv
+source .venv/bin/activate  # Linux/macOS
+.\.venv\Scripts\activate  # Windows
+pip install -r requirements.txt
+
+3. Make the script executable (optional):
+
+
+
+chmod +x hashmap.py
+
+
+---
+
+Usage
+
+# Simple hash detection
+./hashmap.py "5f4dcc3b5aa765d61d8327deb882cf99"
+
+# Multiple hashes as arguments
+./hashmap.py hash1 hash2 hash3
+
+# Read hashes from a file (1 hash per line)
+./hashmap.py -f hashes.txt
+
+# Output JSON
+./hashmap.py -f hashes.txt --json
+
+# Print only the suggested hashcat mode (-m)
+./hashmap.py "$2y$12$..." --hashcat-only
+
+# Generate sample hashcat command (echo to file + hashcat)
+./hashmap.py --cmd "c372561c28bee85c01060b28481d459a:52927"
+
+# Run built-in tests
+./hashmap.py --test
+
+
+---
+
+Output format
+
+Default: table ranking candidates, probability percentage, reasons, and notes.
+
+--json: returns a JSON object with hashes as keys and candidate lists as values.
+
+
+
+---
+
+Commonly supported algorithms / hashcat modes (selected)
+
+bcrypt — -m 3200  (example: $2y$...)
+
+argon2 — complex encoding, some variants may not have a definite -m
+
+md5 — -m 0
+
+ntlm — -m 1000
+
+sha1 — -m 100
+
+sha256 — -m 1400
+
+phpass — -m 400
+
+md5crypt — -m 500
+
+
+> Note: The script contains a list of signatures and weights (HASH_SIGNATURES) — results are heuristic and should be verified before attack.
+
+
+
+
+---
+
+Example generated command --cmd
+
+The script creates a hashes.txt file with a single entry (hash[:salt]) and suggests a hashcat command:
+
+# example generated command
+echo 'c372561c28bee85c01060b28481d459a:52927' > hashes.txt && \
+  hashcat -m 0 -a 0 hashes.txt dict.txt -o cracked.txt
+
+
+---
+
+Tests
+
+The built-in --test mode runs a few control vectors (bcrypt, md5crypt, md5, sha1, ntlm, phpass, hash:salt). Use this after code changes to quickly check for regressions.
+
+
+---
+
+Contributing
+
+Want to add a new signature, improve scoring, or integrate other tools? Open a pull request. Tips:
+
+Add new signatures to HASH_SIGNATURES with: name, pattern (regex), lengths, charset, weight, notes, hashcat_mode, salt_position.
+
+Add test vectors in the run_tests() function.
+
+
+
+---
+
+TODO / Ideas
+
+Expand signature list and add unit tests (pytest).
+
+Integrate with hashcat-utils / maskprocessor for mask generation.
+
+Improve base64 detection and differentiate variants (URL-safe, etc.).
+
+CSV/Excel export for results.
+
+
+
+---
+
+License
+
+Default: MIT — add a LICENSE file to explicitly set a license.
+
+
+---
+
+Contact
+
+Report issues, suggest algorithms, or propose improvements via issues or PRs.
+

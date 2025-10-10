@@ -61,7 +61,7 @@ python hashmap.py "5f4dcc3b5aa765d61d8327deb882cf99"
 | Feature | hashmap.py | hashid | Haiti | hashpy |
 |---|---|---|---|---|
 | Scoring System | ✅ Multi-factor | ❌ Basic | ❌ Basic | ⚠️ Limited |
-| Hash Types | ✅ 70+ | ✅ 200+ | ✅ 200+ | ⚠️ ~50 |
+| Hash Types | ✅ 150+ | ✅ 200+ | ✅ 200+ | ⚠️ ~50 |
 | Hashcat Integration | ✅ Excellent | ⚠️ Basic | ✅ Good | ⚠️ Basic |
 | Confidence Levels | ✅ Percentage-based | ❌ Binary | ❌ Binary | ⚠️ Limited |
 | Auto-Update | ✅ Yes | ❌ No | ❌ No | ❌ No |

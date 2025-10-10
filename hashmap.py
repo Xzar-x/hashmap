@@ -21,7 +21,6 @@ import sys
 import math
 import json
 import argparse
-from collections import OrderedDict
 from typing import List, Tuple, Dict, Any
 import base64
 
@@ -224,6 +223,8 @@ def detect_hash(hash_str: str, top_k: int = MAX_CANDIDATES_DEFAULT) -> List[Dict
             "hashcat_mode": sig.get("hashcat_mode")
         })
     candidates.sort(key=lambda x:x["score"], reverse=True)
+    if not candidates:
+        return []
     max_score = max(c["score"] for c in candidates) or 1.0
     for c in candidates:
         c["probability_pct"]=percent(c["score"]/max_score)
@@ -250,25 +251,24 @@ HELP_MD = """
 # hashmap — smart hash identifier + hashcat helper
 
 **Usage**
-- `hashmap <hash>`
-- `hashmap -f <file>`
-- `hashmap --json`
-- `hashmap --hashcat-only`
-- `hashmap --cmd`
-- `hashmap --test`
+- `hashmap.py <hash>`
+- `hashmap.py -f <file_with_hashes>`
+- `hashmap.py <hash1> <hash2> ...`
 
-**Options**
-- `-f, --file`  File with one hash per line
-- `--json`      Output consolidated JSON
-- `-k, --top`   Show top K candidates
-- `--hashcat-only`  Print only best hashcat -m suggestion
-- `--cmd`       Print suggested hashcat command for top candidate
-- `--test`      Run built-in test vectors
+**Output options**
+- `--json`      Output consolidated JSON for all hashes.
+- `--hashcat-only`  Print only the best hashcat mode number (`-m`).
+- `--cmd`       Print a suggested hashcat command for the top candidate.
+- `-k, --top`   Show top K candidates (default: 8).
+
+**Other**
+- `--test`      Run built-in test vectors to check functionality.
+- `-h, --help`  Show this help message.
 """
 
 def print_help_and_exit(parser: argparse.ArgumentParser):
     if RICH_AVAILABLE:
-        console.print(Panel(Markdown(HELP_MD), title="hashmap — help", expand=False))
+        console.print(Panel(Markdown(HELP_MD), title="[bold]hashmap — help[/bold]", expand=False, border_style="blue"))
     else:
         print(parser.format_help())
     sys.exit(0)
@@ -290,7 +290,6 @@ def pretty_print_results(hash_str: str, candidates: List[Dict[str, Any]]):
             table.add_row(str(i),c['name'],mode_display,prob,str(c['score']),reasons,c['notes'])
         console.rule(f"[bold blue]Hash: [white]{hash_str}")
         console.print(table)
-        console.rule()
     else:
         print("="*100)
         print("Hash:", hash_str)
@@ -307,27 +306,89 @@ def run_tests():
     Wbudowane testy hashmap.
     Przykładowe hashe testowe, które sprawdzają detekcję najpopularniejszych algorytmów.
     """
+    console.rule("[bold yellow]Running built-in tests")
     test_hashes = [
-        "$2y$12$eImiTXuWVxfM37uY4JANjQ",     # bcrypt
-        "$1$salt$abcd1234abcd1234abcd12",  # md5crypt
+        "$2y$12$D4G5f18o7aTMfOSEiEMhJulK4pe8H/datqMNZxTNdlLAHeOOBpSGO", # bcrypt
+        "$1$salt$x/52mNDi3zV93g1vR.0a61",  # md5crypt
         "5f4dcc3b5aa765d61d8327deb882cf99",  # md5
         "8843d7f92416211de9ebb963ff4ce28125932878",  # sha1
         "ef797c8118f02dfb649607dd5d5d7a48", # ntlm
         "$P$B5H5j8H5K7k1G3j4h5G6I7J8K9L0M1", # phpass
+        "c372561c28bee85c01060b28481d459a:52927", # md5($pass.$salt)
     ]
     for h in test_hashes:
         candidates = detect_hash(h)
         pretty_print_results(h, candidates)
+    console.rule("[bold green]Tests finished")
 
 # ------------------ CLI ------------------
 def main():
-    parser = argparse.ArgumentParser(description="hashmap — intelligent hash identifier")
-    parser.add_argument("hashes", nargs="*", help="hashes to detect")
-    parser.add_argument("-f","--file", help="file with hashes")
-    parser.add_argument("--json", action="store_true", help="consolidated JSON output")
-    parser.add_argument("-k","--top", type=int, default=MAX_CANDIDATES_DEFAULT, help="top K candidates")
-    parser.add_argument("--hashcat-only", action="store_true", help="print only best hashcat -m")
-    parser.add_argument("--cmd", action="store_true", help="generate hashcat command for top candidate")
-    parser.add_argument("--test", action="store_true", help="run built-in test vectors")
-    parser.add_argument("--help-rich", action="store_true", help="rich formatted help")
+    # Wyłączamy domyślną pomoc argparse, żeby stworzyć własną
+    parser = argparse.ArgumentParser(description="hashmap — intelligent hash identifier", add_help=False)
+    parser.add_argument("hashes", nargs="*", help="One or more hashes to identify")
+    parser.add_argument("-f","--file", help="File with one hash per line")
+    parser.add_argument("--json", action="store_true", help="Consolidated JSON output for all hashes")
+    parser.add_argument("-k","--top", type=int, default=MAX_CANDIDATES_DEFAULT, help=f"Show top K candidates (default: {MAX_CANDIDATES_DEFAULT})")
+    parser.add_argument("--hashcat-only", action="store_true", help="Print only the best suggested hashcat mode (-m)")
+    parser.add_argument("--cmd", action="store_true", help="Generate a sample hashcat command for the top candidate")
+    parser.add_argument("--test", action="store_true", help="Run built-in test vectors")
+    parser.add_argument("-h", "--help", action="store_true", help="Show this help message and exit")
     args = parser.parse_args()
+
+    # Logika obsługi argumentów
+    if args.help or len(sys.argv) == 1:
+        print_help_and_exit(parser)
+
+    if args.test:
+        run_tests()
+        sys.exit(0)
+
+    # Zbieranie hashy z argumentów i pliku
+    all_hashes = []
+    if args.hashes:
+        all_hashes.extend(args.hashes)
+    if args.file:
+        try:
+            with open(args.file, 'r') as f:
+                all_hashes.extend([line.strip() for line in f if line.strip()])
+        except FileNotFoundError:
+            console.print(f"[bold red]Error: File not found: {args.file}[/bold red]")
+            sys.exit(1)
+        except Exception as e:
+            console.print(f"[bold red]Error reading file: {e}[/bold red]")
+            sys.exit(1)
+
+    if not all_hashes:
+        console.print("[bold yellow]No hashes provided. Use -h for help.[/bold yellow]")
+        sys.exit(0)
+
+    # Przetwarzanie i wyświetlanie wyników
+    results_json = {}
+    for hash_str in all_hashes:
+        if not hash_str: continue
+
+        candidates = detect_hash(hash_str, top_k=args.top)
+        if not candidates:
+            console.print(f"[yellow]Could not identify hash: {hash_str}[/yellow]")
+            continue
+
+        best_candidate = candidates[0]
+
+        if args.json:
+            results_json[hash_str] = candidates
+        elif args.hashcat-only:
+            if best_candidate.get("hashcat_mode") is not None:
+                print(best_candidate["hashcat_mode"])
+            else:
+                print(f"# No certain mode for '{hash_str}' (best guess: {best_candidate['name']})")
+        elif args.cmd:
+            print(gen_hashcat_cmd(hash_str, best_candidate))
+        else:
+            pretty_print_results(hash_str, candidates)
+
+    if args.json:
+        # Używamy rich.console do drukowania JSON dla ładnego formatowania
+        console.print(json.dumps(results_json, indent=2))
+
+if __name__ == "__main__":
+    main()

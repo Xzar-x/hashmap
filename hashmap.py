@@ -2,14 +2,15 @@
 # -*- coding: utf-8 -*-
 """
 hashmap.py — inteligentny detektor typów hashy + helper hashcat
-Wersja: 3.0 (poprawki błędów, nowe funkcje, rozszerzona baza)
+Wersja: 3.1 (poprawki błędów, nowe funkcje, rozszerzona baza)
 Autor: Xzar (z rozszerzeniami Gemini na podstawie feedbacku użytkownika)
 Opis:
   - Baza sygnatur z ponad 70 typami hashy
-  - Tryb auto-update (--update) z walidacją
+  - Tryb auto-update (--update) z walidacją i rate-limiting
   - Tryb verbose (-v) pokazujący szczegóły scoringu
   - Eksport do formatu hashcat (--export-hashcat)
   - Poprawione scoring i tryby hashcat
+  - Nowe opcje: --benchmark, --min-confidence
 Użycie:
   hashmap.py -h
   hashmap.py <hash>
@@ -23,6 +24,7 @@ import json
 import argparse
 import base64
 import os
+import time
 from typing import List, Tuple, Dict, Any
 from urllib import request, error
 
@@ -57,10 +59,11 @@ CHARSET_MATCH_MULTIPLIER = 0.6
 CHARSET_MISS_PENALTY = 0.12
 HEURISTIC_BONUS = 25.0
 MAX_CANDIDATES_DEFAULT = 8
-
 SIGNATURES_FILE = "hashmap_signatures.json"
-# Stable URL for the signatures database
-SIGNATURES_URL = "https://gist.githubusercontent.com/ai-L/08f7149d88565c715019a5a3a79d5718/raw/hashmap_signatures_v3.json"
+LAST_UPDATE_FILE = ".hashmap_last_update"
+
+# URL do sygnatur jest tymczasowo wyłączony. Stwórz Gist i wklej tutaj URL.
+SIGNATURES_URL = None
 
 # ------------------ Default Signatures Database (Fallback) ------------------
 DEFAULT_HASH_SIGNATURES: List[Dict[str, Any]] = [
@@ -89,11 +92,11 @@ DEFAULT_HASH_SIGNATURES: List[Dict[str, Any]] = [
     {"name":"sha1($pass.$salt)", "pattern": None, "lengths":[40], "charset":"hex", "weight":135, "notes":"SHA1(pass.salt)", "hashcat_mode":110, "salt_position":"external"},
     {"name":"sha1($salt.$pass)", "pattern": None, "lengths":[40], "charset":"hex", "weight":135, "notes":"SHA1(salt.pass)", "hashcat_mode":120, "salt_position":"external"},
     # System / Application Hashes
-    {"name":"WPA-PMKID", "pattern": r"^[0-9a-f]{32}\*[0-9a-f]{12}\*[0-9a-f]{12}\*[0-9a-f]+$", "lengths":[], "charset":"hex", "weight":190, "notes":"WPA-PMKID (EAPOL)", "hashcat_mode":16800, "salt_position":"inline"},
+    {"name":"WPA-PMKID", "pattern": r"^[0-9a-f]{32}\*[0-9a-f]{12}\*[0-9a-f]{12}\*[0-9a-f]{2,}$", "lengths":[], "charset":"hex", "weight":190, "notes":"WPA-PMKID (EAPOL)", "hashcat_mode":16800, "salt_position":"inline"},
     {"name":"WPA-EAPOL-PBKDF2", "pattern": None, "lengths":[64], "charset":"hex", "weight":145, "notes":"WPA/WPA2 (hashcat -m 2500/22000)", "hashcat_mode":22000, "salt_position":"none"},
     {"name":"Kerberos 5 TGS-REP etype 23", "pattern": r"^\$krb5tgs\$23\$.+\$[0-9A-F]{32}\$[0-9A-F]+$", "lengths":[], "charset":"hex_upper", "weight":190, "notes":"Kerberos 5 TGS-REP (etype 23)", "hashcat_mode":13100, "salt_position":"inline"},
     {"name":"Domain Cached Credentials 2 (DCC2)", "pattern": r"^[a-zA-Z0-9-]+\#\S+\#[0-9a-f]{256}$", "lengths":[], "charset":"hex", "weight":195, "notes":"MS Cache Hash 2 (PBKDF2-HMAC-SHA1)", "hashcat_mode":2100, "salt_position":"inline"},
-    {"name":"Cisco Type 7", "pattern": r"^0[0-9][0-9A-F]{2,}", "lengths":[], "charset":"hex_upper", "weight":160, "notes":"Cisco Type 7 (reversible)", "hashcat_mode":20, "salt_position":"none"},
+    {"name":"Cisco Type 7", "pattern": r"^0[0-9]([0-9A-F]{2})+$", "lengths":[], "charset":"hex_upper", "weight":160, "notes":"Cisco Type 7 (reversible)", "hashcat_mode":20, "salt_position":"none"},
     {"name":"Cisco Type 9", "pattern": r"^\$9\$.*", "lengths":[], "charset":"radix64", "weight":180, "notes":"Cisco Type 9 (scrypt)", "hashcat_mode":9200, "salt_position":"inline"},
     {"name":"NetNTLMv2", "pattern": r"^.+\:\:[^:]+\:[0-9a-f]{32}\:[0-9a-f]+$", "lengths":[], "charset":"hex", "weight":195, "notes":"NetNTLMv2", "hashcat_mode":5600, "salt_position":"inline"},
 ]
@@ -120,7 +123,7 @@ def is_base64(s: str) -> bool:
 def percent(x: float) -> float:
     return round(x * 100, 2)
 
-# ------------------ Scoring Engine (v3) ------------------
+# ------------------ Scoring Engine (v3.1) ------------------
 def score_candidate(hash_str: str, sig: dict, original_input: str) -> Tuple[float, List[str]]:
     score = 0.0
     details: List[str] = []
@@ -165,14 +168,15 @@ def score_candidate(hash_str: str, sig: dict, original_input: str) -> Tuple[floa
     if sig["name"] == "ntlm" and s.isupper() and s.isalnum():
         score += HEURISTIC_BONUS
         details.append(f"Heuristic (NTLM uppercase): +{HEURISTIC_BONUS}")
-    if sig["name"] == "md5" and ":" in original_input and sig.get("salt_position") != "external":
-        score += HEURISTIC_BONUS / 2
-        details.append(f"Heuristic (MD5 with ':'): +{HEURISTIC_BONUS / 2:.1f}")
+    if sig["name"] == "md5" and ":" in original_input and sig.get("salt_position") == "none":
+        score -= HEURISTIC_BONUS
+        details.append(f"Heuristic (plain MD5 with ':' penalty): -{HEURISTIC_BONUS:.1f}")
+
 
     return max(score, 0.0), details
 
 # ------------------ Hash Detection ------------------
-def detect_hash(hash_str: str, signatures: List[Dict[str, Any]], top_k: int = MAX_CANDIDATES_DEFAULT) -> List[Dict[str,Any]]:
+def detect_hash(hash_str: str, signatures: List[Dict[str, Any]], top_k: int = MAX_CANDIDATES_DEFAULT, min_confidence: float = 0.0) -> List[Dict[str,Any]]:
     candidates = []
     
     # Process all signatures
@@ -194,18 +198,34 @@ def detect_hash(hash_str: str, signatures: List[Dict[str, Any]], top_k: int = MA
     output = []
     for cand in candidates[:top_k]:
         sig = cand["sig"]
-        output.append({
-            "name": sig["name"],
-            "score": round(cand["score"], 2),
-            "probability_pct": percent(cand["score"] / max_score),
-            "details": cand["details"],
-            "notes": sig.get("notes", ""),
-            "hashcat_mode": sig.get("hashcat_mode")
-        })
+        prob = percent(cand["score"] / max_score)
+        if prob >= min_confidence:
+            output.append({
+                "name": sig["name"],
+                "score": round(cand["score"], 2),
+                "probability_pct": prob,
+                "details": cand["details"],
+                "notes": sig.get("notes", ""),
+                "hashcat_mode": sig.get("hashcat_mode")
+            })
     return output
 
 # ------------------ Signature Management ------------------
 def update_signatures():
+    if SIGNATURES_URL is None:
+        console.print("[yellow]Auto-update disabled. No SIGNATURES_URL provided.[/yellow]")
+        return
+        
+    if os.path.exists(LAST_UPDATE_FILE):
+        try:
+            with open(LAST_UPDATE_FILE, 'r') as f:
+                last_update_time = float(f.read())
+            if time.time() - last_update_time < 3600: # 1 hour cooldown
+                console.print("[yellow]Last update was less than 1 hour ago. Skipping.[/yellow]")
+                return
+        except (ValueError, IOError):
+            pass # Ignore if file is corrupted
+
     console.print(f"[yellow]Downloading latest signatures from:[cyan]\n{SIGNATURES_URL}[/cyan]")
     try:
         with request.urlopen(SIGNATURES_URL, timeout=10) as response:
@@ -223,6 +243,9 @@ def update_signatures():
         with open(SIGNATURES_FILE, 'w', encoding='utf-8') as f:
             json.dump(signatures, f, indent=2, ensure_ascii=False)
         
+        with open(LAST_UPDATE_FILE, 'w') as f:
+            f.write(str(time.time()))
+
         console.print(f"[bold green]Success! Saved {len(signatures)} signatures to '{SIGNATURES_FILE}'.[/bold green]")
     except error.URLError as e:
         console.print(f"[bold red]Network error during update: {e.reason}[/bold red]")
@@ -246,7 +269,7 @@ def gen_hashcat_cmd(hash_str: str, best_candidate: dict) -> str:
     return f"hashcat -m {mode} -a 0 \"{hash_str}\" /path/to/wordlist.txt"
 
 HELP_MD = """
-# hashmap v3.0 — Smart Hash Identifier + Hashcat Helper
+# hashmap v3.1 — Smart Hash Identifier + Hashcat Helper
 
 **Usage**
 - `hashmap.py <hash>`
@@ -259,15 +282,24 @@ HELP_MD = """
 - `--cmd`              Print a suggested hashcat command.
 - `-k, --top`          Show top K candidates (default: 8).
 - `-v, --verbose`      Show detailed scoring information.
+- `--min-confidence`   Minimum probability % to show (default: 0.0).
 
 **Management**
-- `--update`           Download the latest hash signatures.
+- `--update`           Download the latest hash signatures (1h cooldown).
 - `--export-hashcat <file>` Export results to a hashcat file (`mode:hash`).
 
 **Other**
+- `--benchmark`        Benchmark mode (timing for large lists).
 - `--test`             Run built-in test vectors.
 - `-h, --help`         Show this help message.
 """
+
+def print_help_and_exit(parser: argparse.ArgumentParser):
+    if RICH_AVAILABLE:
+        console.print(Panel(Markdown(HELP_MD), title="[bold]hashmap v3.1 — help[/bold]", expand=False, border_style="blue"))
+    else:
+        print(HELP_MD)
+    sys.exit(0)
 
 def pretty_print_results(hash_str: str, candidates: List[Dict[str, Any]], verbose: bool):
     if not candidates:
@@ -313,8 +345,8 @@ def run_tests(signatures):
         "$6$rounds=5000$usesomesillystri$K..AnmQDJ0VaT4TbL2A/.AB.UQ82l9aA048tcGp5VprKR4YBIxWh5tG2MhBCv/dsr/s2EPo85.x/aeh9LgY34.", # sha512crypt
         "$argon2id$v=19$m=65536,t=4,p=1$c29tZXNhbHQ$RdescudvJCsgt4Q_Wb3GfA", # argon2id
         "pbkdf2_sha256$260000$test_salt$gS0g8fE4m36d5tW/1Tf3Yh2xQY6f7j8k9l0m1N2o3p4=", # Django
-        "pmkid*0123456789ab*123456789abc*546573744553534944", # WPA-PMKID (dummy)
-        "$krb5tgs$23$*user$EXAMPLE.COM$http/server.example.com*$3B4A982823B4A982823B4A982823B4A9*B4A982823B4A982823B4A982823B4A982" # Kerberos TGS-REP
+        "16800*82b042b36a41f6920559b52a52aea542*a2125420506e*5a472916a244*77696e646f77735f77696669", # WPA-PMKID (real example)
+        "$krb5tgs$23$*user$EXAMPLE.COM$http/server.example.com*2052e30b653a067e33522f13233845c2$d797e82f25a39a3f29b049615a9952a0953a5db8c56c265696568b209a31ac5e9a3b9a3c9a3d9a3e" # Kerberos TGS-REP (valid format)
     ]
     for h in test_hashes:
         candidates = detect_hash(h, signatures)
@@ -323,7 +355,7 @@ def run_tests(signatures):
 
 # ------------------ CLI Main ------------------
 def main():
-    parser = argparse.ArgumentParser(description="hashmap v3.0 — Smart Hash Identifier", add_help=False)
+    parser = argparse.ArgumentParser(description="hashmap v3.1 — Smart Hash Identifier", add_help=False)
     parser.add_argument("hashes", nargs="*", help="One or more hashes to identify")
     parser.add_argument("-f", "--file", help="File with one hash per line")
     parser.add_argument("--json", action="store_true", help="Output in JSON format")
@@ -334,6 +366,8 @@ def main():
     parser.add_argument("--update", action="store_true", help="Download latest hash signatures")
     parser.add_argument("-v", "--verbose", action="store_true", help="Show detailed scoring information")
     parser.add_argument("--export-hashcat", metavar='FILE', help="Export results to a hashcat-ready file (mode:hash)")
+    parser.add_argument("--benchmark", action="store_true", help="Benchmark mode (timing)")
+    parser.add_argument("--min-confidence", type=float, default=0.0, help="Minimum probability %% to show")
     parser.add_argument("-h", "--help", action="store_true", help="Show this help message")
     args = parser.parse_args()
 
@@ -360,21 +394,25 @@ def main():
             console.print(f"[bold red]Error: File not found: {args.file}[/bold red]")
             sys.exit(1)
     elif not sys.stdin.isatty():
-        all_hashes.extend([line.strip() for line in sys.stdin if line.strip()])
+        stdin_data = sys.stdin.read()
+        all_hashes.extend([line.strip() for line in stdin_data.splitlines() if line.strip()])
 
     if not all_hashes:
         console.print("[yellow]No hashes provided. Use -h for help.[/yellow]")
         sys.exit(0)
-
+    
+    start_time = time.time()
+    
     # Process hashes
     export_lines = []
     results_json = {}
     for hash_str in all_hashes:
         if not hash_str: continue
-        candidates = detect_hash(hash_str, signatures, top_k=args.top)
+        candidates = detect_hash(hash_str, signatures, top_k=args.top, min_confidence=args.min_confidence)
         
         if not candidates:
-            console.print(f"[yellow]Could not identify hash: {hash_str}[/yellow]")
+            if not args.json and not args.benchmark:
+                console.print(f"[yellow]Could not identify hash: {hash_str}[/yellow]")
             continue
 
         best_candidate = candidates[0]
@@ -389,9 +427,18 @@ def main():
             mode = best_candidate.get("hashcat_mode")
             if mode is not None:
                 export_lines.append(f"{mode}:{hash_str}")
-        else:
+        elif not args.benchmark:
             pretty_print_results(hash_str, candidates, args.verbose)
     
+    if args.benchmark:
+        end_time = time.time()
+        duration = end_time - start_time
+        hashes_per_sec = len(all_hashes) / duration
+        console.print(f"[bold green]Benchmark Results[/bold green]")
+        console.print(f"  - Hashes processed: {len(all_hashes)}")
+        console.print(f"  - Total time: {duration:.4f} seconds")
+        console.print(f"  - Hashes per second: {hashes_per_sec:.2f}")
+
     if args.export_hashcat:
         try:
             with open(args.export_hashcat, 'w', encoding='utf-8') as f:
@@ -405,5 +452,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 

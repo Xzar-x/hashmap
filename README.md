@@ -1,8 +1,8 @@
 hashmap.py 🗺️ - Smart Hash Identifier & Hashcat Helper
 
-https://img.shields.io/badge/python-3.6+-blue.svg
-https://img.shields.io/badge/license-MIT-green.svg
-https://img.shields.io/badge/features-70+_hash_types-orange.svg
+![Python Version](https://img.shields.io/badge/python-3.6+-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Features](https://img.shields.io/badge/features-70+_hash_types-orange.svg)
 
 Advanced hash type detection with intelligent scoring system and hashcat integration
 

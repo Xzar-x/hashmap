@@ -1,5 +1,5 @@
-<img src="https://raw.githubusercontent.com/Xzar-x/images/main/hashmap.png" alt="hashmap" width="200">
-
+<div align="center"><img src="https://raw.githubusercontent.com/Xzar-x/images/main/hashmap.png" alt="hashmap" width="200">
+</div>
 hashmap
 
 Intelligent hash type detector + hashcat helper

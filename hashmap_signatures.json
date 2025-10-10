@@ -5,7 +5,7 @@
 "lengths": [32],
 "charset": "hex",
 "weight": 120,
-"notes": "Najpopularniejszy, 32-znakowy hex",
+"notes": "Most common, 32-char hex",
 "hashcat_mode": 0,
 "salt_position": "none"
 },
@@ -15,7 +15,7 @@
 "lengths": [40],
 "charset": "hex",
 "weight": 130,
-"notes": "Standardowy SHA-1",
+"notes": "Standard SHA-1",
 "hashcat_mode": 100,
 "salt_position": "none"
 },
@@ -25,7 +25,7 @@
 "lengths": [64],
 "charset": "hex",
 "weight": 160,
-"notes": "Standardowy SHA-256",
+"notes": "Standard SHA-256",
 "hashcat_mode": 1400,
 "salt_position": "none"
 },
@@ -35,7 +35,7 @@
 "lengths": [128],
 "charset": "hex",
 "weight": 170,
-"notes": "Standardowy SHA-512",
+"notes": "Standard SHA-512",
 "hashcat_mode": 1700,
 "salt_position": "none"
 },
@@ -235,7 +235,7 @@
 "lengths": [],
 "charset": "hex",
 "weight": 145,
-"notes": "Hash z handshake, wymaga pliku .hccapx",
+"notes": "Handshake hash, requires .hccapx file",
 "hashcat_mode": 22000,
 "salt_position": "external_file"
 },
@@ -265,7 +265,7 @@
 "lengths": [],
 "charset": "hex_upper",
 "weight": 160,
-"notes": "Cisco Type 7 (odwracalny)",
+"notes": "Cisco Type 7 (reversible)",
 "hashcat_mode": 20,
 "salt_position": "none"
 },
@@ -315,7 +315,7 @@
 "lengths": [56],
 "charset": "hex",
 "weight": 155,
-"notes": "SHA-3 wariant 224-bit",
+"notes": "SHA-3 variant 224-bit",
 "hashcat_mode": 17300,
 "salt_position": "none"
 },
@@ -325,7 +325,7 @@
 "lengths": [64],
 "charset": "hex",
 "weight": 160,
-"notes": "SHA-3 wariant 256-bit",
+"notes": "SHA-3 variant 256-bit",
 "hashcat_mode": 17400,
 "salt_position": "none"
 },
@@ -335,7 +335,7 @@
 "lengths": [96],
 "charset": "hex",
 "weight": 165,
-"notes": "SHA-3 wariant 384-bit",
+"notes": "SHA-3 variant 384-bit",
 "hashcat_mode": 17500,
 "salt_position": "none"
 },
@@ -345,7 +345,7 @@
 "lengths": [128],
 "charset": "hex",
 "weight": 170,
-"notes": "SHA-3 wariant 512-bit",
+"notes": "SHA-3 variant 512-bit",
 "hashcat_mode": 17600,
 "salt_position": "none"
 },
@@ -395,7 +395,7 @@
 "lengths": [32],
 "charset": "hex",
 "weight": 105,
-"notes": "Starszy hash Windows, często pusty",
+"notes": "Legacy Windows hash, often empty",
 "hashcat_mode": 3000,
 "salt_position": "none"
 },
@@ -435,7 +435,7 @@
 "lengths": [],
 "charset": "hex",
 "weight": 155,
-"notes": "vBulletin MD5(MD5(pass).salt) - nowszy",
+"notes": "vBulletin MD5(MD5(pass).salt) - newer",
 "hashcat_mode": 2711,
 "salt_position": "external"
 },
@@ -471,17 +471,17 @@
 },
 {
 "name": "RAR3-hp",
-"pattern": "^\\$RAR3\\$0\\*[0-9a-f]{16}\\*[0-9a-f]{32}$",
+"pattern": "^\\$RAR3\\$\\*0\\*[0-9a-f]{16}\\*[0-9a-f]{32}",
 "lengths": [57],
 "charset": "hex",
 "weight": 185,
-"notes": "RAR3-HP (szyfrowane nagłówki)",
+"notes": "RAR3-HP (headers encrypted)",
 "hashcat_mode": 12500,
 "salt_position": "inline"
 },
 {
 "name": "RAR5",
-"pattern": "^\\$rar5\\$\\d+\\$[a-f0-9]+\\[a-f0-9]+",
+"pattern": "^\rar5\\\d+\[a-f0-9]+\\[a-f0-9]+",
 "lengths": [],
 "charset": "hex",
 "weight": 185,
@@ -565,7 +565,7 @@
 "lengths": [128, 1024, 1280],
 "charset": "hex",
 "weight": 180,
-"notes": "Kontener TrueCrypt RIPEMD160",
+"notes": "TrueCrypt Container RIPEMD160",
 "hashcat_mode": 6211,
 "salt_position": "none"
 },
@@ -575,7 +575,7 @@
 "lengths": [128, 1024, 1280],
 "charset": "hex",
 "weight": 180,
-"notes": "Kontener TrueCrypt SHA512",
+"notes": "TrueCrypt Container SHA512",
 "hashcat_mode": 6221,
 "salt_position": "none"
 },
@@ -585,7 +585,7 @@
 "lengths": [128, 1024, 1280],
 "charset": "hex",
 "weight": 180,
-"notes": "Kontener TrueCrypt Whirlpool",
+"notes": "TrueCrypt Container Whirlpool",
 "hashcat_mode": 6231,
 "salt_position": "none"
 },
@@ -645,7 +645,7 @@
 "lengths": [],
 "charset": "hex",
 "weight": 200,
-"notes": "Szyfrowanie dysku BitLocker",
+"notes": "BitLocker Drive Encryption",
 "hashcat_mode": 22100,
 "salt_position": "inline"
 },
@@ -655,7 +655,7 @@
 "lengths": [32],
 "charset": "hex",
 "weight": 122,
-"notes": "Złożony MD5(SHA1(pass))",
+"notes": "Composite MD5(SHA1(pass))",
 "hashcat_mode": 4400,
 "salt_position": "none"
 },
@@ -665,7 +665,7 @@
 "lengths": [40],
 "charset": "hex",
 "weight": 132,
-"notes": "Złożony SHA1(MD5(pass))",
+"notes": "Composite SHA1(MD5(pass))",
 "hashcat_mode": 4500,
 "salt_position": "none"
 },
@@ -675,7 +675,7 @@
 "lengths": [64],
 "charset": "hex",
 "weight": 162,
-"notes": "SHA256 z solą na końcu",
+"notes": "SHA256 with salt append",
 "hashcat_mode": 1410,
 "salt_position": "external"
 },
@@ -685,7 +685,7 @@
 "lengths": [64],
 "charset": "hex",
 "weight": 162,
-"notes": "SHA256 z solą na początku",
+"notes": "SHA256 with salt prepend",
 "hashcat_mode": 1420,
 "salt_position": "external"
 },
@@ -695,7 +695,7 @@
 "lengths": [128],
 "charset": "hex",
 "weight": 172,
-"notes": "SHA512 z solą na końcu",
+"notes": "SHA512 with salt append",
 "hashcat_mode": 1710,
 "salt_position": "external"
 },
@@ -705,7 +705,7 @@
 "lengths": [128],
 "charset": "hex",
 "weight": 172,
-"notes": "SHA512 z solą na początku",
+"notes": "SHA512 with salt prepend",
 "hashcat_mode": 1720,
 "salt_position": "external"
 },
@@ -725,7 +725,7 @@
 "lengths": [],
 "charset": "hex",
 "weight": 190,
-"notes": "Baza danych Keepass 1",
+"notes": "Keepass 1 Database",
 "hashcat_mode": 13400,
 "salt_position": "inline"
 }

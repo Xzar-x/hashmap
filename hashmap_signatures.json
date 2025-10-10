@@ -2,9 +2,7 @@
   {
     "name": "MD5",
     "pattern": null,
-    "lengths": [
-      32
-    ],
+    "lengths": [32],
     "charset": "hex",
     "weight": 120,
     "notes": "Most common, 32-char hex",
@@ -14,9 +12,7 @@
   {
     "name": "SHA1",
     "pattern": null,
-    "lengths": [
-      40
-    ],
+    "lengths": [40],
     "charset": "hex",
     "weight": 130,
     "notes": "Standard SHA-1",
@@ -26,9 +22,7 @@
   {
     "name": "SHA256",
     "pattern": null,
-    "lengths": [
-      64
-    ],
+    "lengths": [64],
     "charset": "hex",
     "weight": 160,
     "notes": "Standard SHA-256",
@@ -38,9 +32,7 @@
   {
     "name": "SHA512",
     "pattern": null,
-    "lengths": [
-      128
-    ],
+    "lengths": [128],
     "charset": "hex",
     "weight": 170,
     "notes": "Standard SHA-512",
@@ -49,11 +41,8 @@
   },
   {
     "name": "bcrypt (2*)",
-    "pattern": "^\\$2[aby]?\\$[0-9]{2}\\[./A-Za-z0-9]{53}",
-    "lengths": [
-      59,
-      60
-    ],
+    "pattern": "^\\$2[aby]?\\$[0-9]{2}\\$[./A-Za-z0-9]{53}",
+    "lengths": [59, 60],
     "charset": "radix64",
     "weight": 200,
     "notes": "bcrypt $2a, $2b, $2y",
@@ -102,7 +91,7 @@
   },
   {
     "name": "Django (PBKDF2-SHA256)",
-    "pattern": "^pbkdf2_sha256\\$\\d+\\$[A-Za-z0-9./]+\\[A-Za-z0-9+/=]+",
+    "pattern": "^pbkdf2_sha256\\$\\d+\\$[A-Za-z0-9./]+\\$[A-Za-z0-9+/=]+",
     "lengths": [],
     "charset": "radix64",
     "weight": 155,
@@ -112,7 +101,7 @@
   },
   {
     "name": "md5crypt, MD5 (Unix)",
-    "pattern": "^\\$1\\$[A-Za-z0-9./]{1,8}\\[A-Za-z0-9./]{22}",
+    "pattern": "^\\$1\\$[A-Za-z0-9./]{1,8}\\$[A-Za-z0-9./]{22}",
     "lengths": [],
     "charset": "radix64",
     "weight": 180,
@@ -122,7 +111,7 @@
   },
   {
     "name": "sha256crypt, SHA256 (Unix)",
-    "pattern": "^\\$5\\$[A-Za-z0-9./]+\\[A-Za-z0-9./]+",
+    "pattern": "^\\$5\\$[A-Za-z0-9./]+\\$[A-Za-z0-9./]+",
     "lengths": [],
     "charset": "radix64",
     "weight": 180,
@@ -132,7 +121,7 @@
   },
   {
     "name": "sha512crypt, SHA512 (Unix)",
-    "pattern": "^\\$6\\$[A-Za-z0-9./]+\\[A-Za-z0-9./]+",
+    "pattern": "^\\$6\\$[A-Za-z0-9./]+\\$[A-Za-z0-9./]+",
     "lengths": [],
     "charset": "radix64",
     "weight": 180,
@@ -143,9 +132,7 @@
   {
     "name": "phpass",
     "pattern": "^\\$[PH]\\$[A-Za-z0-9./]{31}",
-    "lengths": [
-      34
-    ],
+    "lengths": [34],
     "charset": "radix64",
     "weight": 140,
     "notes": "phpBB/Wordpress phpass ($P$/$H$)",
@@ -155,9 +142,7 @@
   {
     "name": "MD4",
     "pattern": null,
-    "lengths": [
-      32
-    ],
+    "lengths": [32],
     "charset": "hex",
     "weight": 115,
     "notes": "MD4",
@@ -167,9 +152,7 @@
   {
     "name": "NTLM",
     "pattern": null,
-    "lengths": [
-      32
-    ],
+    "lengths": [32],
     "charset": "hex",
     "weight": 110,
     "notes": "NTLM (Windows)",
@@ -179,9 +162,7 @@
   {
     "name": "SHA224",
     "pattern": null,
-    "lengths": [
-      56
-    ],
+    "lengths": [56],
     "charset": "hex",
     "weight": 155,
     "notes": "SHA-224",
@@ -191,9 +172,7 @@
   {
     "name": "SHA384",
     "pattern": null,
-    "lengths": [
-      96
-    ],
+    "lengths": [96],
     "charset": "hex",
     "weight": 165,
     "notes": "SHA-384",
@@ -203,9 +182,7 @@
   {
     "name": "MD5(pass.salt)",
     "pattern": null,
-    "lengths": [
-      32
-    ],
+    "lengths": [32],
     "charset": "hex",
     "weight": 125,
     "notes": "MD5(pass.salt)",
@@ -215,9 +192,7 @@
   {
     "name": "MD5(salt.pass)",
     "pattern": null,
-    "lengths": [
-      32
-    ],
+    "lengths": [32],
     "charset": "hex",
     "weight": 125,
     "notes": "MD5(salt.pass)",
@@ -227,9 +202,7 @@
   {
     "name": "SHA1(pass.salt)",
     "pattern": null,
-    "lengths": [
-      40
-    ],
+    "lengths": [40],
     "charset": "hex",
     "weight": 135,
     "notes": "SHA1(pass.salt)",
@@ -239,9 +212,7 @@
   {
     "name": "SHA1(salt.pass)",
     "pattern": null,
-    "lengths": [
-      40
-    ],
+    "lengths": [40],
     "charset": "hex",
     "weight": 135,
     "notes": "SHA1(salt.pass)",
@@ -321,9 +292,7 @@
   {
     "name": "RIPEMD-160",
     "pattern": null,
-    "lengths": [
-      40
-    ],
+    "lengths": [40],
     "charset": "hex",
     "weight": 125,
     "notes": "RIPEMD-160",
@@ -333,9 +302,7 @@
   {
     "name": "Whirlpool",
     "pattern": null,
-    "lengths": [
-      128
-    ],
+    "lengths": [128],
     "charset": "hex",
     "weight": 150,
     "notes": "Whirlpool",
@@ -345,9 +312,7 @@
   {
     "name": "SHA3-224",
     "pattern": null,
-    "lengths": [
-      56
-    ],
+    "lengths": [56],
     "charset": "hex",
     "weight": 155,
     "notes": "SHA-3 variant 224-bit",
@@ -357,9 +322,7 @@
   {
     "name": "SHA3-256",
     "pattern": null,
-    "lengths": [
-      64
-    ],
+    "lengths": [64],
     "charset": "hex",
     "weight": 160,
     "notes": "SHA-3 variant 256-bit",
@@ -369,9 +332,7 @@
   {
     "name": "SHA3-384",
     "pattern": null,
-    "lengths": [
-      96
-    ],
+    "lengths": [96],
     "charset": "hex",
     "weight": 165,
     "notes": "SHA-3 variant 384-bit",
@@ -381,9 +342,7 @@
   {
     "name": "SHA3-512",
     "pattern": null,
-    "lengths": [
-      128
-    ],
+    "lengths": [128],
     "charset": "hex",
     "weight": 170,
     "notes": "SHA-3 variant 512-bit",
@@ -403,9 +362,7 @@
   {
     "name": "PostgreSQL MD5",
     "pattern": "^md5[0-9a-f]{32}",
-    "lengths": [
-      35
-    ],
+    "lengths": [35],
     "charset": "hex",
     "weight": 150,
     "notes": "PostgreSQL MD5",
@@ -415,9 +372,7 @@
   {
     "name": "MySQL 3.23 (pre-4.1)",
     "pattern": "^[0-9a-f]{16}",
-    "lengths": [
-      16
-    ],
+    "lengths": [16],
     "charset": "hex",
     "weight": 140,
     "notes": "MySQL < 4.1",
@@ -427,9 +382,7 @@
   {
     "name": "MySQL 4.1/5.x (SHA1)",
     "pattern": "^\\*[0-9A-F]{40}",
-    "lengths": [
-      41
-    ],
+    "lengths": [41],
     "charset": "hex_upper",
     "weight": 145,
     "notes": "MySQL SHA1(SHA1(pass))",
@@ -439,9 +392,7 @@
   {
     "name": "LM (Lan Manager)",
     "pattern": null,
-    "lengths": [
-      32
-    ],
+    "lengths": [32],
     "charset": "hex",
     "weight": 105,
     "notes": "Legacy Windows hash, often empty",
@@ -461,9 +412,7 @@
   {
     "name": "Drupal 7",
     "pattern": "^\\$S\\$[A-Za-z0-9./]{52}",
-    "lengths": [
-      55
-    ],
+    "lengths": [55],
     "charset": "radix64",
     "weight": 160,
     "notes": "Drupal > v7",
@@ -523,9 +472,7 @@
   {
     "name": "RAR3-hp",
     "pattern": "^\\$RAR3\\$\\*0\\*[0-9a-f]{16}\\*[0-9a-f]{32}",
-    "lengths": [
-      57
-    ],
+    "lengths": [57],
     "charset": "hex",
     "weight": 185,
     "notes": "RAR3-HP (headers encrypted)",
@@ -565,9 +512,7 @@
   {
     "name": "iTunes Backup < 10.0",
     "pattern": null,
-    "lengths": [
-      40
-    ],
+    "lengths": [40],
     "charset": "hex",
     "weight": 140,
     "notes": "iTunes Backup (SHA1)",
@@ -587,10 +532,7 @@
   {
     "name": "Bitcoin WIF private key",
     "pattern": "^[5KL][1-9A-HJ-NP-Za-km-z]{50,51}$",
-    "lengths": [
-      51,
-      52
-    ],
+    "lengths": [51, 52],
     "charset": "radix64",
     "weight": 190,
     "notes": "Bitcoin Wallet Import Format",
@@ -620,11 +562,7 @@
   {
     "name": "TrueCrypt PBKDF2-HMAC-RIPEMD160",
     "pattern": null,
-    "lengths": [
-      128,
-      1024,
-      1280
-    ],
+    "lengths": [128, 1024, 1280],
     "charset": "hex",
     "weight": 180,
     "notes": "TrueCrypt Container RIPEMD160",
@@ -634,11 +572,7 @@
   {
     "name": "TrueCrypt PBKDF2-HMAC-SHA512",
     "pattern": null,
-    "lengths": [
-      128,
-      1024,
-      1280
-    ],
+    "lengths": [128, 1024, 1280],
     "charset": "hex",
     "weight": 180,
     "notes": "TrueCrypt Container SHA512",
@@ -648,11 +582,7 @@
   {
     "name": "TrueCrypt PBKDF2-HMAC-Whirlpool",
     "pattern": null,
-    "lengths": [
-      128,
-      1024,
-      1280
-    ],
+    "lengths": [128, 1024, 1280],
     "charset": "hex",
     "weight": 180,
     "notes": "TrueCrypt Container Whirlpool",
@@ -662,9 +592,7 @@
   {
     "name": "Cisco PIX MD5",
     "pattern": "^[A-Za-z0-9./]{16}$",
-    "lengths": [
-      16
-    ],
+    "lengths": [16],
     "charset": "radix64",
     "weight": 150,
     "notes": "Cisco PIX Firewall MD5",
@@ -704,9 +632,7 @@
   {
     "name": "DNSSEC (NSEC3)",
     "pattern": "^[a-zA-Z0-9]{32}",
-    "lengths": [
-      32
-    ],
+    "lengths": [32],
     "charset": "base64",
     "weight": 160,
     "notes": "DNSSEC NSEC3 (PBKDF2-HMAC-SHA1)",
@@ -715,7 +641,7 @@
   },
   {
     "name": "BitLocker",
-    "pattern": "^\\bitlocker\\$0\\*\\d+\\*\\d+\\*[a-f0-9]+\\*\\d+\\*[a-f0-9]+$",
+    "pattern": "^\\$bitlocker\\$0\\*\\d+\\*\\d+\\*[a-f0-9]+\\*\\d+\\*[a-f0-9]+$",
     "lengths": [],
     "charset": "hex",
     "weight": 200,
@@ -726,9 +652,7 @@
   {
     "name": "MD5(SHA1(pass))",
     "pattern": null,
-    "lengths": [
-      32
-    ],
+    "lengths": [32],
     "charset": "hex",
     "weight": 122,
     "notes": "Composite MD5(SHA1(pass))",
@@ -738,9 +662,7 @@
   {
     "name": "SHA1(MD5(pass))",
     "pattern": null,
-    "lengths": [
-      40
-    ],
+    "lengths": [40],
     "charset": "hex",
     "weight": 132,
     "notes": "Composite SHA1(MD5(pass))",
@@ -750,9 +672,7 @@
   {
     "name": "SHA256(pass.salt)",
     "pattern": null,
-    "lengths": [
-      64
-    ],
+    "lengths": [64],
     "charset": "hex",
     "weight": 162,
     "notes": "SHA256 with salt append",
@@ -762,9 +682,7 @@
   {
     "name": "SHA256(salt.pass)",
     "pattern": null,
-    "lengths": [
-      64
-    ],
+    "lengths": [64],
     "charset": "hex",
     "weight": 162,
     "notes": "SHA256 with salt prepend",
@@ -774,9 +692,7 @@
   {
     "name": "SHA512(pass.salt)",
     "pattern": null,
-    "lengths": [
-      128
-    ],
+    "lengths": [128],
     "charset": "hex",
     "weight": 172,
     "notes": "SHA512 with salt append",
@@ -786,9 +702,7 @@
   {
     "name": "SHA512(salt.pass)",
     "pattern": null,
-    "lengths": [
-      128
-    ],
+    "lengths": [128],
     "charset": "hex",
     "weight": 172,
     "notes": "SHA512 with salt prepend",
@@ -814,6 +728,525 @@
     "notes": "Keepass 1 Database",
     "hashcat_mode": 13400,
     "salt_position": "inline"
+  },
+  {
+    "name": "CRC32",
+    "pattern": null,
+    "lengths": [8],
+    "charset": "hex",
+    "weight": 10,
+    "notes": "CRC32 checksum",
+    "hashcat_mode": 11500,
+    "salt_position": "none"
+  },
+  {
+    "name": "ADLER32",
+    "pattern": null,
+    "lengths": [8],
+    "charset": "hex",
+    "weight": 5,
+    "notes": "ADLER32 checksum",
+    "hashcat_mode": 11510,
+    "salt_position": "none"
+  },
+  {
+    "name": "MySQL 8.0 (caching_sha2_password)",
+    "pattern": "^\\$A\\$005\\$[A-Za-z0-9+/=]{16}\\$[A-Za-z0-9+/=]{32}",
+    "lengths": [59],
+    "charset": "radix64",
+    "weight": 160,
+    "notes": "MySQL 8.0 caching_sha2_password",
+    "hashcat_mode": 7401,
+    "salt_position": "inline"
+  },
+  {
+    "name": "Oracle 11g/12c",
+    "pattern": "^S:[A-Z0-9]{60}$",
+    "lengths": [63],
+    "charset": "hex_upper",
+    "weight": 165,
+    "notes": "Oracle S: format (SHA1)",
+    "hashcat_mode": 112,
+    "salt_position": "inline"
+  },
+  {
+    "name": "MSSQL (2012/2014)",
+    "pattern": "^0x0100[A-F0-9]{8}[0-9A-F]{80,}$",
+    "lengths": [],
+    "charset": "hex_upper",
+    "weight": 155,
+    "notes": "MSSQL 2012/2014 (PBKDF2-HMAC-SHA512)",
+    "hashcat_mode": 1731,
+    "salt_position": "inline"
+  },
+  {
+    "name": "MSSQL (2000)",
+    "pattern": "^0x0100[A-F0-9]{8}[0-9A-F]{40}$",
+    "lengths": [54],
+    "charset": "hex_upper",
+    "weight": 140,
+    "notes": "MSSQL 2000 (SHA1)",
+    "hashcat_mode": 131,
+    "salt_position": "inline"
+  },
+  {
+    "name": "MSSQL (2005)",
+    "pattern": "^0x0100[A-F0-9]{8}[0-9A-F]{80}$",
+    "lengths": [94],
+    "charset": "hex_upper",
+    "weight": 145,
+    "notes": "MSSQL 2005 (SHA1)",
+    "hashcat_mode": 132,
+    "salt_position": "inline"
+  },
+  {
+    "name": "Apache .htpasswd (SHA1)",
+    "pattern": "^\\{SHA\\}[A-Za-z0-9+/=]{28}$",
+    "lengths": [32],
+    "charset": "base64",
+    "weight": 135,
+    "notes": "Apache htpasswd SHA1 base64",
+    "hashcat_mode": 101,
+    "salt_position": "none"
+  },
+  {
+    "name": "Apache .htpasswd (bcrypt)",
+    "pattern": "^\\$2y\\$[0-9]{2}\\$[A-Za-z0-9./]{53}$",
+    "lengths": [60],
+    "charset": "radix64",
+    "weight": 200,
+    "notes": "Apache htpasswd bcrypt",
+    "hashcat_mode": 3200,
+    "salt_position": "inline"
+  },
+  {
+    "name": "GRUB 2",
+    "pattern": "^grub\\.pbkdf2\\.[0-9a-f]{5,}\\.[0-9a-f]{40,}$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 180,
+    "notes": "GRUB2 PBKDF2-HMAC-SHA512",
+    "hashcat_mode": 7200,
+    "salt_position": "inline"
+  },
+  {
+    "name": "FileZilla FTP Server",
+    "pattern": "^[0-9a-f]{40}:[0-9a-f]{8}$",
+    "lengths": [49],
+    "charset": "hex",
+    "weight": 150,
+    "notes": "FileZilla Server MD5 with 4-byte salt",
+    "hashcat_mode": 1300,
+    "salt_position": "external"
+  },
+  {
+    "name": "WebSphere (SOAP)",
+    "pattern": "^\\{XOR\\}[A-Za-z0-9+/=]+$",
+    "lengths": [],
+    "charset": "base64",
+    "weight": 120,
+    "notes": "WebSphere XOR encoding",
+    "hashcat_mode": 133,
+    "salt_position": "none"
+  },
+  {
+    "name": "Juniper IVE",
+    "pattern": "^[A-Za-z0-9+/=]{56}$",
+    "lengths": [56],
+    "charset": "base64",
+    "weight": 165,
+    "notes": "Juniper IVE PBKDF2-HMAC-SHA256",
+    "hashcat_mode": 2500,
+    "salt_position": "inline"
+  },
+  {
+    "name": "Dahua CCTV",
+    "pattern": "^[0-9a-f]{32}$",
+    "lengths": [32],
+    "charset": "hex",
+    "weight": 140,
+    "notes": "Dahua CCTV MD5",
+    "hashcat_mode": 2700,
+    "salt_position": "none"
+  },
+  {
+    "name": "IPMI HMAC-SHA1",
+    "pattern": "^[0-9a-f]{40}$",
+    "lengths": [40],
+    "charset": "hex",
+    "weight": 145,
+    "notes": "IPMI RAKP HMAC-SHA1",
+    "hashcat_mode": 7300,
+    "salt_position": "none"
+  },
+  {
+    "name": "VNC",
+    "pattern": "^[0-9a-f]{32}$",
+    "lengths": [32],
+    "charset": "hex",
+    "weight": 125,
+    "notes": "VNC RFB protocol DES",
+    "hashcat_mode": 13100,
+    "salt_position": "none"
+  },
+  {
+    "name": "SIP MD5",
+    "pattern": "^[0-9a-f]{32}$",
+    "lengths": [32],
+    "charset": "hex",
+    "weight": 135,
+    "notes": "SIP MD5 challenge",
+    "hashcat_mode": 11400,
+    "salt_position": "none"
+  },
+  {
+    "name": "IKE PSK",
+    "pattern": "^[0-9a-f]{32}$",
+    "lengths": [32],
+    "charset": "hex",
+    "weight": 155,
+    "notes": "IKE PSK MD5",
+    "hashcat_mode": 13000,
+    "salt_position": "none"
+  },
+  {
+    "name": "Radmin2",
+    "pattern": "^[0-9a-f]{32}$",
+    "lengths": [32],
+    "charset": "hex",
+    "weight": 130,
+    "notes": "Radmin2 MD5",
+    "hashcat_mode": 9900,
+    "salt_position": "none"
+  },
+  {
+    "name": "GPG",
+    "pattern": "^\\$gpg\\$[0-9]+\\*[0-9a-f]+\\*[0-9a-f]+\\*[0-9a-f]+$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 185,
+    "notes": "GPG symmetric encryption",
+    "hashcat_mode": 17010,
+    "salt_position": "inline"
+  },
+  {
+    "name": "PDF 1.1-1.3 (RC4 40-bit)",
+    "pattern": "^\\$pdf\\$1\\*[0-9a-f]{10}\\*[0-9a-f]{8}$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 110,
+    "notes": "PDF 1.1-1.3 40-bit RC4",
+    "hashcat_mode": 10400,
+    "salt_position": "inline"
+  },
+  {
+    "name": "PDF 1.4-1.6 (RC4 128-bit)",
+    "pattern": "^\\$pdf\\$2\\*[0-9a-f]{32}\\*[0-9a-f]{32}$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 150,
+    "notes": "PDF 1.4-1.6 128-bit RC4",
+    "hashcat_mode": 10410,
+    "salt_position": "inline"
+  },
+  {
+    "name": "WinZip",
+    "pattern": "^\\$zip2\\$\\*[0-9]+\\*[0-9]+\\*[0-9a-f]+\\*[0-9a-f]+$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 175,
+    "notes": "WinZip AES encryption",
+    "hashcat_mode": 13600,
+    "salt_position": "inline"
+  },
+  {
+    "name": "KeePass 2 (AES)",
+    "pattern": "^\\$keepass\\*\\*[0-9]+\\*[0-9]+\\*[0-9a-f]{64}\\*[0-9a-f]{64}$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 195,
+    "notes": "KeePass 2 database",
+    "hashcat_mode": 13400,
+    "salt_position": "inline"
+  },
+  {
+    "name": "LastPass (ch-3)",
+    "pattern": "^[0-9a-f]{64}:[0-9a-f]{32}$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "LastPass chunk type 3",
+    "hashcat_mode": 6800,
+    "salt_position": "external"
+  },
+  {
+    "name": "1Password (cloudkeychain)",
+    "pattern": "^[A-Za-z0-9+/=]{256,}$",
+    "lengths": [],
+    "charset": "base64",
+    "weight": 185,
+    "notes": "1Password Cloud Keychain",
+    "hashcat_mode": 6600,
+    "salt_position": "inline"
+  },
+  {
+    "name": "Apple iWork",
+    "pattern": "^\\$iwork\\$\\*[0-9]+\\*[0-9]+\\*[0-9a-f]+\\*[0-9a-f]+$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 180,
+    "notes": "Apple iWork encryption",
+    "hashcat_mode": 9400,
+    "salt_position": "inline"
+  },
+  {
+    "name": "Apple Secure Notes",
+    "pattern": "^[0-9a-f]{32}:[0-9a-f]{32}$",
+    "lengths": [65],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Apple Secure Notes AES",
+    "hashcat_mode": 14700,
+    "salt_position": "external"
+  },
+  {
+    "name": "Signal Android",
+    "pattern": "^[0-9a-f]{32}:[0-9a-f]{64}$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 175,
+    "notes": "Signal Android backup",
+    "hashcat_mode": 13500,
+    "salt_position": "external"
+  },
+  {
+    "name": "Telegram Desktop",
+    "pattern": "^[0-9a-f]{32}:[0-9a-f]{256}$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 185,
+    "notes": "Telegram Desktop tdata",
+    "hashcat_mode": 24500,
+    "salt_position": "external"
+  },
+  {
+    "name": "WhatsApp Crypt12",
+    "pattern": "^[0-9a-f]{64}:[0-9a-f]{32}$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 180,
+    "notes": "WhatsApp Crypt12 backup",
+    "hashcat_mode": 26700,
+    "salt_position": "external"
+  },
+  {
+    "name": "Bitcoin/Litecoin wallet.dat",
+    "pattern": "^\\$bitcoin\\$[0-9]+\\*[0-9a-f]+\\*[0-9a-f]+$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 195,
+    "notes": "Bitcoin wallet.dat scrypt",
+    "hashcat_mode": 11300,
+    "salt_position": "inline"
+  },
+  {
+    "name": "Monero",
+    "pattern": "^[0-9a-f]{64}:[0-9a-f]{64}$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 200,
+    "notes": "Monero wallet scrypt",
+    "hashcat_mode": 16700,
+    "salt_position": "external"
+  },
+  {
+    "name": "Dogecoin",
+    "pattern": "^[0-9a-f]{64}:[0-9a-f]{64}$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 195,
+    "notes": "Dogecoin wallet scrypt",
+    "hashcat_mode": 11300,
+    "salt_position": "external"
+  },
+  {
+    "name": "DPAPI masterkey",
+    "pattern": "^[0-9a-f]{64}:[0-9a-f]{64}:[0-9a-f]{16}$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 190,
+    "notes": "Windows DPAPI masterkey",
+    "hashcat_mode": 15300,
+    "salt_position": "external"
+  },
+  {
+    "name": "DPAPI domainkey",
+    "pattern": "^[0-9a-f]{64}:[0-9a-f]{64}:[0-9a-f]{32}$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 195,
+    "notes": "Windows DPAPI domain key",
+    "hashcat_mode": 15900,
+    "salt_position": "external"
+  },
+  {
+    "name": "LUKS",
+    "pattern": "^\\$luks\\$[0-9]+\\*[0-9a-f]+\\*[0-9a-f]+$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 185,
+    "notes": "LUKS disk encryption",
+    "hashcat_mode": 14600,
+    "salt_position": "inline"
+  },
+  {
+    "name": "VeraCrypt PBKDF2-HMAC-SHA512",
+    "pattern": "^\\$veracrypt\\$[0-9]+\\*[0-9a-f]+\\*[0-9a-f]+$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 190,
+    "notes": "VeraCrypt SHA512",
+    "hashcat_mode": 13721,
+    "salt_position": "inline"
+  },
+  {
+    "name": "VeraCrypt PBKDF2-HMAC-Whirlpool",
+    "pattern": "^\\$veracrypt\\$[0-9]+\\*[0-9a-f]+\\*[0-9a-f]+$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 190,
+    "notes": "VeraCrypt Whirlpool",
+    "hashcat_mode": 13723,
+    "salt_position": "inline"
+  },
+  {
+    "name": "Android PIN",
+    "pattern": "^[0-9a-f]{32}:[0-9a-f]{32}$",
+    "lengths": [65],
+    "charset": "hex",
+    "weight": 160,
+    "notes": "Android PIN/password",
+    "hashcat_mode": 12900,
+    "salt_position": "external"
+  },
+  {
+    "name": "Android FDE (Samsung DEK)",
+    "pattern": "^[0-9a-f]{32}:[0-9a-f]{32}$",
+    "lengths": [65],
+    "charset": "hex",
+    "weight": 175,
+    "notes": "Android Full Disk Encryption",
+    "hashcat_mode": 12900,
+    "salt_position": "external"
+  },
+  {
+    "name": "AIX (ssha1)",
+    "pattern": "^\\{ssha1\\}[0-9a-f]{40}:[A-Za-z0-9+/=]+$",
+    "lengths": [],
+    "charset": "base64",
+    "weight": 155,
+    "notes": "AIX salted SHA1",
+    "hashcat_mode": 11500,
+    "salt_position": "external"
+  },
+  {
+    "name": "AIX (ssha256)",
+    "pattern": "^\\{ssha256\\}[0-9a-f]{64}:[A-Za-z0-9+/=]+$",
+    "lengths": [],
+    "charset": "base64",
+    "weight": 165,
+    "notes": "AIX salted SHA256",
+    "hashcat_mode": 11500,
+    "salt_position": "external"
+  },
+  {
+    "name": "AIX (ssha512)",
+    "pattern": "^\\{ssha512\\}[0-9a-f]{128}:[A-Za-z0-9+/=]+$",
+    "lengths": [],
+    "charset": "base64",
+    "weight": 175,
+    "notes": "AIX salted SHA512",
+    "hashcat_mode": 11500,
+    "salt_position": "external"
+  },
+  {
+    "name": "Cisco Type 4",
+    "pattern": "^[0-9a-f]{32}$",
+    "lengths": [32],
+    "charset": "hex",
+    "weight": 145,
+    "notes": "Cisco Type 4 (SHA256)",
+    "hashcat_mode": 5700,
+    "salt_position": "none"
+  },
+  {
+    "name": "Cisco Type 8",
+    "pattern": "^\\$8\\$[A-Za-z0-9./=]+\\$[A-Za-z0-9./=]+$",
+    "lengths": [],
+    "charset": "radix64",
+    "weight": 170,
+    "notes": "Cisco Type 8 (PBKDF2-SHA256)",
+    "hashcat_mode": 9200,
+    "salt_position": "inline"
+  },
+  {
+    "name": "Fortigate",
+    "pattern": "^[A-Za-z0-9+/=]{28}$",
+    "lengths": [28],
+    "charset": "base64",
+    "weight": 160,
+    "notes": "Fortigate base64 encoded",
+    "hashcat_mode": 7000,
+    "salt_position": "none"
+  },
+  {
+    "name": "Palo Alto PAN-OS",
+    "pattern": "^[0-9a-f]{40}$",
+    "lengths": [40],
+    "charset": "hex",
+    "weight": 155,
+    "notes": "Palo Alto SHA1",
+    "hashcat_mode": 7300,
+    "salt_position": "none"
+  },
+  {
+    "name": "Symantec/Veritas",
+    "pattern": "^[0-9a-f]{32}:[0-9a-f]{32}$",
+    "lengths": [65],
+    "charset": "hex",
+    "weight": 165,
+    "notes": "Symantec encryption",
+    "hashcat_mode": 12800,
+    "salt_position": "external"
+  },
+  {
+    "name": "SolarWinds",
+    "pattern": "^[0-9a-f]{40}$",
+    "lengths": [40],
+    "charset": "hex",
+    "weight": 150,
+    "notes": "SolarWinds SHA1",
+    "hashcat_mode": 11500,
+    "salt_position": "none"
+  },
+  {
+    "name": "ColdFusion",
+    "pattern": "^[0-9a-f]{32}:[0-9a-f]{16}$",
+    "lengths": [49],
+    "charset": "hex",
+    "weight": 145,
+    "notes": "ColdFusion salted hash",
+    "hashcat_mode": 122,
+    "salt_position": "external"
+  },
+  {
+    "name": "ServiceNow",
+    "pattern": "^[0-9a-f]{40}$",
+    "lengths": [40],
+    "charset": "hex",
+    "weight": 155,
+    "notes": "ServiceNow SHA1",
+    "hashcat_mode": 11500,
+    "salt_position": "none"
   }
 ]
-

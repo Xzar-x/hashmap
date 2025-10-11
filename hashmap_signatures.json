@@ -1,2353 +1,5256 @@
 [
   {
-    "name": "MD5",
-    "pattern": null,
-    "lengths": [32],
+    "name": "MD4",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
     "charset": "hex",
-    "weight": 120,
-    "notes": "Most common, 32-char hex",
+    "weight": 170,
+    "notes": "MD4",
+    "hashcat_mode": 900,
+    "salt_position": "none"
+  },
+  {
+    "name": "MD5",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "MD5",
     "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "MD6 (256)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MD6 (256)",
+    "hashcat_mode": null,
     "salt_position": "none"
   },
   {
     "name": "SHA1",
-    "pattern": null,
-    "lengths": [40],
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
     "charset": "hex",
-    "weight": 130,
-    "notes": "Standard SHA-1",
+    "weight": 170,
+    "notes": "SHA1",
     "hashcat_mode": 100,
     "salt_position": "none"
   },
   {
-    "name": "SHA256",
-    "pattern": null,
-    "lengths": [64],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "Standard SHA-256",
+    "name": "SHA2-224",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "SHA2-224",
+    "hashcat_mode": 1300,
+    "salt_position": "none"
+  },
+  {
+    "name": "SHA2-256",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "SHA2-256",
     "hashcat_mode": 1400,
     "salt_position": "none"
   },
   {
-    "name": "SHA512",
-    "pattern": null,
-    "lengths": [128],
-    "charset": "hex",
-    "weight": 170,
-    "notes": "Standard SHA-512",
-    "hashcat_mode": 1700,
+    "name": "SHA2-384",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "SHA2-384",
+    "hashcat_mode": null,
     "salt_position": "none"
   },
   {
-    "name": "bcrypt (2*)",
-    "pattern": "^\\$2[aby]?\\$[0-9]{2}\\$[./0-9A-Za-z]{53}$",
-    "lengths": [60],
-    "charset": "base64",
-    "weight": 250,
-    "notes": "Standard bcrypt, cost factor 04-31",
-    "hashcat_mode": 3200,
-    "salt_position": "inline"
-  },
-  {
-    "name": "NTLM",
-    "pattern": "^[0-9a-f]{32}$",
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "Windows NT/2000/XP/2003/Vista/7/8/10/2008/2012/2016/2019/2022",
-    "hashcat_mode": 1000,
+    "name": "SHA2-512",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "SHA2-512",
+    "hashcat_mode": null,
     "salt_position": "none"
   },
   {
-    "name": "LM",
-    "pattern": "^[0-9a-f]{32}$",
-    "lengths": [32],
-    "charset": "hex",
+    "name": "SHA3-224",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
     "weight": 100,
-    "notes": "Very old Windows format, rarely used",
-    "hashcat_mode": 300,
+    "notes": "SHA3-224",
+    "hashcat_mode": 5000,
     "salt_position": "none"
   },
   {
-    "name": "NetNTLMv1",
-    "pattern": "^[a-zA-Z0-9_-]{3,}:[0-9a-f]{32}:[0-9a-f]{16}$",
-    "lengths": [52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "mix",
-    "weight": 180,
-    "notes": "Challenge/Response, rarely seen",
-    "hashcat_mode": 5500,
-    "salt_position": "external"
-  },
-  {
-    "name": "NetNTLMv2",
-    "pattern": "^[a-zA-Z0-9_-]{3,}:\\$NT\\$[0-9a-f]{32}\\$([0-9a-f]{2}){4,}:[0-9a-f]{16}$",
-    "lengths": [108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "mix",
-    "weight": 200,
-    "notes": "Challenge/Response, common in network dumps",
-    "hashcat_mode": 5600,
-    "salt_position": "external"
-  },
-  {
-    "name": "WPA/WPA2 (PMKID)",
-    "pattern": "^[0-9a-f]{32}\\*[0-9a-f]{12}\\*[0-9a-f]{12}\\*[0-9a-f]{32}$",
-    "lengths": [93],
-    "charset": "hex",
-    "weight": 220,
-    "notes": "Wireless PMKID hash, fast cracking",
-    "hashcat_mode": 16800,
-    "salt_position": "external"
-  },
-  {
-    "name": "WPA/WPA2 (EAPOL)",
-    "pattern": "^WPA\\*([0-9]+)\\*([0-9a-f]{2}){25,}",
-    "lengths": [256],
-    "charset": "mix",
-    "weight": 250,
-    "notes": "Wireless EAPOL handshake",
-    "hashcat_mode": 2500,
-    "salt_position": "external"
-  },
-  {
-    "name": "hmailserver",
-    "pattern": "^[0-9a-f]{32}\\$[0-9a-f]{8}$",
-    "lengths": [41],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "hMailServer MD5(Pass)+MD5(Salt)",
-    "hashcat_mode": 1421,
-    "salt_position": "external"
-  },
-  {
-    "name": "Cisco Type 4",
-    "pattern": "^\\$4\\$[0-9a-f]{32}$",
-    "lengths": [35],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "Cisco Type 4 MD5",
-    "hashcat_mode": 500,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Cisco Type 5",
-    "pattern": "^\\$5\\$([0-9a-zA-Z./]{1,16})\\$([0-9a-zA-Z./]{43})$",
-    "lengths": [58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80],
-    "charset": "base64",
-    "weight": 200,
-    "notes": "Cisco Type 5 (SHA256CRYPT)",
-    "hashcat_mode": 7400,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Cisco Type 7",
-    "pattern": "^[0-9a-f]{2}[0-9A-Za-z]{2,}",
-    "lengths": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-    "charset": "hex_base64",
-    "weight": 50,
-    "notes": "Cisco Type 7 (Vigenere), easy to decrypt",
-    "hashcat_mode": 0,
-    "salt_position": "none"
-  },
-  {
-    "name": "Cisco Type 8",
-    "pattern": "^\\$8\\$([0-9a-zA-Z./]{1,64})\\$([0-9a-zA-Z./]{43})$",
-    "lengths": [58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80],
-    "charset": "base64",
-    "weight": 170,
-    "notes": "Cisco Type 8 (PBKDF2-SHA256)",
-    "hashcat_mode": 9200,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Fortigate",
-    "pattern": "^[A-Za-z0-9+/=]{28}$",
-    "lengths": [28],
-    "charset": "base64",
-    "weight": 160,
-    "notes": "Fortigate base64 encoded",
-    "hashcat_mode": 7000,
-    "salt_position": "none"
-  },
-  {
-    "name": "Palo Alto PAN-OS",
-    "pattern": "^[0-9a-f]{40}$",
-    "lengths": [40],
-    "charset": "hex",
-    "weight": 155,
-    "notes": "Palo Alto SHA1",
-    "hashcat_mode": 7300,
-    "salt_position": "none"
-  },
-  {
-    "name": "Symantec/Veritas",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{32}$",
-    "lengths": [65],
-    "charset": "hex",
-    "weight": 165,
-    "notes": "Symantec encryption",
-    "hashcat_mode": 12800,
-    "salt_position": "external"
-  },
-  {
-    "name": "Juniper $9$",
-    "pattern": "^\\$9\\$([A-Za-z0-9+/]+)\\$([A-Za-z0-9+/=]+)$",
-    "lengths": [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60],
-    "charset": "base64",
-    "weight": 180,
-    "notes": "Juniper Networks $9$ (SHA256 or SHA512)",
-    "hashcat_mode": 501,
-    "salt_position": "inline"
-  },
-  {
-    "name": "MySQL323",
-    "pattern": "^[0-9a-f]{16}$",
-    "lengths": [16],
-    "charset": "hex",
-    "weight": 110,
-    "notes": "Old MySQL (pre 4.1)",
-    "hashcat_mode": 200,
-    "salt_position": "none"
-  },
-  {
-    "name": "MySQL4.1/5.x",
-    "pattern": "^\\*[0-9a-f]{40}$",
-    "lengths": [41],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "Standard MySQL (SHA1(SHA1(pass)))",
-    "hashcat_mode": 300,
-    "salt_position": "none"
-  },
-  {
-    "name": "PostgreSQL",
-    "pattern": "^md5[0-9a-f]{32}$",
-    "lengths": [35],
-    "charset": "hex",
-    "weight": 145,
-    "notes": "PostgreSQL MD5",
-    "hashcat_mode": 11,
-    "salt_position": "external"
-  },
-  {
-    "name": "MSSQL (2000)",
-    "pattern": "^0x0100[0-9a-f]{40}$",
-    "lengths": [45],
-    "charset": "hex",
-    "weight": 135,
-    "notes": "MSSQL 2000 (SHA-1)",
-    "hashcat_mode": 131,
-    "salt_position": "inline"
-  },
-  {
-    "name": "MSSQL (2005)",
-    "pattern": "^0x0200[0-9a-f]{8}[0-9a-f]{40}$",
-    "lengths": [53],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "MSSQL 2005 (SHA-1 + Salt)",
-    "hashcat_mode": 132,
-    "salt_position": "inline"
-  },
-  {
-    "name": "MSSQL (2012)",
-    "pattern": "^0x0200[0-9a-f]{8}[0-9a-f]{64}$",
-    "lengths": [81],
-    "charset": "hex",
-    "weight": 170,
-    "notes": "MSSQL 2012 (SHA-256 + Salt)",
-    "hashcat_mode": 1731,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Oracle 7-10g",
-    "pattern": "^[0-9a-f]{16}([0-9a-f]{16})$",
-    "lengths": [16, 32],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "Oracle HASHED PASSWORD",
-    "hashcat_mode": 3100,
-    "salt_position": "none"
-  },
-  {
-    "name": "Oracle 11g/12c",
-    "pattern": "^S:([0-9a-f]{64}):([0-9a-f]{32})$",
-    "lengths": [99],
-    "charset": "hex",
-    "weight": 190,
-    "notes": "Oracle 11g/12c SHA512",
-    "hashcat_mode": 11200,
-    "salt_position": "external"
-  },
-  {
-    "name": "WebKonekt",
-    "pattern": "^WK[0-9a-f]{32}$",
-    "lengths": [34],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "WebKonekt MD5",
-    "hashcat_mode": 3710,
-    "salt_position": "none"
-  },
-  {
-    "name": "MD5(md5($pass).$salt)",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "MD5 hash with appended salt",
-    "hashcat_mode": 20,
-    "salt_position": "external"
-  },
-  {
-    "name": "SHA1(sha1($pass).$salt)",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{1,32}$",
-    "lengths": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "SHA1 hash with appended salt",
-    "hashcat_mode": 120,
-    "salt_position": "external"
-  },
-  {
-    "name": "MD5(salt.pass)",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "MD5 hash with prepended salt",
-    "hashcat_mode": 10,
-    "salt_position": "external"
-  },
-  {
-    "name": "SHA1(salt.pass)",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{1,32}$",
-    "lengths": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "SHA1 hash with prepended salt",
-    "hashcat_mode": 110,
-    "salt_position": "external"
-  },
-  {
-    "name": "MD5(pass.salt)",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "MD5 hash with concatenated salt",
-    "hashcat_mode": 30,
-    "salt_position": "external"
-  },
-  {
-    "name": "SHA1(pass.salt)",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{1,32}$",
-    "lengths": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "SHA1 hash with concatenated salt",
-    "hashcat_mode": 130,
-    "salt_position": "external"
-  },
-  {
-    "name": "PHPS",
-    "pattern": "^P[0-9a-f]{32}$",
-    "lengths": [33],
-    "charset": "hex",
-    "weight": 130,
-    "notes": "PHPS (MD5)",
-    "hashcat_mode": 261,
-    "salt_position": "none"
-  },
-  {
-    "name": "Drupal 7",
-    "pattern": "^\\$S\\$([A-Za-z0-9./]{8})([A-Za-z0-9./]{56})$",
-    "lengths": [55],
-    "charset": "base64",
-    "weight": 230,
-    "notes": "Drupal 7 (phpass)",
-    "hashcat_mode": 7900,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Joomla (>= 2.5.18)",
-    "pattern": "^[a-f0-9]{32}:[a-zA-Z0-9]{32}$",
-    "lengths": [65],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "Joomla (MD5 + Salt)",
-    "hashcat_mode": 11,
-    "salt_position": "external"
-  },
-  {
-    "name": "vBulletin < v3.8.5",
-    "pattern": "^[0-9a-f]{32}$",
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "vBulletin (MD5)",
-    "hashcat_mode": 261,
-    "salt_position": "none"
-  },
-  {
-    "name": "vBulletin >= v3.8.5",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{8}$",
-    "lengths": [41],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "vBulletin (MD5 + Salt)",
-    "hashcat_mode": 271,
-    "salt_position": "external"
-  },
-  {
-    "name": "IP.Board 2.x/3.x",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{4}$",
-    "lengths": [37],
-    "charset": "hex",
-    "weight": 145,
-    "notes": "IP.Board (MD5 + Salt)",
-    "hashcat_mode": 281,
-    "salt_position": "external"
-  },
-  {
-    "name": "PHPass MD5",
-    "pattern": "^\\$P\\$([A-Za-z0-9./]{8})([A-Za-z0-9./]{31})$",
-    "lengths": [34],
-    "charset": "base64",
-    "weight": 220,
-    "notes": "PHPass Portable Hash",
-    "hashcat_mode": 400,
-    "salt_position": "inline"
-  },
-  {
-    "name": "SMF (Simple Machines Forum)",
-    "pattern": "^[0-9a-f]{40}$",
-    "lengths": [40],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "SMF SHA1(pass.salt)",
-    "hashcat_mode": 121,
-    "salt_position": "external"
-  },
-  {
-    "name": "Wordpress (MD5)",
-    "pattern": "^\\$P\\$([A-Za-z0-9./]{8})([A-Za-z0-9./]{31})$",
-    "lengths": [34],
-    "charset": "base64",
-    "weight": 220,
-    "notes": "Wordpress (PHPass)",
-    "hashcat_mode": 400,
-    "salt_position": "inline"
-  },
-  {
-    "name": "MyBB (MD5)",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{8}$",
-    "lengths": [41],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "MyBB (MD5 + Salt)",
-    "hashcat_mode": 281,
-    "salt_position": "external"
-  },
-  {
-    "name": "SHA256CRYPT",
-    "pattern": "^\\$5\\$([0-9a-zA-Z./]{1,16})\\$([0-9a-zA-Z./]{43})$",
-    "lengths": [58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80],
-    "charset": "base64",
-    "weight": 200,
-    "notes": "Standard Unix/Linux SHA256CRYPT",
-    "hashcat_mode": 7400,
-    "salt_position": "inline"
-  },
-  {
-    "name": "SHA512CRYPT",
-    "pattern": "^\\$6\\$([0-9a-zA-Z./]{1,16})\\$([0-9a-zA-Z./]{86})$",
-    "lengths": [103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "base64",
-    "weight": 220,
-    "notes": "Standard Unix/Linux SHA512CRYPT",
-    "hashcat_mode": 1800,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Solaris Tarsal",
-    "pattern": "^([A-Za-z0-9./]{2})([A-Za-z0-9./]{11})$",
-    "lengths": [13],
-    "charset": "base64",
-    "weight": 120,
-    "notes": "Solaris Tarsal, 13 char",
-    "hashcat_mode": 12,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Kerberos 5 TGS-REP",
-    "pattern": "^\\$krb5tgs\\$([0-9]+)\\$([0-9a-f]{32})\\$([0-9a-f]{10,})",
-    "lengths": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "hex",
-    "weight": 250,
-    "notes": "Kerberos 5 TGS-REP",
-    "hashcat_mode": 13100,
-    "salt_position": "external"
-  },
-  {
-    "name": "Kerberos 5 AS-REP",
-    "pattern": "^\\$krb5asrep\\$([0-9]+)\\$([0-9a-f]{32})\\$([0-9a-f]{10,})",
-    "lengths": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "hex",
-    "weight": 250,
-    "notes": "Kerberos 5 AS-REP",
-    "hashcat_mode": 18200,
-    "salt_position": "external"
-  },
-  {
-    "name": "IKE-PSK",
-    "pattern": "^([A-Za-z0-9+/=]{28})\\*([A-Za-z0-9+/=]{28})$",
-    "lengths": [57],
-    "charset": "base64",
-    "weight": 170,
-    "notes": "IKE-PSK with N(Key) hash",
-    "hashcat_mode": 6700,
-    "salt_position": "external"
-  },
-  {
-    "name": "PeopleSoft",
-    "pattern": "^[0-9a-f]{32}$",
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "PeopleSoft Password Hash (MD5)",
-    "hashcat_mode": 1600,
-    "salt_position": "none"
-  },
-  {
-    "name": "md5crypt (Unix)",
-    "pattern": "^\\$1\\$([a-zA-Z0-9./]{1,8})\\$([a-zA-Z0-9./]{22})$",
-    "lengths": [35, 36, 37, 38, 39, 40, 41, 42],
-    "charset": "base64",
-    "weight": 190,
-    "notes": "Standard Unix/Linux MD5CRYPT",
-    "hashcat_mode": 500,
-    "salt_position": "inline"
-  },
-  {
-    "name": "SipHash",
-    "pattern": "^[0-9a-f]{16}$",
-    "lengths": [16],
-    "charset": "hex",
+    "name": "SHA3-256",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
     "weight": 100,
-    "notes": "SipHash-2-4 64bit",
-    "hashcat_mode": 10200,
+    "notes": "SHA3-256",
+    "hashcat_mode": 5000,
     "salt_position": "none"
   },
   {
-    "name": "Sybase ASE",
-    "pattern": "^0x[0-9a-f]{36}$",
-    "lengths": [38],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "Sybase ASE (MD5)",
-    "hashcat_mode": 8000,
-    "salt_position": "inline"
-  },
-  {
-    "name": "iSCSI CHAP",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{32}$",
-    "lengths": [65],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "iSCSI CHAP authentication",
-    "hashcat_mode": 6800,
-    "salt_position": "external"
-  },
-  {
-    "name": "Lotus Notes/Domino 6",
-    "pattern": "^\\(?!\\/\\/\\)\\!([A-Za-z0-9+/=]{27})$",
-    "lengths": [28],
-    "charset": "base64",
-    "weight": 140,
-    "notes": "Lotus Notes/Domino 6",
-    "hashcat_mode": 8700,
+    "name": "SHA3-384",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "SHA3-384",
+    "hashcat_mode": 5000,
     "salt_position": "none"
   },
   {
-    "name": "Lotus Notes/Domino 8/9",
-    "pattern": "^\\(?!\\/\\/\\)\\!([A-Za-z0-9+/=]{37})$",
-    "lengths": [38],
-    "charset": "base64",
-    "weight": 150,
-    "notes": "Lotus Notes/Domino 8/9",
-    "hashcat_mode": 8700,
+    "name": "SHA3-512",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "SHA3-512",
+    "hashcat_mode": 5000,
     "salt_position": "none"
   },
   {
-    "name": "Adobe TDM",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{32}$",
-    "lengths": [65],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "Adobe TDM (MD5 + Salt)",
-    "hashcat_mode": 411,
-    "salt_position": "external"
-  },
-  {
-    "name": "SAP R/3",
-    "pattern": "^[0-9a-f]{32}$",
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "SAP R/3 (MD5)",
-    "hashcat_mode": 7700,
+    "name": "RIPEMD-160",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "RIPEMD-160",
+    "hashcat_mode": 6000,
     "salt_position": "none"
   },
   {
-    "name": "RAdmin 2.x",
-    "pattern": "^[0-9a-f]{32}$",
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 120,
-    "notes": "RAdmin 2.x (MD5)",
-    "hashcat_mode": 3900,
+    "name": "RIPEMD-320",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "RIPEMD-320",
+    "hashcat_mode": null,
     "salt_position": "none"
   },
   {
-    "name": "RDP",
-    "pattern": "^[0-9a-f]{32}$",
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 130,
-    "notes": "RDP (Terminal Server) hashes",
-    "hashcat_mode": 14400,
+    "name": "BLAKE2b-256",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "BLAKE2b-256",
+    "hashcat_mode": null,
     "salt_position": "none"
   },
   {
-    "name": "EPI-Hash",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{32}:[0-9a-f]{32}$",
-    "lengths": [98],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "EPI-Hash (SHA1)",
-    "hashcat_mode": 12000,
-    "salt_position": "external"
-  },
-  {
-    "name": "HMAC-MD5 (key = $pass)",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{32}$",
-    "lengths": [65],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "HMAC-MD5 (key is password)",
-    "hashcat_mode": 50,
-    "salt_position": "external"
-  },
-  {
-    "name": "HMAC-SHA1 (key = $pass)",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{32}$",
-    "lengths": [73],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "HMAC-SHA1 (key is password)",
-    "hashcat_mode": 140,
-    "salt_position": "external"
-  },
-  {
-    "name": "HMAC-SHA256 (key = $pass)",
-    "pattern": "^[0-9a-f]{64}:[0-9a-f]{32}$",
-    "lengths": [97],
-    "charset": "hex",
-    "weight": 170,
-    "notes": "HMAC-SHA256 (key is password)",
-    "hashcat_mode": 1410,
-    "salt_position": "external"
-  },
-  {
-    "name": "HMAC-SHA512 (key = $pass)",
-    "pattern": "^[0-9a-f]{128}:[0-9a-f]{32}$",
-    "lengths": [161],
-    "charset": "hex",
-    "weight": 190,
-    "notes": "HMAC-SHA512 (key is password)",
-    "hashcat_mode": 1710,
-    "salt_position": "external"
-  },
-  {
-    "name": "PKZIP Master Key",
-    "pattern": "^\\$zip2\\$([0-9]+)\\*[0-9a-f]{8}\\*([0-9a-f]{10,})$",
-    "lengths": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "hex",
-    "weight": 200,
-    "notes": "PKZIP Master Key (v2)",
-    "hashcat_mode": 13600,
-    "salt_position": "external"
-  },
-  {
-    "name": "RAR3-hp",
-    "pattern": "^\\$rar3\\$([0-9]+)\\$([0-9a-f]{16})\\$([0-9a-f]{16})$",
-    "lengths": [64],
-    "charset": "hex",
-    "weight": 210,
-    "notes": "RAR3 (High-profile)",
-    "hashcat_mode": 13000,
-    "salt_position": "external"
-  },
-  {
-    "name": "7-Zip",
-    "pattern": "^\\$7z\\$([0-9]+)\\$([0-9]+)\\$([0-9a-f]{32})\\$([0-9a-f]{16})$",
-    "lengths": [75, 76, 77, 78, 79, 80],
-    "charset": "hex",
-    "weight": 230,
-    "notes": "7-Zip PBKDF2-HMAC-SHA256",
-    "hashcat_mode": 11600,
-    "salt_position": "external"
-  },
-  {
-    "name": "Office 2007",
-    "pattern": "^\\$office\\$1\\$([0-9]+)\\$([0-9]+)\\$([0-9a-f]{32})\\$([0-9a-f]{32})$",
-    "lengths": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "hex",
-    "weight": 250,
-    "notes": "MS Office 2007 AES",
-    "hashcat_mode": 9000,
-    "salt_position": "external"
-  },
-  {
-    "name": "Office 2010",
-    "pattern": "^\\$office\\$2\\$([0-9]+)\\$([0-9]+)\\$([0-9a-f]{32})\\$([0-9a-f]{32})$",
-    "lengths": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "hex",
-    "weight": 270,
-    "notes": "MS Office 2010 AES",
-    "hashcat_mode": 9100,
-    "salt_position": "external"
-  },
-  {
-    "name": "Office 2013/2016",
-    "pattern": "^\\$office\\$3\\$([0-9]+)\\$([0-9]+)\\$([0-9a-f]{32})\\$([0-9a-f]{32})$",
-    "lengths": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "hex",
-    "weight": 290,
-    "notes": "MS Office 2013/2016 AES",
-    "hashcat_mode": 9400,
-    "salt_position": "external"
-  },
-  {
-    "name": "PDF 1.1-1.3 (Acrobat 3-4)",
-    "pattern": "^\\$pdf\\$1\\*([0-9]+)\\*([0-9a-f]{32})\\*([0-9a-f]{32})$",
-    "lengths": [75, 76, 77, 78, 79, 80],
-    "charset": "hex",
-    "weight": 200,
-    "notes": "PDF (Acrobat 3-4)",
-    "hashcat_mode": 10400,
-    "salt_position": "external"
-  },
-  {
-    "name": "PDF 1.4-1.6 (Acrobat 5-8)",
-    "pattern": "^\\$pdf\\$2\\*([0-9]+)\\*([0-9]+)\\*([0-9a-f]{32})\\*([0-9a-f]{32})$",
-    "lengths": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "hex",
-    "weight": 220,
-    "notes": "PDF (Acrobat 5-8)",
-    "hashcat_mode": 10500,
-    "salt_position": "external"
-  },
-  {
-    "name": "PDF 1.7 (Acrobat 9)",
-    "pattern": "^\\$pdf\\$3\\*([0-9]+)\\*([0-9]+)\\*([0-9a-f]{32})\\*([0-9a-f]{32})$",
-    "lengths": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "hex",
-    "weight": 240,
-    "notes": "PDF (Acrobat 9)",
-    "hashcat_mode": 10600,
-    "salt_position": "external"
-  },
-  {
-    "name": "Keepass 1 (AES/Twofish)",
-    "pattern": "^\\$keepass\\$1\\*([0-9]+)\\*([0-9a-f]{32})\\*([0-9a-f]{32})$",
-    "lengths": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "hex",
-    "weight": 280,
-    "notes": "KeePass 1 (AES/Twofish)",
-    "hashcat_mode": 13400,
-    "salt_position": "external"
-  },
-  {
-    "name": "Keepass 2 (AES)",
-    "pattern": "^\\$keepass\\$2\\*([0-9]+)\\*([0-9a-f]{32})\\*([0-9a-f]{32})$",
-    "lengths": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "hex",
-    "weight": 300,
-    "notes": "KeePass 2 (AES)",
-    "hashcat_mode": 13400,
-    "salt_position": "external"
-  },
-  {
-    "name": "TrueCrypt PIM",
-    "pattern": "^\\$truecrypt\\$1\\*([0-9]+)\\*([0-9a-f]{100})$",
-    "lengths": [110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "hex",
-    "weight": 260,
-    "notes": "TrueCrypt PIM (Pre-Hidden Volume)",
-    "hashcat_mode": 6200,
-    "salt_position": "external"
-  },
-  {
-    "name": "TrueCrypt/VeraCrypt",
-    "pattern": "^\\$truecrypt\\$1\\*([0-9]+)\\*([0-9a-f]{100})$",
-    "lengths": [110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "hex",
-    "weight": 280,
-    "notes": "TrueCrypt/VeraCrypt (PKCS#5 PIM)",
-    "hashcat_mode": 6200,
-    "salt_position": "external"
-  },
-  {
-    "name": "LastPass",
-    "pattern": "^\\$lp\\$([0-9]+)\\$([0-9a-f]{32})\\$([0-9a-f]{16})$",
-    "lengths": [60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80],
-    "charset": "hex",
-    "weight": 250,
-    "notes": "LastPass master key hash",
-    "hashcat_mode": 6800,
-    "salt_position": "external"
-  },
-  {
-    "name": "Duo Security",
-    "pattern": "^DUO\\$([0-9a-f]{64})$",
-    "lengths": [67],
-    "charset": "hex",
-    "weight": 180,
-    "notes": "Duo Security (SHA256)",
-    "hashcat_mode": 27300,
-    "salt_position": "none"
-  },
-  {
-    "name": "eCryptfs",
-    "pattern": "^\\$ecryptfs\\$([0-9]+)\\$([0-9a-f]{16})$",
-    "lengths": [25, 26, 27, 28, 29, 30],
-    "charset": "hex",
-    "weight": 190,
-    "notes": "eCryptfs (Linux Encrypted Home Directory)",
-    "hashcat_mode": 7500,
-    "salt_position": "external"
-  },
-  {
-    "name": "Luks",
-    "pattern": "^\\$luks\\$([0-9a-f]{8})\\$([0-9a-f]{16})\\$([0-9a-f]{16})$",
-    "lengths": [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60],
-    "charset": "hex",
-    "weight": 260,
-    "notes": "Linux Unified Key Setup (LUKS)",
-    "hashcat_mode": 14700,
-    "salt_position": "external"
-  },
-  {
-    "name": "GRUB2",
-    "pattern": "^grub\\.pbkdf2\\.sha512\\.([0-9]+)\\.([0-9a-f]{128})\\.([0-9a-f]{128})$",
-    "lengths": [300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310],
-    "charset": "hex",
-    "weight": 280,
-    "notes": "GRUB2 PBKDF2-SHA512",
-    "hashcat_mode": 7200,
-    "salt_position": "external"
-  },
-  {
-    "name": "Azure AD Hash",
-    "pattern": "^\\$aad\\$([0-9]+)\\$([0-9a-f]{32})\\$([0-9a-f]{64})$",
-    "lengths": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "hex",
-    "weight": 200,
-    "notes": "Azure Active Directory PBKDF2-HMAC-SHA256",
-    "hashcat_mode": 2611,
-    "salt_position": "external"
-  },
-  {
-    "name": "MySQL CRAM-MD5",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{32}$",
-    "lengths": [65],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "MySQL CRAM-MD5 Authentication",
-    "hashcat_mode": 401,
-    "salt_position": "external"
-  },
-  {
-    "name": "Cisco PIX/ASA",
-    "pattern": "^([0-9a-f]{32})([0-9a-f]{32})$",
-    "lengths": [64],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "Cisco PIX/ASA MD5",
-    "hashcat_mode": 2400,
-    "salt_position": "none"
-  },
-  {
-    "name": "EPiServer 4",
-    "pattern": "^[0-9a-f]{32}$",
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "EPiServer 4 (MD5)",
-    "hashcat_mode": 1000,
-    "salt_position": "none"
-  },
-  {
-    "name": "EPiServer 6",
-    "pattern": "^[0-9a-f]{40}$",
-    "lengths": [40],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "EPiServer 6 (SHA1)",
-    "hashcat_mode": 100,
-    "salt_position": "none"
-  },
-  {
-    "name": "Citrix NetScaler",
-    "pattern": "^[0-9a-f]{32}$",
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "Citrix NetScaler (MD5)",
-    "hashcat_mode": 1000,
-    "salt_position": "none"
-  },
-  {
-    "name": "Netscape LDAP",
-    "pattern": "^\\{SSHA\\}([A-Za-z0-9+/=]{28})$",
-    "lengths": [34],
-    "charset": "base64",
-    "weight": 170,
-    "notes": "Netscape LDAP SSHA",
-    "hashcat_mode": 112,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Sip hash (MD5)",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{8}$",
-    "lengths": [41],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "SIP digest authentication (MD5)",
-    "hashcat_mode": 11400,
-    "salt_position": "external"
-  },
-  {
-    "name": "SIP Auth (SHA1)",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{8}$",
-    "lengths": [49],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "SIP digest authentication (SHA1)",
-    "hashcat_mode": 11400,
-    "salt_position": "external"
-  },
-  {
-    "name": "DokuWiki",
-    "pattern": "^[0-9a-f]{32}$",
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 130,
-    "notes": "DokuWiki (MD5)",
-    "hashcat_mode": 261,
-    "salt_position": "none"
-  },
-  {
-    "name": "Magento",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{8}$",
-    "lengths": [41],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "Magento (MD5 + Salt)",
-    "hashcat_mode": 3300,
-    "salt_position": "external"
-  },
-  {
-    "name": "osCommerce/xt:Commerce",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{2}$",
-    "lengths": [35],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "osCommerce (MD5 + Salt)",
-    "hashcat_mode": 20,
-    "salt_position": "external"
-  },
-  {
-    "name": "PHPBB3",
-    "pattern": "^\\$H\\$([A-Za-z0-9./]{8})([A-Za-z0-9./]{22})$",
-    "lengths": [34],
-    "charset": "base64",
-    "weight": 220,
-    "notes": "phpBB3 (MD5 based phpass)",
-    "hashcat_mode": 400,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Ruby on Rails Restful Auth",
-    "pattern": "^[0-9a-f]{40}$",
-    "lengths": [40],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "Ruby on Rails Restful Auth (SHA1)",
-    "hashcat_mode": 100,
-    "salt_position": "none"
-  },
-  {
-    "name": "Django (SHA1)",
-    "pattern": "^sha1\\$([0-9]+)\\$([A-Za-z0-9./=]{12})\\$([A-Za-z0-9+/=]{40})$",
-    "lengths": [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75],
-    "charset": "mix",
-    "weight": 200,
-    "notes": "Django (SHA1)",
-    "hashcat_mode": 124,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Django (PBKDF2-SHA256)",
-    "pattern": "^pbkdf2_sha256\\$([0-9]+)\\$([A-Za-z0-9./=]{12})\\$([A-Za-z0-9+/=]{44})$",
-    "lengths": [96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108],
-    "charset": "mix",
-    "weight": 250,
-    "notes": "Django (PBKDF2-SHA256)",
-    "hashcat_mode": 10000,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Atlassian Jira/Confluence",
-    "pattern": "^\\$jira\\$([0-9]+)\\$([0-9a-f]{32})\\$([A-Za-z0-9+/=]{32,})$",
-    "lengths": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "mix",
-    "weight": 230,
-    "notes": "Atlassian Jira/Confluence PBKDF2-SHA1",
-    "hashcat_mode": 5300,
-    "salt_position": "external"
-  },
-  {
-    "name": "MediaWiki",
-    "pattern": "^\\$W\\$[0-9a-f]{32}$",
-    "lengths": [34],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "MediaWiki (MD5)",
-    "hashcat_mode": 3710,
-    "salt_position": "none"
-  },
-  {
-    "name": "OpenCart",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{9}$",
-    "lengths": [50],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "OpenCart (SHA1 + Salt)",
-    "hashcat_mode": 261,
-    "salt_position": "external"
-  },
-  {
-    "name": "PrestaShop",
-    "pattern": "^[0-9a-f]{32}$",
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 130,
-    "notes": "PrestaShop (MD5)",
-    "hashcat_mode": 11,
-    "salt_position": "none"
-  },
-  {
-    "name": "md5(utf8($pass))",
-    "pattern": null,
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 130,
-    "notes": "MD5 hash of UTF-8 encoded password",
-    "hashcat_mode": 3800,
-    "salt_position": "none"
-  },
-  {
-    "name": "md5(md5(md5($pass)))",
-    "pattern": null,
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 130,
-    "notes": "Triple MD5 (used in some legacy systems)",
-    "hashcat_mode": 4400,
-    "salt_position": "none"
-  },
-  {
-    "name": "SHA256(sha256($pass).$salt)",
-    "pattern": "^[0-9a-f]{64}:[0-9a-f]{1,64}$",
-    "lengths": [66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97],
-    "charset": "hex",
-    "weight": 180,
-    "notes": "SHA256 hash with appended salt",
-    "hashcat_mode": 1420,
-    "salt_position": "external"
-  },
-  {
-    "name": "SHA512(sha512($pass).$salt)",
-    "pattern": "^[0-9a-f]{128}:[0-9a-f]{1,128}$",
-    "lengths": [130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160],
-    "charset": "hex",
-    "weight": 200,
-    "notes": "SHA512 hash with appended salt",
-    "hashcat_mode": 1720,
-    "salt_position": "external"
-  },
-  {
-    "name": "MD5(md5($pass))",
-    "pattern": null,
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 130,
-    "notes": "Double MD5",
-    "hashcat_mode": 2600,
-    "salt_position": "none"
-  },
-  {
-    "name": "SHA1(sha1($pass))",
-    "pattern": null,
-    "lengths": [40],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "Double SHA1",
-    "hashcat_mode": 4700,
-    "salt_position": "none"
-  },
-  {
-    "name": "MD5(md5($salt).$pass)",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "MD5(MD5(salt).pass)",
-    "hashcat_mode": 40,
-    "salt_position": "external"
-  },
-  {
-    "name": "SHA1(sha1($salt).$pass)",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{1,32}$",
-    "lengths": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "SHA1(SHA1(salt).pass)",
-    "hashcat_mode": 140,
-    "salt_position": "external"
-  },
-  {
-    "name": "MD5(sha1($pass))",
-    "pattern": null,
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "MD5(SHA1(pass))",
-    "hashcat_mode": 4300,
-    "salt_position": "none"
-  },
-  {
-    "name": "SHA1(md5($pass))",
-    "pattern": null,
-    "lengths": [40],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "SHA1(MD5(pass))",
-    "hashcat_mode": 4500,
-    "salt_position": "none"
-  },
-  {
-    "name": "MD5(pass.sha1($pass))",
-    "pattern": null,
-    "lengths": [72],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "MD5(pass.SHA1(pass))",
-    "hashcat_mode": 3710,
-    "salt_position": "none"
-  },
-  {
-    "name": "SHA1(pass.md5($pass))",
-    "pattern": null,
-    "lengths": [72],
-    "charset": "hex",
-    "weight": 170,
-    "notes": "SHA1(pass.MD5(pass))",
-    "hashcat_mode": 4710,
-    "salt_position": "none"
-  },
-  {
-    "name": "MD5(salt.md5($pass))",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "MD5(salt.MD5(pass))",
-    "hashcat_mode": 3610,
-    "salt_position": "external"
-  },
-  {
-    "name": "SHA1(salt.sha1($pass))",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{1,32}$",
-    "lengths": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "SHA1(salt.SHA1(pass))",
-    "hashcat_mode": 3710,
-    "salt_position": "external"
-  },
-  {
-    "name": "MD5(md5($pass).$salt)",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "MD5(MD5(pass).salt)",
-    "hashcat_mode": 20,
-    "salt_position": "external"
-  },
-  {
-    "name": "SHA1(sha1($pass).$salt)",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{1,32}$",
-    "lengths": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "SHA1(SHA1(pass).salt)",
-    "hashcat_mode": 120,
-    "salt_position": "external"
-  },
-  {
-    "name": "DES(Unix)",
-    "pattern": "^([A-Za-z0-9./]{2})([A-Za-z0-9./]{11})$",
-    "lengths": [13],
-    "charset": "base64",
-    "weight": 120,
-    "notes": "Standard Unix DES",
-    "hashcat_mode": 1500,
-    "salt_position": "inline"
-  },
-  {
-    "name": "MySQL 4.1/5.x (Auth)",
-    "pattern": "^\\*[0-9a-f]{40}$",
-    "lengths": [41],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "MySQL 4.1/5.x (SHA1)",
-    "hashcat_mode": 300,
-    "salt_position": "none"
-  },
-  {
-    "name": "PostgreSQL (md5)",
-    "pattern": "^md5[0-9a-f]{32}$",
-    "lengths": [35],
-    "charset": "hex",
-    "weight": 145,
-    "notes": "PostgreSQL MD5",
-    "hashcat_mode": 11,
-    "salt_position": "external"
-  },
-  {
-    "name": "Vbulletin < 3.8.5",
-    "pattern": "^[0-9a-f]{32}$",
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "vBulletin (MD5)",
-    "hashcat_mode": 261,
-    "salt_position": "none"
-  },
-  {
-    "name": "Vbulletin >= 3.8.5",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{8}$",
-    "lengths": [41],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "vBulletin (MD5 + Salt)",
-    "hashcat_mode": 271,
-    "salt_position": "external"
-  },
-  {
-    "name": "PHPS (MD5)",
-    "pattern": "^P[0-9a-f]{32}$",
-    "lengths": [33],
-    "charset": "hex",
-    "weight": 130,
-    "notes": "PHPS (MD5)",
-    "hashcat_mode": 261,
-    "salt_position": "none"
-  },
-  {
-    "name": "Cisco IOS Type 4",
-    "pattern": "^\\$4\\$[0-9a-f]{32}$",
-    "lengths": [35],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "Cisco IOS Type 4 MD5",
-    "hashcat_mode": 500,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Cisco IOS Type 5",
-    "pattern": "^\\$5\\$([0-9a-zA-Z./]{1,16})\\$([0-9a-zA-Z./]{43})$",
-    "lengths": [58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80],
-    "charset": "base64",
-    "weight": 200,
-    "notes": "Cisco IOS Type 5 (SHA256CRYPT)",
-    "hashcat_mode": 7400,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Cisco IOS Type 8",
-    "pattern": "^\\$8\\$([0-9a-zA-Z./]{1,64})\\$([0-9a-zA-Z./]{43})$",
-    "lengths": [58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80],
-    "charset": "base64",
-    "weight": 170,
-    "notes": "Cisco IOS Type 8 (PBKDF2-SHA256)",
-    "hashcat_mode": 9200,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Juniper $9$ (PBKDF2)",
-    "pattern": "^\\$9\\$([A-Za-z0-9+/]+)\\$([A-Za-z0-9+/=]+)$",
-    "lengths": [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60],
-    "charset": "base64",
-    "weight": 180,
-    "notes": "Juniper Networks $9$ (PBKDF2-SHA256/512)",
-    "hashcat_mode": 501,
-    "salt_position": "inline"
-  },
-  {
-    "name": "SAP R/3 (B)",
-    "pattern": "^\\{B\\}([A-Za-z0-9+/=]{27})$",
-    "lengths": [30],
-    "charset": "base64",
-    "weight": 150,
-    "notes": "SAP R/3 BCODE (SHA-1)",
-    "hashcat_mode": 7700,
-    "salt_position": "none"
-  },
-  {
-    "name": "SAP R/3 (H)",
-    "pattern": "^\\{H\\}([A-Za-z0-9+/=]{27})$",
-    "lengths": [30],
-    "charset": "base64",
-    "weight": 160,
-    "notes": "SAP R/3 HASHED PASSWORD (SHA-1)",
-    "hashcat_mode": 7700,
-    "salt_position": "none"
-  },
-  {
-    "name": "MSSQL (2000) (SHA-1)",
-    "pattern": "^0x0100[0-9a-f]{40}$",
-    "lengths": [45],
-    "charset": "hex",
-    "weight": 135,
-    "notes": "MSSQL 2000 (SHA-1)",
-    "hashcat_mode": 131,
-    "salt_position": "inline"
-  },
-  {
-    "name": "MSSQL (2005) (SHA-1)",
-    "pattern": "^0x0200[0-9a-f]{8}[0-9a-f]{40}$",
-    "lengths": [53],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "MSSQL 2005 (SHA-1 + Salt)",
-    "hashcat_mode": 132,
-    "salt_position": "inline"
-  },
-  {
-    "name": "MSSQL (2012) (SHA-256)",
-    "pattern": "^0x0200[0-9a-f]{8}[0-9a-f]{64}$",
-    "lengths": [81],
-    "charset": "hex",
-    "weight": 170,
-    "notes": "MSSQL 2012 (SHA-256 + Salt)",
-    "hashcat_mode": 1731,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Oracle 7-10g (DES)",
-    "pattern": "^[0-9a-f]{16}$",
-    "lengths": [16],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "Oracle HASHED PASSWORD (DES)",
-    "hashcat_mode": 3100,
-    "salt_position": "none"
-  },
-  {
-    "name": "Oracle 11g/12c (SHA512)",
-    "pattern": "^S:([0-9a-f]{64}):([0-9a-f]{32})$",
-    "lengths": [99],
-    "charset": "hex",
-    "weight": 190,
-    "notes": "Oracle 11g/12c SHA512",
-    "hashcat_mode": 11200,
-    "salt_position": "external"
-  },
-  {
-    "name": "MD5(MD5(MD5(pass).salt).salt)",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "MD5(MD5(MD5(pass).salt).salt)",
-    "hashcat_mode": 4010,
-    "salt_position": "external"
-  },
-  {
-    "name": "MD5(MD5(salt).MD5(pass))",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "MD5(MD5(salt).MD5(pass))",
-    "hashcat_mode": 4210,
-    "salt_position": "external"
-  },
-  {
-    "name": "MD5(MD5(pass).MD5(salt))",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "MD5(MD5(pass).MD5(salt))",
-    "hashcat_mode": 4310,
-    "salt_position": "external"
-  },
-  {
-    "name": "MD5(MD5($pass).MD5($salt))",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "MD5(MD5(pass).MD5(salt)) - Alternative",
-    "hashcat_mode": 4410,
-    "salt_position": "external"
-  },
-  {
-    "name": "MD5(sha1($pass).$salt)",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "MD5(SHA1(pass).salt)",
-    "hashcat_mode": 3710,
-    "salt_position": "external"
-  },
-  {
-    "name": "SHA1(md5($pass).$salt)",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{1,32}$",
-    "lengths": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72],
-    "charset": "hex",
-    "weight": 170,
-    "notes": "SHA1(MD5(pass).salt)",
-    "hashcat_mode": 4710,
-    "salt_position": "external"
-  },
-  {
-    "name": "MediaWiki B",
-    "pattern": "^\\$B\\$[0-9a-f]{32}$",
-    "lengths": [34],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "MediaWiki B (MD5, custom salt)",
-    "hashcat_mode": 3710,
-    "salt_position": "none"
-  },
-  {
-    "name": "WBB3 (WoltLab Burning Board 3)",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{8}$",
-    "lengths": [41],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "WBB3 (MD5 + Salt)",
-    "hashcat_mode": 3720,
-    "salt_position": "external"
-  },
-  {
-    "name": "EPiServer 5",
-    "pattern": "^[0-9a-f]{40}$",
-    "lengths": [40],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "EPiServer 5 (SHA1)",
-    "hashcat_mode": 100,
-    "salt_position": "none"
-  },
-  {
-    "name": "Netscaler (MD5)",
-    "pattern": "^[0-9a-f]{32}$",
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "Citrix NetScaler (MD5)",
-    "hashcat_mode": 1000,
-    "salt_position": "none"
-  },
-  {
-    "name": "LDAP (MD5)",
-    "pattern": "^\\{MD5\\}([A-Za-z0-9+/=]{22})$",
-    "lengths": [27],
-    "charset": "base64",
-    "weight": 140,
-    "notes": "LDAP MD5",
-    "hashcat_mode": 900,
-    "salt_position": "none"
-  },
-  {
-    "name": "LDAP (SHA1)",
-    "pattern": "^\\{SHA\\}([A-Za-z0-9+/=]{28})$",
-    "lengths": [33],
-    "charset": "base64",
-    "weight": 150,
-    "notes": "LDAP SHA1",
-    "hashcat_mode": 111,
-    "salt_position": "none"
-  },
-  {
-    "name": "LDAP (SSHA)",
-    "pattern": "^\\{SSHA\\}([A-Za-z0-9+/=]{28})$",
-    "lengths": [34],
-    "charset": "base64",
-    "weight": 170,
-    "notes": "LDAP SSHA (Salted SHA1)",
-    "hashcat_mode": 112,
-    "salt_position": "inline"
-  },
-  {
-    "name": "LDAP (SSHA256)",
-    "pattern": "^\\{SSHA256\\}([A-Za-z0-9+/=]{44})$",
-    "lengths": [52],
-    "charset": "base64",
-    "weight": 200,
-    "notes": "LDAP SSHA256 (Salted SHA256)",
-    "hashcat_mode": 1711,
-    "salt_position": "inline"
-  },
-  {
-    "name": "LDAP (SSHA512)",
-    "pattern": "^\\{SSHA512\\}([A-Za-z0-9+/=]{88})$",
-    "lengths": [96],
-    "charset": "base64",
-    "weight": 220,
-    "notes": "LDAP SSHA512 (Salted SHA512)",
-    "hashcat_mode": 1712,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Kerberos 5 TGS-REP (Type 23)",
-    "pattern": "^\\$krb5tgs\\$23\\$([0-9a-f]{32})\\$([0-9a-f]{10,})$",
-    "lengths": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "hex",
-    "weight": 250,
-    "notes": "Kerberos 5 TGS-REP etype 23 (AES)",
-    "hashcat_mode": 13100,
-    "salt_position": "external"
-  },
-  {
-    "name": "Kerberos 5 AS-REP (Type 23)",
-    "pattern": "^\\$krb5asrep\\$23\\$([0-9a-f]{32})\\$([0-9a-f]{10,})$",
-    "lengths": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "hex",
-    "weight": 250,
-    "notes": "Kerberos 5 AS-REP etype 23 (AES)",
-    "hashcat_mode": 18200,
-    "salt_position": "external"
-  },
-  {
-    "name": "LastPass vault key",
-    "pattern": "^\\$lp\\$([0-9]+)\\$([0-9a-f]{32})\\$([0-9a-f]{16})$",
-    "lengths": [60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80],
-    "charset": "hex",
-    "weight": 250,
-    "notes": "LastPass master key (SHA256)",
-    "hashcat_mode": 6800,
-    "salt_position": "external"
-  },
-  {
-    "name": "MediaWiki F",
-    "pattern": "^\\$F\\$([0-9a-f]{32})$",
-    "lengths": [34],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "MediaWiki F (MD5, per-user salt)",
-    "hashcat_mode": 3710,
-    "salt_position": "none"
-  },
-  {
-    "name": "md5(md5($salt).md5($pass))",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "MD5(MD5(salt).MD5(pass))",
-    "hashcat_mode": 4210,
-    "salt_position": "external"
-  },
-  {
-    "name": "md5(md5($pass).md5($salt))",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "MD5(MD5(pass).MD5(salt))",
-    "hashcat_mode": 4310,
-    "salt_position": "external"
-  },
-  {
-    "name": "md5(md5($username).$pass)",
-    "pattern": "^[0-9a-f]{32}:[a-zA-Z0-9_-]{3,32}$",
-    "lengths": [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67],
-    "charset": "mix",
-    "weight": 160,
-    "notes": "MD5(MD5(username).pass)",
-    "hashcat_mode": 4410,
-    "salt_position": "external"
-  },
-  {
-    "name": "sha1(sha1($salt).sha1($pass))",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{1,32}$",
-    "lengths": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72],
-    "charset": "hex",
-    "weight": 180,
-    "notes": "SHA1(SHA1(salt).SHA1(pass))",
-    "hashcat_mode": 4710,
-    "salt_position": "external"
-  },
-  {
-    "name": "RipeMD160",
-    "pattern": null,
-    "lengths": [40],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "Standard RipeMD-160",
+    "name": "BLAKE2b-512",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "BLAKE2b-512",
     "hashcat_mode": 600,
     "salt_position": "none"
   },
   {
-    "name": "Whirlpool",
-    "pattern": null,
-    "lengths": [128],
-    "charset": "hex",
-    "weight": 190,
-    "notes": "Standard Whirlpool",
-    "hashcat_mode": 6100,
+    "name": "BLAKE2s-256",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "BLAKE2s-256",
+    "hashcat_mode": null,
     "salt_position": "none"
   },
   {
-    "name": "Snefru-128",
-    "pattern": null,
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 130,
-    "notes": "Standard Snefru-128",
-    "hashcat_mode": 5100,
-    "salt_position": "none"
-  },
-  {
-    "name": "Snefru-256",
-    "pattern": null,
-    "lengths": [64],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "Standard Snefru-256",
-    "hashcat_mode": 5110,
-    "salt_position": "none"
-  },
-  {
-    "name": "Gost R 34.11-94",
-    "pattern": null,
-    "lengths": [64],
-    "charset": "hex",
-    "weight": 170,
-    "notes": "Russian Standard Hash",
+    "name": "GOST R 34.11-2012 (Streebog) 256-bit, big-endian",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "GOST R 34.11-2012 (Streebog) 256-bit, big-endian",
     "hashcat_mode": 6900,
     "salt_position": "none"
   },
   {
-    "name": "Tiger-128",
-    "pattern": null,
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 130,
-    "notes": "Standard Tiger-128",
-    "hashcat_mode": 6300,
+    "name": "GOST R 34.11-2012 (Streebog) 512-bit, big-endian",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "GOST R 34.11-2012 (Streebog) 512-bit, big-endian",
+    "hashcat_mode": 6900,
     "salt_position": "none"
   },
   {
-    "name": "Tiger-160",
-    "pattern": null,
-    "lengths": [40],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "Standard Tiger-160",
-    "hashcat_mode": 6400,
+    "name": "GOST R 34.11-94",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "GOST R 34.11-94",
+    "hashcat_mode": 6900,
     "salt_position": "none"
   },
   {
-    "name": "Tiger-192",
-    "pattern": null,
-    "lengths": [48],
+    "name": "Half MD5",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
     "charset": "hex",
-    "weight": 150,
-    "notes": "Standard Tiger-192",
-    "hashcat_mode": 6500,
+    "weight": 170,
+    "notes": "Half MD5",
+    "hashcat_mode": 0,
     "salt_position": "none"
   },
   {
-    "name": "SHA-3 (256)",
-    "pattern": null,
-    "lengths": [64],
-    "charset": "hex",
-    "weight": 180,
-    "notes": "Standard SHA-3/Keccak-256",
-    "hashcat_mode": 18500,
-    "salt_position": "none"
-  },
-  {
-    "name": "SHA-3 (512)",
-    "pattern": null,
-    "lengths": [128],
-    "charset": "hex",
-    "weight": 200,
-    "notes": "Standard SHA-3/Keccak-512",
-    "hashcat_mode": 18600,
+    "name": "Keccak-224",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Keccak-224",
+    "hashcat_mode": null,
     "salt_position": "none"
   },
   {
     "name": "Keccak-256",
-    "pattern": null,
-    "lengths": [64],
-    "charset": "hex",
-    "weight": 180,
-    "notes": "Keccak-256 (Ethereum/Cryptocurrency)",
-    "hashcat_mode": 18500,
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Keccak-256",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Keccak-384",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Keccak-384",
+    "hashcat_mode": null,
     "salt_position": "none"
   },
   {
     "name": "Keccak-512",
-    "pattern": null,
-    "lengths": [128],
-    "charset": "hex",
-    "weight": 200,
-    "notes": "Keccak-512 (Ethereum/Cryptocurrency)",
-    "hashcat_mode": 18600,
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Keccak-512",
+    "hashcat_mode": null,
     "salt_position": "none"
   },
   {
-    "name": "eCryptfs (Salted)",
-    "pattern": "^\\$ecryptfs\\$([0-9]+)\\$([0-9a-f]{16})$",
-    "lengths": [25, 26, 27, 28, 29, 30],
-    "charset": "hex",
-    "weight": 190,
-    "notes": "eCryptfs (Linux Encrypted Home Directory)",
-    "hashcat_mode": 7500,
-    "salt_position": "external"
-  },
-  {
-    "name": "Gost R 34.11-2012 (256)",
-    "pattern": null,
-    "lengths": [64],
-    "charset": "hex",
-    "weight": 190,
-    "notes": "Russian Standard Hash (2012 - 256bit)",
-    "hashcat_mode": 11900,
+    "name": "ShangMi 3 (SM3)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "ShangMi 3 (SM3)",
+    "hashcat_mode": null,
     "salt_position": "none"
   },
   {
-    "name": "Gost R 34.11-2012 (512)",
-    "pattern": null,
-    "lengths": [128],
-    "charset": "hex",
-    "weight": 210,
-    "notes": "Russian Standard Hash (2012 - 512bit)",
-    "hashcat_mode": 12000,
+    "name": "Whirlpool",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "Whirlpool",
+    "hashcat_mode": 6100,
     "salt_position": "none"
   },
   {
-    "name": "VeraCrypt PBKDF2-HMAC-SHA512",
-    "pattern": "^\\$veracrypt\\$1\\*([0-9]+)\\*([0-9a-f]{256})$",
-    "lengths": [270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280],
+    "name": "md5(utf16le($pass))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
     "charset": "hex",
-    "weight": 350,
-    "notes": "VeraCrypt (PBKDF2-HMAC-SHA512)",
-    "hashcat_mode": 13731,
-    "salt_position": "external"
+    "weight": 170,
+    "notes": "md5(utf16le($pass))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
   },
   {
-    "name": "VeraCrypt PBKDF2-HMAC-RIPEMD160",
-    "pattern": "^\\$veracrypt\\$2\\*([0-9]+)\\*([0-9a-f]{256})$",
-    "lengths": [270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280],
+    "name": "sha1(utf16le($pass))",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
     "charset": "hex",
-    "weight": 350,
-    "notes": "VeraCrypt (PBKDF2-HMAC-RIPEMD160)",
-    "hashcat_mode": 13732,
-    "salt_position": "external"
+    "weight": 170,
+    "notes": "sha1(utf16le($pass))",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
   },
   {
-    "name": "Office 2019/365",
-    "pattern": "^\\$office\\$4\\$([0-9]+)\\$([0-9]+)\\$([0-9a-f]{32})\\$([0-9a-f]{32})$",
-    "lengths": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
+    "name": "sha256(utf16le($pass))",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
     "charset": "hex",
-    "weight": 300,
-    "notes": "MS Office 2019/365 (Modern)",
-    "hashcat_mode": 9600,
-    "salt_position": "external"
+    "weight": 170,
+    "notes": "sha256(utf16le($pass))",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
   },
   {
-    "name": "OpenSSH Private Key",
-    "pattern": "^\\$argon2id\\$v=19\\$m=([0-9]+),t=([0-9]+),p=([0-9]+)\\$([A-Za-z0-9+/=]+)\\$([A-Za-z0-9+/=]+)$",
-    "lengths": [150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160],
-    "charset": "base64",
-    "weight": 320,
-    "notes": "OpenSSH Private Key (Argon2id)",
-    "hashcat_mode": 25200,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Wallet: Bitcoin/Litecoin",
-    "pattern": "^\\$bitcoin\\$96\\$([0-9a-f]{100,})$",
-    "lengths": [250, 251, 252, 253, 254, 255, 256],
+    "name": "sha384(utf16le($pass))",
+    "pattern": "^[0-9a-fA-F]{96}$",
+    "lengths": [
+      96
+    ],
     "charset": "hex",
-    "weight": 280,
-    "notes": "Bitcoin/Litecoin Wallet Hash",
-    "hashcat_mode": 11300,
-    "salt_position": "external"
+    "weight": 100,
+    "notes": "sha384(utf16le($pass))",
+    "hashcat_mode": 10800,
+    "salt_position": "internal"
   },
   {
-    "name": "Wallet: Electrum",
-    "pattern": "^\\$electrum\\$([0-9]+)\\$([0-9a-f]{32})\\$([0-9a-f]{100,})$",
-    "lengths": [200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210],
+    "name": "sha512(utf16le($pass))",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
     "charset": "hex",
-    "weight": 300,
-    "notes": "Electrum Wallet (Scrypt)",
-    "hashcat_mode": 16600,
-    "salt_position": "external"
+    "weight": 170,
+    "notes": "sha512(utf16le($pass))",
+    "hashcat_mode": 1700,
+    "salt_position": "internal"
   },
   {
-    "name": "Wallet: MultiBit HD",
-    "pattern": "^\\$multibithd\\$([0-9]+)\\$([0-9a-f]{32})\\$([0-9a-f]{100,})$",
-    "lengths": [200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210],
+    "name": "BLAKE2b-256($pass.$salt)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "BLAKE2b-256($pass.$salt)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "BLAKE2b-256($salt.$pass)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "BLAKE2b-256($salt.$pass)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "BLAKE2b-512($pass.$salt)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "BLAKE2b-512($pass.$salt)",
+    "hashcat_mode": 600,
+    "salt_position": "internal"
+  },
+  {
+    "name": "BLAKE2b-512($salt.$pass)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "BLAKE2b-512($salt.$pass)",
+    "hashcat_mode": 600,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5($pass.$salt)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
     "charset": "hex",
-    "weight": 300,
-    "notes": "MultiBit HD Wallet (PBKDF2-SHA512)",
-    "hashcat_mode": 20400,
-    "salt_position": "external"
+    "weight": 170,
+    "notes": "md5($pass.$salt)",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
   },
   {
-    "name": "Argon2d",
-    "pattern": "^\\$argon2d\\$v=19\\$m=([0-9]+),t=([0-9]+),p=([0-9]+)\\$([A-Za-z0-9+/=]+)\\$([A-Za-z0-9+/=]+)$",
-    "lengths": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "base64",
-    "weight": 350,
-    "notes": "Argon2d (Memory/Time/Parallel cost parameters)",
-    "hashcat_mode": 16100,
-    "salt_position": "inline"
+    "name": "md5($salt.$pass)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5($salt.$pass)",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
   },
   {
-    "name": "Argon2i",
-    "pattern": "^\\$argon2i\\$v=19\\$m=([0-9]+),t=([0-9]+),p=([0-9]+)\\$([A-Za-z0-9+/=]+)\\$([A-Za-z0-9+/=]+)$",
-    "lengths": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "base64",
-    "weight": 350,
-    "notes": "Argon2i (Memory/Time/Parallel cost parameters)",
-    "hashcat_mode": 16200,
-    "salt_position": "inline"
+    "name": "md5($salt.$pass.$salt)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5($salt.$pass.$salt)",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
   },
   {
-    "name": "Argon2id",
-    "pattern": "^\\$argon2id\\$v=19\\$m=([0-9]+),t=([0-9]+),p=([0-9]+)\\$([A-Za-z0-9+/=]+)\\$([A-Za-z0-9+/=]+)$",
-    "lengths": [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "base64",
-    "weight": 350,
-    "notes": "Argon2id (Memory/Time/Parallel cost parameters)",
-    "hashcat_mode": 16300,
-    "salt_position": "inline"
+    "name": "md5($salt.md5($pass))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5($salt.md5($pass))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
   },
   {
-    "name": "scrypt",
-    "pattern": "^\\$s[0-9]\\$[0-9]+([A-Za-z0-9+/=]{16})([A-Za-z0-9+/=]{32,})$",
-    "lengths": [80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90],
-    "charset": "base64",
-    "weight": 300,
-    "notes": "Standard scrypt format",
-    "hashcat_mode": 8900,
-    "salt_position": "inline"
+    "name": "md5($salt.md5($pass).$salt)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5($salt.md5($pass).$salt)",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
   },
   {
-    "name": "Django (PBKDF2-SHA512)",
-    "pattern": "^pbkdf2_sha512\\$([0-9]+)\\$([A-Za-z0-9./=]{12})\\$([A-Za-z0-9+/=]{88})$",
-    "lengths": [140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150],
-    "charset": "mix",
-    "weight": 280,
-    "notes": "Django (PBKDF2-SHA512)",
-    "hashcat_mode": 12000,
-    "salt_position": "inline"
+    "name": "md5($salt.md5($pass.$salt))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5($salt.md5($pass.$salt))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5($salt.md5($salt.$pass))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5($salt.md5($salt.$pass))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5($salt.sha1($salt.$pass))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5($salt.sha1($salt.$pass))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5($salt.utf16le($pass))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5($salt.utf16le($pass))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5($salt1.$pass.$salt2)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5($salt1.$pass.$salt2)",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5($salt1.sha1($salt2.$pass))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5($salt1.sha1($salt2.$pass))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5($salt1.strtoupper(md5($salt2.$pass)))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5($salt1.strtoupper(md5($salt2.$pass)))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5(md5($pass))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5(md5($pass))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5(md5($pass).md5($salt))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5(md5($pass).md5($salt))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5(md5($pass.$salt))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5(md5($pass.$salt))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5(md5($salt).md5(md5($pass)))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5(md5($salt).md5(md5($pass)))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5(md5(md5($pass)))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5(md5(md5($pass)))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5(md5(md5($pass)).$salt)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5(md5(md5($pass)).$salt)",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5(md5(md5($pass).$salt1).$salt2)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5(md5(md5($pass).$salt1).$salt2)",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5(md5(md5($pass.$salt1)).$salt2)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5(md5(md5($pass.$salt1)).$salt2)",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5(sha1($pass))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5(sha1($pass))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5(sha1($pass).$salt)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5(sha1($pass).$salt)",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5(sha1($pass).md5($pass).sha1($pass))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5(sha1($pass).md5($pass).sha1($pass))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5(sha1($pass.$salt))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5(sha1($pass.$salt))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5(sha1($salt).md5($pass))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5(sha1($salt).md5($pass))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5(sha1($salt.$pass))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5(sha1($salt.$pass))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5(sha1(md5($pass)))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5(sha1(md5($pass)))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5(strtoupper(md5($pass)))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5(strtoupper(md5($pass)))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5(utf16le($pass).$salt)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5(utf16le($pass).$salt)",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha1($pass.$salt)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha1($pass.$salt)",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha1($salt.$pass)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha1($salt.$pass)",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha1($salt.$pass.$salt)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha1($salt.$pass.$salt)",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha1($salt.sha1($pass))",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha1($salt.sha1($pass))",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha1($salt.sha1($pass.$salt))",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha1($salt.sha1($pass.$salt))",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha1($salt.sha1(utf16le($username).':'.utf16le($pass)))",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha1($salt.sha1(utf16le($username).':'.utf16le($pass)))",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha1($salt.utf16le($pass))",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha1($salt.utf16le($pass))",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha1($salt1.$pass.$salt2)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha1($salt1.$pass.$salt2)",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha1(CX)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha1(CX)",
+    "hashcat_mode": 100,
+    "salt_position": "none"
+  },
+  {
+    "name": "sha1(md5($pass))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha1(md5($pass))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha1(md5($pass).$salt)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha1(md5($pass).$salt)",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha1(md5($pass.$salt))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha1(md5($pass.$salt))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha1(md5(md5($pass)))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha1(md5(md5($pass)))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha1(sha1($pass))",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha1(sha1($pass))",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha1(sha1($pass).$salt)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha1(sha1($pass).$salt)",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha1(sha1($salt.$pass.$salt))",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha1(sha1($salt.$pass.$salt))",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha1(utf16le($pass).$salt)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha1(utf16le($pass).$salt)",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha224($pass.$salt)",
+    "pattern": "^[0-9a-fA-F]{56}$",
+    "lengths": [
+      56
+    ],
+    "charset": "hex",
+    "weight": 100,
+    "notes": "sha224($pass.$salt)",
+    "hashcat_mode": 1300,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha224($salt.$pass)",
+    "pattern": "^[0-9a-fA-F]{56}$",
+    "lengths": [
+      56
+    ],
+    "charset": "hex",
+    "weight": 100,
+    "notes": "sha224($salt.$pass)",
+    "hashcat_mode": 1300,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha224(sha1($pass))",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha224(sha1($pass))",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha224(sha224($pass))",
+    "pattern": "^[0-9a-fA-F]{56}$",
+    "lengths": [
+      56
+    ],
+    "charset": "hex",
+    "weight": 100,
+    "notes": "sha224(sha224($pass))",
+    "hashcat_mode": 1300,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha256($pass.$salt)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha256($pass.$salt)",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha256($salt.$pass)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha256($salt.$pass)",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha256($salt.$pass.$salt)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha256($salt.$pass.$salt)",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha256($salt.sha256($pass))",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha256($salt.sha256($pass))",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha256($salt.sha256_bin($pass))",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha256($salt.sha256_bin($pass))",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha256($salt.utf16le($pass))",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha256($salt.utf16le($pass))",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha256(md5($pass))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha256(md5($pass))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha256(sha256($pass).$salt)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha256(sha256($pass).$salt)",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha256(sha256($pass.$salt))",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha256(sha256($pass.$salt))",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha256(sha256_bin($pass))",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha256(sha256_bin($pass))",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha256(utf16le($pass).$salt)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha256(utf16le($pass).$salt)",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha384($pass.$salt)",
+    "pattern": "^[0-9a-fA-F]{96}$",
+    "lengths": [
+      96
+    ],
+    "charset": "hex",
+    "weight": 100,
+    "notes": "sha384($pass.$salt)",
+    "hashcat_mode": 10800,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha384($salt.$pass)",
+    "pattern": "^[0-9a-fA-F]{96}$",
+    "lengths": [
+      96
+    ],
+    "charset": "hex",
+    "weight": 100,
+    "notes": "sha384($salt.$pass)",
+    "hashcat_mode": 10800,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha384($salt.utf16le($pass))",
+    "pattern": "^[0-9a-fA-F]{96}$",
+    "lengths": [
+      96
+    ],
+    "charset": "hex",
+    "weight": 100,
+    "notes": "sha384($salt.utf16le($pass))",
+    "hashcat_mode": 10800,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha384(utf16le($pass).$salt)",
+    "pattern": "^[0-9a-fA-F]{96}$",
+    "lengths": [
+      96
+    ],
+    "charset": "hex",
+    "weight": 100,
+    "notes": "sha384(utf16le($pass).$salt)",
+    "hashcat_mode": 10800,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha512($pass.$salt)",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha512($pass.$salt)",
+    "hashcat_mode": 1700,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha512($salt.$pass)",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha512($salt.$pass)",
+    "hashcat_mode": 1700,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha512($salt.utf16le($pass))",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha512($salt.utf16le($pass))",
+    "hashcat_mode": 1700,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha512(sha512($pass).$salt)",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha512(sha512($pass).$salt)",
+    "hashcat_mode": 1700,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha512(sha512_bin($pass).$salt)",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha512(sha512_bin($pass).$salt)",
+    "hashcat_mode": 1700,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha512(utf16le($pass).$salt)",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha512(utf16le($pass).$salt)",
+    "hashcat_mode": 1700,
+    "salt_position": "internal"
+  },
+  {
+    "name": "HMAC-BLAKE2S (key = $pass)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "HMAC-BLAKE2S (key = $pass)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "HMAC-MD5 (key = $pass)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "HMAC-MD5 (key = $pass)",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "HMAC-MD5 (key = $salt)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "HMAC-MD5 (key = $salt)",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "HMAC-RIPEMD160 (key = $pass)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "HMAC-RIPEMD160 (key = $pass)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "HMAC-RIPEMD160 (key = $salt)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "HMAC-RIPEMD160 (key = $salt)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "HMAC-RIPEMD320 (key = $pass)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "HMAC-RIPEMD320 (key = $pass)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "HMAC-RIPEMD320 (key = $salt)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "HMAC-RIPEMD320 (key = $salt)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "HMAC-SHA1 (key = $pass)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "HMAC-SHA1 (key = $pass)",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "HMAC-SHA1 (key = $salt)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "HMAC-SHA1 (key = $salt)",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "HMAC-SHA256 (key = $pass)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "HMAC-SHA256 (key = $pass)",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "HMAC-SHA256 (key = $salt)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "HMAC-SHA256 (key = $salt)",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "HMAC-SHA512 (key = $pass)",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "HMAC-SHA512 (key = $pass)",
+    "hashcat_mode": 1700,
+    "salt_position": "internal"
+  },
+  {
+    "name": "HMAC-SHA512 (key = $salt)",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "HMAC-SHA512 (key = $salt)",
+    "hashcat_mode": 1700,
+    "salt_position": "internal"
+  },
+  {
+    "name": "HMAC-Streebog-256 (key = $pass), big-endian",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "HMAC-Streebog-256 (key = $pass), big-endian",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "HMAC-Streebog-256 (key = $salt), big-endian",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "HMAC-Streebog-256 (key = $salt), big-endian",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "HMAC-Streebog-512 (key = $pass), big-endian",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "HMAC-Streebog-512 (key = $pass), big-endian",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "HMAC-Streebog-512 (key = $salt), big-endian",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "HMAC-Streebog-512 (key = $salt), big-endian",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "SipHash",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "SipHash",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "CRC32",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "CRC32",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "CRC32C",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "CRC32C",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "CRC64Jones",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "CRC64Jones",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Java Object hashCode()",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Java Object hashCode()",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MurmurHash",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MurmurHash",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MurmurHash3",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MurmurHash3",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MurmurHash64A",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MurmurHash64A",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MurmurHash64A (zero seed)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MurmurHash64A (zero seed)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MurmurHash64A truncated (zero seed)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MurmurHash64A truncated (zero seed)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "RC4 104-bit DropN",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "RC4 104-bit DropN",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "RC4 40-bit DropN",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "RC4 40-bit DropN",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "RC4 72-bit DropN",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "RC4 72-bit DropN",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "3DES (PT = $salt, key = $pass)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "3DES (PT = $salt, key = $pass)",
+    "hashcat_mode": 150,
+    "salt_position": "internal"
+  },
+  {
+    "name": "DES (PT = $salt, key = $pass)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "DES (PT = $salt, key = $pass)",
+    "hashcat_mode": 150,
+    "salt_position": "internal"
+  },
+  {
+    "name": "AES-128-ECB NOKDF (PT = $salt, key = $pass)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "AES-128-ECB NOKDF (PT = $salt, key = $pass)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "AES-192-ECB NOKDF (PT = $salt, key = $pass)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "AES-192-ECB NOKDF (PT = $salt, key = $pass)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "AES-256-ECB NOKDF (PT = $salt, key = $pass)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "AES-256-ECB NOKDF (PT = $salt, key = $pass)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "ChaCha20",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "ChaCha20",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Linux Kernel Crypto API (2.4)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Linux Kernel Crypto API (2.4)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "Skip32 (PT = $salt, key = $pass)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Skip32 (PT = $salt, key = $pass)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "PBKDF1-SHA1",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "PBKDF1-SHA1",
+    "hashcat_mode": 100,
+    "salt_position": "none"
+  },
+  {
+    "name": "PBKDF2-HMAC-MD5",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "PBKDF2-HMAC-MD5",
+    "hashcat_mode": 0,
+    "salt_position": "none"
   },
   {
     "name": "PBKDF2-HMAC-SHA1",
-    "pattern": "^\\$p5k2\\$([0-9]+)\\$([A-Za-z0-9./=]{16})\\$([A-Za-z0-9+/=]{32})$",
-    "lengths": [60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70],
-    "charset": "base64",
-    "weight": 200,
-    "notes": "PBKDF2-HMAC-SHA1 (Generic)",
-    "hashcat_mode": 12000,
-    "salt_position": "inline"
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "PBKDF2-HMAC-SHA1",
+    "hashcat_mode": 100,
+    "salt_position": "none"
   },
   {
     "name": "PBKDF2-HMAC-SHA256",
-    "pattern": "^\\$p5k2\\$([0-9]+)\\$([A-Za-z0-9./=]{16})\\$([A-Za-z0-9+/=]{44})$",
-    "lengths": [72, 73, 74, 75, 76, 77, 78, 79, 80],
-    "charset": "base64",
-    "weight": 220,
-    "notes": "PBKDF2-HMAC-SHA256 (Generic)",
-    "hashcat_mode": 10000,
-    "salt_position": "inline"
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "PBKDF2-HMAC-SHA256",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
   },
   {
     "name": "PBKDF2-HMAC-SHA512",
-    "pattern": "^\\$p5k2\\$([0-9]+)\\$([A-Za-z0-9./=]{16})\\$([A-Za-z0-9+/=]{88})$",
-    "lengths": [120, 121, 122, 123, 124, 125, 126, 127, 128],
-    "charset": "base64",
-    "weight": 250,
-    "notes": "PBKDF2-HMAC-SHA512 (Generic)",
-    "hashcat_mode": 12000,
-    "salt_position": "inline"
-  },
-  {
-    "name": "HMAC-MD5 (key=$salt)",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{32}$",
-    "lengths": [65],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "HMAC-MD5 (key is salt)",
-    "hashcat_mode": 60,
-    "salt_position": "external"
-  },
-  {
-    "name": "HMAC-SHA1 (key=$salt)",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{32}$",
-    "lengths": [73],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "HMAC-SHA1 (key is salt)",
-    "hashcat_mode": 150,
-    "salt_position": "external"
-  },
-  {
-    "name": "HMAC-SHA256 (key=$salt)",
-    "pattern": "^[0-9a-f]{64}:[0-9a-f]{32}$",
-    "lengths": [97],
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
     "charset": "hex",
     "weight": 170,
-    "notes": "HMAC-SHA256 (key is salt)",
-    "hashcat_mode": 1420,
-    "salt_position": "external"
+    "notes": "PBKDF2-HMAC-SHA512",
+    "hashcat_mode": 1700,
+    "salt_position": "none"
   },
   {
-    "name": "HMAC-SHA512 (key=$salt)",
-    "pattern": "^[0-9a-f]{128}:[0-9a-f]{32}$",
-    "lengths": [161],
-    "charset": "hex",
-    "weight": 190,
-    "notes": "HMAC-SHA512 (key is salt)",
-    "hashcat_mode": 1720,
-    "salt_position": "external"
+    "name": "Argon2",
+    "pattern": "^\\$argon2(id|i)\\$v=\\d+\\$m=\\d+,t=\\d+,p=\\d+\\$[A-Za-z0-9+/=]+\\$[A-Za-z0-9+/=]+$",
+    "lengths": [],
+    "charset": "base64",
+    "weight": 170,
+    "notes": "Argon2",
+    "hashcat_mode": 3400,
+    "salt_position": "internal"
   },
   {
-    "name": "Web2CMS",
-    "pattern": "^[0-9a-f]{40}$",
-    "lengths": [40],
+    "name": "bcrypt",
+    "pattern": "^\\$2[aby]\\$.{56}$",
+    "lengths": [
+      60
+    ],
+    "charset": "bcrypt",
+    "weight": 170,
+    "notes": "bcrypt",
+    "hashcat_mode": 3200,
+    "salt_position": "internal"
+  },
+  {
+    "name": "bcrypt(HMAC-SHA256($pass))",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
     "charset": "hex",
-    "weight": 150,
-    "notes": "Web2CMS (SHA1)",
+    "weight": 170,
+    "notes": "bcrypt(HMAC-SHA256($pass))",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "bcrypt(md5($pass))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "bcrypt(md5($pass))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "bcrypt(sha1($pass))",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "bcrypt(sha1($pass))",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "bcrypt(sha256($pass))",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "bcrypt(sha256($pass))",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "bcrypt(sha512($pass))",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "bcrypt(sha512($pass))",
+    "hashcat_mode": 1700,
+    "salt_position": "internal"
+  },
+  {
+    "name": "scrypt",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "scrypt",
+    "hashcat_mode": 8900,
+    "salt_position": "internal"
+  },
+  {
+    "name": "phpass",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 170,
+    "notes": "phpass",
+    "hashcat_mode": 400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "TACACS+",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "TACACS+",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "DANE RFC7929/RFC8162 SHA2-256",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "DANE RFC7929/RFC8162 SHA2-256",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "SIP digest authentication (MD5)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "SIP digest authentication (MD5)",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "IKE-PSK MD5",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "IKE-PSK MD5",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "IKE-PSK SHA1",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "IKE-PSK SHA1",
     "hashcat_mode": 100,
     "salt_position": "none"
   },
   {
-    "name": "DotNetNuke",
-    "pattern": "^[0-9a-f]{40}$",
-    "lengths": [40],
+    "name": "SNMPv3 HMAC-MD5-96",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
     "charset": "hex",
-    "weight": 150,
-    "notes": "DotNetNuke (SHA1)",
+    "weight": 170,
+    "notes": "SNMPv3 HMAC-MD5-96",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "SNMPv3 HMAC-MD5-96/HMAC-SHA1-96",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "SNMPv3 HMAC-MD5-96/HMAC-SHA1-96",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "SNMPv3 HMAC-SHA1-96",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "SNMPv3 HMAC-SHA1-96",
     "hashcat_mode": 100,
     "salt_position": "none"
   },
   {
-    "name": "Basic Auth (MD5)",
-    "pattern": "^[0-9a-f]{32}$",
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "HTTP Basic Auth (MD5)",
-    "hashcat_mode": 11000,
-    "salt_position": "none"
-  },
-  {
-    "name": "Basic Auth (SHA1)",
-    "pattern": "^[0-9a-f]{40}$",
-    "lengths": [40],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "HTTP Basic Auth (SHA1)",
-    "hashcat_mode": 11100,
-    "salt_position": "none"
-  },
-  {
-    "name": "MD4",
-    "pattern": null,
-    "lengths": [32],
+    "name": "SNMPv3 HMAC-SHA224-128",
+    "pattern": "^[0-9a-fA-F]{56}$",
+    "lengths": [
+      56
+    ],
     "charset": "hex",
     "weight": 100,
-    "notes": "Standard MD4",
-    "hashcat_mode": 900,
+    "notes": "SNMPv3 HMAC-SHA224-128",
+    "hashcat_mode": 1300,
     "salt_position": "none"
   },
   {
-    "name": "F5 BIG-IP",
-    "pattern": "^\\$F5\\$([A-Za-z0-9+/=]{16})$",
-    "lengths": [20],
-    "charset": "base64",
-    "weight": 140,
-    "notes": "F5 BIG-IP /etc/shadow",
-    "hashcat_mode": 7600,
-    "salt_position": "inline"
+    "name": "SNMPv3 HMAC-SHA256-192",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "SNMPv3 HMAC-SHA256-192",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
   },
   {
-    "name": "Cram-MD5",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{32}$",
-    "lengths": [65],
+    "name": "SNMPv3 HMAC-SHA384-256",
+    "pattern": "^[0-9a-fA-F]{96}$",
+    "lengths": [
+      96
+    ],
     "charset": "hex",
-    "weight": 140,
-    "notes": "Cram-MD5 authentication",
-    "hashcat_mode": 401,
-    "salt_position": "external"
+    "weight": 100,
+    "notes": "SNMPv3 HMAC-SHA384-256",
+    "hashcat_mode": 10800,
+    "salt_position": "none"
   },
   {
-    "name": "Samba/NT Hash",
-    "pattern": "^[0-9a-f]{32}$",
-    "lengths": [32],
+    "name": "SNMPv3 HMAC-SHA512-384",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
     "charset": "hex",
-    "weight": 150,
-    "notes": "Samba NT Hash (same as NTLM)",
+    "weight": 170,
+    "notes": "SNMPv3 HMAC-SHA512-384",
+    "hashcat_mode": 1700,
+    "salt_position": "none"
+  },
+  {
+    "name": "WPA-EAPOL-PBKDF2",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "WPA-EAPOL-PBKDF2",
+    "hashcat_mode": 12000,
+    "salt_position": "none"
+  },
+  {
+    "name": "WPA-EAPOL-PMK",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "WPA-EAPOL-PMK",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "WPA-PBKDF2-PMKID+EAPOL",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "WPA-PBKDF2-PMKID+EAPOL",
+    "hashcat_mode": 12000,
+    "salt_position": "none"
+  },
+  {
+    "name": "WPA-PMK-PMKID+EAPOL",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "WPA-PMK-PMKID+EAPOL",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "WPA-PMKID-PBKDF2",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "WPA-PMKID-PBKDF2",
+    "hashcat_mode": 12000,
+    "salt_position": "none"
+  },
+  {
+    "name": "WPA-PMKID-PMK",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "WPA-PMKID-PMK",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "IPMI2 RAKP HMAC-MD5",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "IPMI2 RAKP HMAC-MD5",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "IPMI2 RAKP HMAC-SHA1",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "IPMI2 RAKP HMAC-SHA1",
+    "hashcat_mode": 100,
+    "salt_position": "none"
+  },
+  {
+    "name": "CRAM-MD5",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "CRAM-MD5",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "MS SNTP",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MS SNTP",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "JWT (JSON Web Token)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "JWT (JSON Web Token)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Kerberos 5, etype 17, TGS-REP",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Kerberos 5, etype 17, TGS-REP",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Kerberos 5, etype 17, Pre-Auth",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Kerberos 5, etype 17, Pre-Auth",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Kerberos 5, etype 17, DB",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Kerberos 5, etype 17, DB",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Kerberos 5, etype 17, AS-REP",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Kerberos 5, etype 17, AS-REP",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Kerberos 5, etype 18, TGS-REP",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Kerberos 5, etype 18, TGS-REP",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Kerberos 5, etype 18, Pre-Auth",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Kerberos 5, etype 18, Pre-Auth",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Kerberos 5, etype 18, DB",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Kerberos 5, etype 18, DB",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Kerberos 5, etype 18, AS-REP",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Kerberos 5, etype 18, AS-REP",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Kerberos 5, etype 23, AS-REQ Pre-Auth",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Kerberos 5, etype 23, AS-REQ Pre-Auth",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Kerberos 5, etype 23, TGS-REP",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Kerberos 5, etype 23, TGS-REP",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Kerberos 5, etype 23, AS-REP",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Kerberos 5, etype 23, AS-REP",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "NetNTLMv1 / NetNTLMv1+ESS",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "NetNTLMv1 / NetNTLMv1+ESS",
     "hashcat_mode": 1000,
     "salt_position": "none"
   },
   {
-    "name": "MD5-Half",
-    "pattern": null,
-    "lengths": [16],
+    "name": "NetNTLMv1 / NetNTLMv1+ESS (NT)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
     "charset": "hex",
-    "weight": 80,
-    "notes": "First 8 bytes of MD5 hash",
-    "hashcat_mode": 510,
+    "weight": 170,
+    "notes": "NetNTLMv1 / NetNTLMv1+ESS (NT)",
+    "hashcat_mode": 1000,
     "salt_position": "none"
   },
   {
-    "name": "SHA1-Half",
-    "pattern": null,
-    "lengths": [20],
+    "name": "NetNTLMv2",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
     "charset": "hex",
-    "weight": 90,
-    "notes": "First 10 bytes of SHA1 hash",
-    "hashcat_mode": 520,
+    "weight": 170,
+    "notes": "NetNTLMv2",
+    "hashcat_mode": 1000,
     "salt_position": "none"
   },
   {
-    "name": "Skype",
-    "pattern": "^[0-9a-f]{64}$",
-    "lengths": [64],
+    "name": "NetNTLMv2 (NT)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
     "charset": "hex",
-    "weight": 160,
-    "notes": "Skype (SHA256)",
-    "hashcat_mode": 1400,
+    "weight": 170,
+    "notes": "NetNTLMv2 (NT)",
+    "hashcat_mode": 1000,
     "salt_position": "none"
   },
   {
-    "name": "iOS Keychain (SHA1)",
-    "pattern": "^[0-9a-f]{40}$",
-    "lengths": [40],
+    "name": "Flask Session Cookie ($salt.$salt.$pass)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Flask Session Cookie ($salt.$salt.$pass)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "Amazon AWS Signature Version 4",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Amazon AWS Signature Version 4",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "iSCSI CHAP authentication, MD5(CHAP)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
     "charset": "hex",
-    "weight": 150,
-    "notes": "iOS Keychain (SHA1)",
+    "weight": 170,
+    "notes": "iSCSI CHAP authentication, MD5(CHAP)",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "RACF",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "RACF",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "RACF KDFAES",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "RACF KDFAES",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "AIX {smd5}",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "AIX {smd5}",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "AIX {ssha1}",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "AIX {ssha1}",
     "hashcat_mode": 100,
     "salt_position": "none"
   },
   {
-    "name": "Android LockScreen",
-    "pattern": "^[0-9a-f]{32}$",
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "Android LockScreen Hash",
-    "hashcat_mode": 5800,
-    "salt_position": "none"
-  },
-  {
-    "name": "MD5(md5(pass))",
-    "pattern": null,
-    "lengths": [32],
-    "charset": "hex",
-    "weight": 130,
-    "notes": "Double MD5",
-    "hashcat_mode": 2600,
-    "salt_position": "none"
-  },
-  {
-    "name": "SHA1(sha1(pass))",
-    "pattern": null,
-    "lengths": [40],
-    "charset": "hex",
-    "weight": 140,
-    "notes": "Double SHA1",
-    "hashcat_mode": 4700,
-    "salt_position": "none"
-  },
-  {
-    "name": "MD5(pass.salt)",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "MD5 with concatenated salt",
-    "hashcat_mode": 30,
-    "salt_position": "external"
-  },
-  {
-    "name": "SHA1(pass.salt)",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{1,32}$",
-    "lengths": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "SHA1 with concatenated salt",
-    "hashcat_mode": 130,
-    "salt_position": "external"
-  },
-  {
-    "name": "MD5(salt.pass)",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "MD5 with prepended salt",
-    "hashcat_mode": 10,
-    "salt_position": "external"
-  },
-  {
-    "name": "SHA1(salt.pass)",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{1,32}$",
-    "lengths": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "SHA1 with prepended salt",
-    "hashcat_mode": 110,
-    "salt_position": "external"
-  },
-  {
-    "name": "MD5(md5(pass).salt)",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "MD5(MD5(pass).salt)",
-    "hashcat_mode": 20,
-    "salt_position": "external"
-  },
-  {
-    "name": "SHA1(sha1(pass).salt)",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{1,32}$",
-    "lengths": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "SHA1(SHA1(pass).salt)",
-    "hashcat_mode": 120,
-    "salt_position": "external"
-  },
-  {
-    "name": "MD5(salt.md5(pass))",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "MD5(salt.MD5(pass))",
-    "hashcat_mode": 3610,
-    "salt_position": "external"
-  },
-  {
-    "name": "SHA1(salt.sha1(pass))",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{1,32}$",
-    "lengths": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "SHA1(salt.SHA1(pass))",
-    "hashcat_mode": 3710,
-    "salt_position": "external"
-  },
-  {
-    "name": "MD5(md5(salt).pass)",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "MD5(MD5(salt).pass)",
-    "hashcat_mode": 40,
-    "salt_position": "external"
-  },
-  {
-    "name": "SHA1(sha1(salt).pass)",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{1,32}$",
-    "lengths": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "SHA1(SHA1(salt).pass)",
-    "hashcat_mode": 140,
-    "salt_position": "external"
-  },
-  {
-    "name": "MD5(pass.md5(salt))",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 150,
-    "notes": "MD5(pass.MD5(salt))",
-    "hashcat_mode": 30,
-    "salt_position": "external"
-  },
-  {
-    "name": "SHA1(pass.sha1(salt))",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{1,32}$",
-    "lengths": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "SHA1(pass.SHA1(salt))",
-    "hashcat_mode": 130,
-    "salt_position": "external"
-  },
-  {
-    "name": "MD5(salt.pass.salt)",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "MD5(salt.pass.salt)",
-    "hashcat_mode": 3810,
-    "salt_position": "external"
-  },
-  {
-    "name": "SHA1(salt.pass.salt)",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{1,32}$",
-    "lengths": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72],
+    "name": "AIX {ssha256}",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
     "charset": "hex",
     "weight": 170,
-    "notes": "SHA1(salt.pass.salt)",
-    "hashcat_mode": 3910,
-    "salt_position": "external"
-  },
-  {
-    "name": "MD5(pass.salt.pass)",
-    "pattern": "^[0-9a-f]{32}:[0-9a-f]{1,32}$",
-    "lengths": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64],
-    "charset": "hex",
-    "weight": 160,
-    "notes": "MD5(pass.salt.pass)",
-    "hashcat_mode": 4010,
-    "salt_position": "external"
-  },
-  {
-    "name": "SHA1(pass.salt.pass)",
-    "pattern": "^[0-9a-f]{40}:[0-9a-f]{1,32}$",
-    "lengths": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72],
-    "charset": "hex",
-    "weight": 170,
-    "notes": "SHA1(pass.salt.pass)",
-    "hashcat_mode": 4110,
-    "salt_position": "external"
-  },
-  {
-    "name": "Cisco PIX/ASA (SHA1)",
-    "pattern": "^([0-9a-f]{40})([0-9a-f]{40})$",
-    "lengths": [80],
-    "charset": "hex",
-    "weight": 180,
-    "notes": "Cisco PIX/ASA SHA1",
-    "hashcat_mode": 2410,
-    "salt_position": "none"
-  },
-  {
-    "name": "Netscape LDAP (SSHA-512)",
-    "pattern": "^\\{SSHA512\\}([A-Za-z0-9+/=]{88})$",
-    "lengths": [96],
-    "charset": "base64",
-    "weight": 220,
-    "notes": "Netscape LDAP SSHA512",
-    "hashcat_mode": 1712,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Wordpress (MD5 with User ID)",
-    "pattern": "^\\$P\\$([A-Za-z0-9./]{8})([A-Za-z0-9./]{31})\\$([0-9]+)$",
-    "lengths": [40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50],
-    "charset": "mix",
-    "weight": 230,
-    "notes": "Wordpress (PHPass with UID)",
-    "hashcat_mode": 400,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Joomla (SHA256)",
-    "pattern": "^[0-9a-f]{64}:[a-zA-Z0-9]{32}$",
-    "lengths": [97],
-    "charset": "hex",
-    "weight": 190,
-    "notes": "Joomla (SHA256 + Salt)",
+    "notes": "AIX {ssha256}",
     "hashcat_mode": 1400,
-    "salt_position": "external"
+    "salt_position": "none"
   },
   {
-    "name": "Joomla (SHA512)",
-    "pattern": "^[0-9a-f]{128}:[a-zA-Z0-9]{32}$",
-    "lengths": [161],
+    "name": "AIX {ssha512}",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
     "charset": "hex",
-    "weight": 210,
-    "notes": "Joomla (SHA512 + Salt)",
-    "hashcat_mode": 1700,
-    "salt_position": "external"
-  },
-  {
-    "name": "Drupal 8/9",
-    "pattern": "^\\$argon2id\\$v=19\\$m=([0-9]+),t=([0-9]+),p=([0-9]+)\\$([A-Za-z0-9+/=]{16})([A-Za-z0-9+/=]{128})$",
-    "lengths": [250, 251, 252, 253, 254, 255, 256],
-    "charset": "base64",
-    "weight": 380,
-    "notes": "Drupal 8/9 (Argon2id)",
-    "hashcat_mode": 16300,
-    "salt_position": "inline"
-  },
-  {
-    "name": "Ethereum Pre-sale Wallet",
-    "pattern": "^\\$ethereum\\$([0-9a-f]{32})\\$([0-9a-f]{10,})$",
-    "lengths": [150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160],
-    "charset": "hex",
-    "weight": 300,
-    "notes": "Ethereum Pre-sale Wallet (Scrypt)",
-    "hashcat_mode": 15700,
-    "salt_position": "external"
-  },
-  {
-    "name": "IKE-PSK (MD5)",
-    "pattern": "^([A-Za-z0-9+/=]{22})\\*([A-Za-z0-9+/=]{22})$",
-    "lengths": [45],
-    "charset": "base64",
-    "weight": 160,
-    "notes": "IKE-PSK (MD5)",
-    "hashcat_mode": 6600,
-    "salt_position": "external"
-  },
-  {
-    "name": "IKE-PSK (SHA1)",
-    "pattern": "^([A-Za-z0-9+/=]{28})\\*([A-Za-z0-9+/=]{28})$",
-    "lengths": [57],
-    "charset": "base64",
     "weight": 170,
-    "notes": "IKE-PSK (SHA1)",
-    "hashcat_mode": 6700,
+    "notes": "AIX {ssha512}",
+    "hashcat_mode": 1700,
+    "salt_position": "none"
+  },
+  {
+    "name": "LM",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 100,
+    "notes": "LM",
+    "hashcat_mode": 3000,
+    "salt_position": "none"
+  },
+  {
+    "name": "QNX /etc/shadow (MD5)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "QNX /etc/shadow (MD5)",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "QNX /etc/shadow (SHA256)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "QNX /etc/shadow (SHA256)",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "QNX /etc/shadow (SHA512)",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "QNX /etc/shadow (SHA512)",
+    "hashcat_mode": 1700,
+    "salt_position": "none"
+  },
+  {
+    "name": "QNX 7 /etc/shadow (SHA512)",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "QNX 7 /etc/shadow (SHA512)",
+    "hashcat_mode": 1700,
+    "salt_position": "none"
+  },
+  {
+    "name": "DPAPI masterkey file v1 (context 1 and 2)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "DPAPI masterkey file v1 (context 1 and 2)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "DPAPI masterkey file v1 (context 3)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "DPAPI masterkey file v1 (context 3)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "DPAPI masterkey file v2 (context 1 and 2)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "DPAPI masterkey file v2 (context 1 and 2)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "DPAPI masterkey file v2 (context 3)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "DPAPI masterkey file v2 (context 3)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "GRUB 2",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "GRUB 2",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MS-AzureSync PBKDF2-HMAC-SHA256",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "MS-AzureSync PBKDF2-HMAC-SHA256",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "AS/400 DES",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "AS/400 DES",
+    "hashcat_mode": 150,
+    "salt_position": "none"
+  },
+  {
+    "name": "AS/400 SSHA1",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "AS/400 SSHA1",
+    "hashcat_mode": 100,
+    "salt_position": "none"
+  },
+  {
+    "name": "BSDi Crypt, Extended DES",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "BSDi Crypt, Extended DES",
+    "hashcat_mode": 150,
+    "salt_position": "internal"
+  },
+  {
+    "name": "NTLM",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "NTLM",
+    "hashcat_mode": 1000,
+    "salt_position": "none"
+  },
+  {
+    "name": "Radmin2",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Radmin2",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Samsung Android Password/PIN",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Samsung Android Password/PIN",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Microsoft Online Account",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Microsoft Online Account",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Windows Hello PIN/Password",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Windows Hello PIN/Password",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Windows Phone 8+ PIN/password",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Windows Phone 8+ PIN/password",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Cisco-ASA MD5",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Cisco-ASA MD5",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "Cisco-IOS $8$ (PBKDF2-SHA256)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Cisco-IOS $8$ (PBKDF2-SHA256)",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "Cisco-IOS $9$ (scrypt)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "Cisco-IOS $9$ (scrypt)",
+    "hashcat_mode": 8900,
+    "salt_position": "internal"
+  },
+  {
+    "name": "Cisco-IOS type 4 (SHA256)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Cisco-IOS type 4 (SHA256)",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "Cisco-ISE Hashed Password (SHA256)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Cisco-ISE Hashed Password (SHA256)",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "Cisco-PIX MD5",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Cisco-PIX MD5",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "Citrix NetScaler (PBKDF2-HMAC-SHA256)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Citrix NetScaler (PBKDF2-HMAC-SHA256)",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "Citrix NetScaler (SHA1)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Citrix NetScaler (SHA1)",
+    "hashcat_mode": 100,
+    "salt_position": "none"
+  },
+  {
+    "name": "Citrix NetScaler (SHA512)",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Citrix NetScaler (SHA512)",
+    "hashcat_mode": 1700,
+    "salt_position": "none"
+  },
+  {
+    "name": "Domain Cached Credentials, MS Cache",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Domain Cached Credentials, MS Cache",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Domain Cached Credentials 2, MS Cache 2",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Domain Cached Credentials 2, MS Cache 2",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Domain Cached Credentials, MS Cache (NT)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Domain Cached Credentials, MS Cache (NT)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Domain Cached Credentials 2, MS Cache 2, (NT)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Domain Cached Credentials 2, MS Cache 2, (NT)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "FortiGate (FortiOS)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "FortiGate (FortiOS)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "FortiGate256 (FortiOS256)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "FortiGate256 (FortiOS256)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "ArubaOS",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "ArubaOS",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Juniper IVE",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Juniper IVE",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Juniper NetScreen/SSG (ScreenOS)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Juniper NetScreen/SSG (ScreenOS)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Juniper/NetBSD sha1crypt",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Juniper/NetBSD sha1crypt",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "iPhone passcode (UID key + System Keybag)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "iPhone passcode (UID key + System Keybag)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "macOS v10.4, macOS v10.5, macOS v10.6",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "macOS v10.4, macOS v10.5, macOS v10.6",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "macOS v10.7",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "macOS v10.7",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "macOS v10.8+ (PBKDF2-SHA512)",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "macOS v10.8+ (PBKDF2-SHA512)",
+    "hashcat_mode": 1700,
+    "salt_position": "none"
+  },
+  {
+    "name": "bcrypt $2*$, Blowfish (Unix)",
+    "pattern": "^\\$2[aby]\\$.{56}$",
+    "lengths": [
+      60
+    ],
+    "charset": "bcrypt",
+    "weight": 170,
+    "notes": "bcrypt $2*$, Blowfish (Unix)",
+    "hashcat_mode": 3200,
+    "salt_position": "internal"
+  },
+  {
+    "name": "md5crypt, MD5 (Unix), Cisco-IOS $1$ (MD5)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "md5crypt, MD5 (Unix), Cisco-IOS $1$ (MD5)",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "descrypt, DES (Unix), Traditional DES",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "descrypt, DES (Unix), Traditional DES",
+    "hashcat_mode": 8900,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha256crypt $5$, SHA256 (Unix)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha256crypt $5$, SHA256 (Unix)",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sha512crypt $6$, SHA512 (Unix)",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "sha512crypt $6$, SHA512 (Unix)",
+    "hashcat_mode": 1700,
+    "salt_position": "internal"
+  },
+  {
+    "name": "sm3crypt $sm3$, SM3 (Unix)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "sm3crypt $sm3$, SM3 (Unix)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "MSSQL (2000)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MSSQL (2000)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MSSQL (2005)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MSSQL (2005)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MSSQL (2012, 2014)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MSSQL (2012, 2014)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MongoDB ServerKey SCRAM-SHA-1",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MongoDB ServerKey SCRAM-SHA-1",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MongoDB ServerKey SCRAM-SHA-256",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MongoDB ServerKey SCRAM-SHA-256",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "PostgreSQL",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "PostgreSQL",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "PostgreSQL CRAM (MD5)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "PostgreSQL CRAM (MD5)",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "PostgreSQL SCRAM-SHA-256",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "PostgreSQL SCRAM-SHA-256",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Oracle H: Type (Oracle 7+)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Oracle H: Type (Oracle 7+)",
+    "hashcat_mode": null,
     "salt_position": "external"
+  },
+  {
+    "name": "Oracle S: Type (Oracle 11+)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Oracle S: Type (Oracle 11+)",
+    "hashcat_mode": null,
+    "salt_position": "external"
+  },
+  {
+    "name": "Oracle T: Type (Oracle 12+)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Oracle T: Type (Oracle 12+)",
+    "hashcat_mode": null,
+    "salt_position": "external"
+  },
+  {
+    "name": "MySQL $A$ (sha256crypt)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "MySQL $A$ (sha256crypt)",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "MySQL CRAM (SHA1)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "MySQL CRAM (SHA1)",
+    "hashcat_mode": 100,
+    "salt_position": "none"
+  },
+  {
+    "name": "MySQL323",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 170,
+    "notes": "MySQL323",
+    "hashcat_mode": 200,
+    "salt_position": "none"
+  },
+  {
+    "name": "MySQL4.1/MySQL5",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 170,
+    "notes": "MySQL4.1/MySQL5",
+    "hashcat_mode": 300,
+    "salt_position": "none"
+  },
+  {
+    "name": "Sybase ASE",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Sybase ASE",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "DNSSEC (NSEC3)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "DNSSEC (NSEC3)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "KNX IP Secure - Device Authentication Code",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "KNX IP Secure - Device Authentication Code",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "CRAM-MD5 Dovecot",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "CRAM-MD5 Dovecot",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "SSHA-256(Base64), LDAP {SSHA256}",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "SSHA-256(Base64), LDAP {SSHA256}",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "SSHA-512(Base64), LDAP {SSHA512}",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "SSHA-512(Base64), LDAP {SSHA512}",
+    "hashcat_mode": 1700,
+    "salt_position": "none"
+  },
+  {
+    "name": "Radmin3",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Radmin3",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Dahua Authentication MD5",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Dahua Authentication MD5",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "RedHat 389-DS LDAP (PBKDF2-HMAC-SHA256)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "RedHat 389-DS LDAP (PBKDF2-HMAC-SHA256)",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "Besder Authentication MD5",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Besder Authentication MD5",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "FileZilla Server >= 0.9.55",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "FileZilla Server >= 0.9.55",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "ColdFusion 10+",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "ColdFusion 10+",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Apache $apr1$ MD5, md5apr1, MD5 (APR)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Apache $apr1$ MD5, md5apr1, MD5 (APR)",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "Episerver 6.x < .NET 4",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Episerver 6.x < .NET 4",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Episerver 6.x >= .NET 4",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Episerver 6.x >= .NET 4",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "hMailServer",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "hMailServer",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "nsldap, SHA-1(Base64), Netscape LDAP SHA",
+    "pattern": "^[A-Za-z0-9+/=]+$",
+    "lengths": [],
+    "charset": "base64",
+    "weight": 30,
+    "notes": "nsldap, SHA-1(Base64), Netscape LDAP SHA",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "nsldaps, SSHA-1(Base64), Netscape LDAP SSHA",
+    "pattern": "^[A-Za-z0-9+/=]+$",
+    "lengths": [],
+    "charset": "base64",
+    "weight": 30,
+    "notes": "nsldaps, SSHA-1(Base64), Netscape LDAP SSHA",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "SAP CODVN B (BCODE)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "SAP CODVN B (BCODE)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "SAP CODVN B (BCODE) from RFC_READ_TABLE",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "SAP CODVN B (BCODE) from RFC_READ_TABLE",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "SAP CODVN F/G (PASSCODE)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "SAP CODVN F/G (PASSCODE)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "SAP CODVN F/G (PASSCODE) from RFC_READ_TABLE",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "SAP CODVN F/G (PASSCODE) from RFC_READ_TABLE",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "SAP CODVN H (PWDSALTEDHASH) iSSHA-1",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "SAP CODVN H (PWDSALTEDHASH) iSSHA-1",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "SAP CODVN H (PWDSALTEDHASH) isSHA512",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "SAP CODVN H (PWDSALTEDHASH) isSHA512",
+    "hashcat_mode": 1700,
+    "salt_position": "none"
+  },
+  {
+    "name": "RSA Security Analytics / NetWitness (sha256)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "RSA Security Analytics / NetWitness (sha256)",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "Adobe AEM (SSPR, SHA-256 with Salt)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Adobe AEM (SSPR, SHA-256 with Salt)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Adobe AEM (SSPR, SHA-512 with Salt)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "Adobe AEM (SSPR, SHA-512 with Salt)",
+    "hashcat_mode": 1700,
+    "salt_position": "none"
+  },
+  {
+    "name": "PeopleSoft",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "PeopleSoft",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "PeopleSoft PS_TOKEN",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "PeopleSoft PS_TOKEN",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "NetIQ SSPR (MD5)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "NetIQ SSPR (MD5)",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "NetIQ SSPR (PBKDF2WithHmacSHA1)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "NetIQ SSPR (PBKDF2WithHmacSHA1)",
+    "hashcat_mode": 100,
+    "salt_position": "none"
+  },
+  {
+    "name": "NetIQ SSPR (PBKDF2WithHmacSHA256)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "NetIQ SSPR (PBKDF2WithHmacSHA256)",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "NetIQ SSPR (PBKDF2WithHmacSHA512)",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "NetIQ SSPR (PBKDF2WithHmacSHA512)",
+    "hashcat_mode": 1700,
+    "salt_position": "none"
+  },
+  {
+    "name": "NetIQ SSPR (SHA-1 with Salt)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "NetIQ SSPR (SHA-1 with Salt)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "NetIQ SSPR (SHA-256 with Salt)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "NetIQ SSPR (SHA-256 with Salt)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "NetIQ SSPR (SHA-512 with Salt)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "NetIQ SSPR (SHA-512 with Salt)",
+    "hashcat_mode": 1700,
+    "salt_position": "none"
+  },
+  {
+    "name": "NetIQ SSPR (SHA1)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "NetIQ SSPR (SHA1)",
+    "hashcat_mode": 100,
+    "salt_position": "none"
+  },
+  {
+    "name": "SolarWinds Orion",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "SolarWinds Orion",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "SolarWinds Orion v2",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "SolarWinds Orion v2",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "SolarWinds Serv-U",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "SolarWinds Serv-U",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Lotus Notes/Domino 5",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Lotus Notes/Domino 5",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Lotus Notes/Domino 6",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Lotus Notes/Domino 6",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Lotus Notes/Domino 8",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Lotus Notes/Domino 8",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "OpenEdge Progress Encode",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "OpenEdge Progress Encode",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Oracle Transportation Management (SHA256)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Oracle Transportation Management (SHA256)",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "Huawei sha1(md5($pass).$salt)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Huawei sha1(md5($pass).$salt)",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "AuthMe sha256",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "AuthMe sha256",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "AES Crypt (SHA256)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "AES Crypt (SHA256)",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "VMware VMX (PBKDF2-HMAC-SHA1 + AES-256-CBC)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "VMware VMX (PBKDF2-HMAC-SHA1 + AES-256-CBC)",
+    "hashcat_mode": 100,
+    "salt_position": "none"
+  },
+  {
+    "name": "LUKS",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "LUKS",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "LUKS 2",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "LUKS 2",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "VeraCrypt",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "VeraCrypt",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "BestCrypt v3 Volume Encryption",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "BestCrypt v3 Volume Encryption",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "BestCrypt v4 Volume Encryption",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "BestCrypt v4 Volume Encryption",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "FileVault 2",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "FileVault 2",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "VirtualBox (PBKDF2-HMAC-SHA256 & AES-128-XTS)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "VirtualBox (PBKDF2-HMAC-SHA256 & AES-128-XTS)",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "VirtualBox (PBKDF2-HMAC-SHA256 & AES-256-XTS)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "VirtualBox (PBKDF2-HMAC-SHA256 & AES-256-XTS)",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "DiskCryptor",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "DiskCryptor",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "BitLocker",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "BitLocker",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Android FDE (Samsung DEK)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Android FDE (Samsung DEK)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Android FDE <= 4.3",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Android FDE <= 4.3",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Apple File System (APFS)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Apple File System (APFS)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "TrueCrypt",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "TrueCrypt",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "eCryptfs",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "eCryptfs",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "PDF 1.1 - 1.3 (Acrobat 2 - 4)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "PDF 1.1 - 1.3 (Acrobat 2 - 4)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "PDF 1.1 - 1.3 (Acrobat 2 - 4), collider #1",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "PDF 1.1 - 1.3 (Acrobat 2 - 4), collider #1",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "PDF 1.1 - 1.3 (Acrobat 2 - 4), collider #2",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "PDF 1.1 - 1.3 (Acrobat 2 - 4), collider #2",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "PDF 1.3 - 1.6 (Acrobat 4 - 8) w/ RC4-40",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "PDF 1.3 - 1.6 (Acrobat 4 - 8) w/ RC4-40",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "PDF 1.4 - 1.6 (Acrobat 5 - 8)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "PDF 1.4 - 1.6 (Acrobat 5 - 8)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "PDF 1.4 - 1.6 (Acrobat 5 - 8) - user and owner pass",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "PDF 1.4 - 1.6 (Acrobat 5 - 8) - user and owner pass",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "PDF 1.7 Level 3 (Acrobat 9)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "PDF 1.7 Level 3 (Acrobat 9)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "PDF 1.7 Level 8 (Acrobat 10 - 11)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "PDF 1.7 Level 8 (Acrobat 10 - 11)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MS Office 2007",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MS Office 2007",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MS Office 2010",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MS Office 2010",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MS Office 2013",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MS Office 2013",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MS Office 2016 - SheetProtection",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MS Office 2016 - SheetProtection",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MS Office <= 2003 $0/$1, MD5 + RC4",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "MS Office <= 2003 $0/$1, MD5 + RC4",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "MS Office <= 2003 $0/$1, MD5 + RC4, collider #1",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "MS Office <= 2003 $0/$1, MD5 + RC4, collider #1",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "MS Office <= 2003 $0/$1, MD5 + RC4, collider #2",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "MS Office <= 2003 $0/$1, MD5 + RC4, collider #2",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "MS Office <= 2003 $3, SHA1 + RC4, collider #1",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "MS Office <= 2003 $3, SHA1 + RC4, collider #1",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "MS Office <= 2003 $3, SHA1 + RC4, collider #2",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "MS Office <= 2003 $3, SHA1 + RC4, collider #2",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "MS Office <= 2003 $3/$4, SHA1 + RC4",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "MS Office <= 2003 $3/$4, SHA1 + RC4",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "Open Document Format (ODF) 1.2 (SHA-256, AES)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Open Document Format (ODF) 1.2 (SHA-256, AES)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Open Document Format (ODF) 1.1 (SHA-1, Blowfish)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Open Document Format (ODF) 1.1 (SHA-1, Blowfish)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Apple Secure Notes",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Apple Secure Notes",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Apple iWork",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Apple iWork",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "1Password, agilekeychain",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "1Password, agilekeychain",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "1Password, cloudkeychain",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "1Password, cloudkeychain",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "1Password, mobilekeychain (1Password 8)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "1Password, mobilekeychain (1Password 8)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Password Safe v2",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Password Safe v2",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Password Safe v3",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Password Safe v3",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "LastPass + LastPass sniffed",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "LastPass + LastPass sniffed",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "KeePass (KDBX v2/v3)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "KeePass (KDBX v2/v3)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "KeePass (KDBX v2/v3) - keyfile only",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "KeePass (KDBX v2/v3) - keyfile only",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "KeePass (KDBX v4)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "KeePass (KDBX v4)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Bitwarden",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Bitwarden",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Ansible Vault",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Ansible Vault",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Mozilla key3.db",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Mozilla key3.db",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Mozilla key4.db",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Mozilla key4.db",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Apple Keychain",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Apple Keychain",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "7-Zip",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "7-Zip",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "RAR3",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "RAR3",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "RAR5",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "RAR5",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "PKZIP",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "PKZIP",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "PKZIP Master Key",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "PKZIP Master Key",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "PKZIP Master Key (6 byte optimization)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "PKZIP Master Key (6 byte optimization)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "SecureZIP AES-128",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "SecureZIP AES-128",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "SecureZIP AES-192",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "SecureZIP AES-192",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "SecureZIP AES-256",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "SecureZIP AES-256",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Veeam VBK",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Veeam VBK",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "WinZip",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "WinZip",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Android Backup",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Android Backup",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Kremlin Encrypt 3.0 w/NewDES",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "Kremlin Encrypt 3.0 w/NewDES",
+    "hashcat_mode": 150,
+    "salt_position": "internal"
+  },
+  {
+    "name": "Stuffit5",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Stuffit5",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "AxCrypt 1",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "AxCrypt 1",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "AxCrypt 1 in-memory SHA1",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "AxCrypt 1 in-memory SHA1",
+    "hashcat_mode": 100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "AxCrypt 2 AES-128",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "AxCrypt 2 AES-128",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "AxCrypt 2 AES-256",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "AxCrypt 2 AES-256",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "iTunes backup < 10.0",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "iTunes backup < 10.0",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "iTunes backup >= 10.0",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "iTunes backup >= 10.0",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "mega.nz password-protected link",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "mega.nz password-protected link",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "WBB3 (Woltlab Burning Board)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "WBB3 (Woltlab Burning Board)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "WBB4 (Woltlab Burning Board) [bcrypt(bcrypt($pass))]",
+    "pattern": "^\\$2[aby]\\$.{56}$",
+    "lengths": [
+      60
+    ],
+    "charset": "bcrypt",
+    "weight": 170,
+    "notes": "WBB4 (Woltlab Burning Board) [bcrypt(bcrypt($pass))]",
+    "hashcat_mode": 3200,
+    "salt_position": "internal"
+  },
+  {
+    "name": "PHPS",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "PHPS",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "SMF (Simple Machines Forum) > v1.1",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "SMF (Simple Machines Forum) > v1.1",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MediaWiki B type",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MediaWiki B type",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Redmine",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Redmine",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Simpla CMS - md5($salt.$pass.md5($pass))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Simpla CMS - md5($salt.$pass.md5($pass))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "Umbraco HMAC-SHA1",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Umbraco HMAC-SHA1",
+    "hashcat_mode": 100,
+    "salt_position": "none"
+  },
+  {
+    "name": "Empire CMS (Admin password)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Empire CMS (Admin password)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Joomla < 2.5.18",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Joomla < 2.5.18",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "OpenCart",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "OpenCart",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "PrestaShop",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "PrestaShop",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Tripcode",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Tripcode",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Drupal7",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Drupal7",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "CubeCart (whirlpool($salt.$pass.$salt))",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "CubeCart (whirlpool($salt.$pass.$salt))",
+    "hashcat_mode": 6100,
+    "salt_position": "internal"
+  },
+  {
+    "name": "PunBB",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "PunBB",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MyBB 1.2+, IPB2+ (Invision Power Board)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MyBB 1.2+, IPB2+ (Invision Power Board)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "vBulletin < v3.8.5",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "vBulletin < v3.8.5",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "vBulletin >= v3.8.5",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "vBulletin >= v3.8.5",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "osCommerce, xt:Commerce",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "osCommerce, xt:Commerce",
+    "hashcat_mode": null,
+    "salt_position": "external"
+  },
+  {
+    "name": "TOTP (HMAC-SHA1)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "TOTP (HMAC-SHA1)",
+    "hashcat_mode": 100,
+    "salt_position": "none"
+  },
+  {
+    "name": "Web2py pbkdf2-sha512",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Web2py pbkdf2-sha512",
+    "hashcat_mode": 1700,
+    "salt_position": "none"
+  },
+  {
+    "name": "Perl Mojolicious session cookie",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Perl Mojolicious session cookie",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Django (PBKDF2-SHA256)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Django (PBKDF2-SHA256)",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "Django (SHA-1)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Django (SHA-1)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Apache Shiro 1 SHA-512",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "Apache Shiro 1 SHA-512",
+    "hashcat_mode": 1700,
+    "salt_position": "none"
+  },
+  {
+    "name": "Atlassian (PBKDF2-HMAC-SHA1)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Atlassian (PBKDF2-HMAC-SHA1)",
+    "hashcat_mode": 100,
+    "salt_position": "none"
+  },
+  {
+    "name": "Ruby on Rails Restful-Authentication",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Ruby on Rails Restful-Authentication",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Ruby on Rails Restful Auth (one round, no sitekey)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Ruby on Rails Restful Auth (one round, no sitekey)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Python Werkzeug MD5 (HMAC-MD5 (key = $salt))",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Python Werkzeug MD5 (HMAC-MD5 (key = $salt))",
+    "hashcat_mode": 0,
+    "salt_position": "internal"
+  },
+  {
+    "name": "Python Werkzeug SHA256 (HMAC-SHA256 (key = $salt))",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Python Werkzeug SHA256 (HMAC-SHA256 (key = $salt))",
+    "hashcat_mode": 1400,
+    "salt_position": "internal"
+  },
+  {
+    "name": "Python passlib pbkdf2-sha512",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Python passlib pbkdf2-sha512",
+    "hashcat_mode": 1700,
+    "salt_position": "none"
+  },
+  {
+    "name": "Python passlib pbkdf2-sha256",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Python passlib pbkdf2-sha256",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "Python passlib pbkdf2-sha1",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Python passlib pbkdf2-sha1",
+    "hashcat_mode": 100,
+    "salt_position": "none"
+  },
+  {
+    "name": "PKCS#8 Private Keys (PBKDF2-HMAC-SHA1 + 3DES/AES)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "PKCS#8 Private Keys (PBKDF2-HMAC-SHA1 + 3DES/AES)",
+    "hashcat_mode": 100,
+    "salt_position": "none"
+  },
+  {
+    "name": "PKCS#8 Private Keys (PBKDF2-HMAC-SHA256 + 3DES/AES)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "PKCS#8 Private Keys (PBKDF2-HMAC-SHA256 + 3DES/AES)",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "JKS Java Key Store Private Keys (SHA1)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "JKS Java Key Store Private Keys (SHA1)",
+    "hashcat_mode": 100,
+    "salt_position": "none"
+  },
+  {
+    "name": "GPG (AES-128/AES-256 (SHA-1($pass)))",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "GPG (AES-128/AES-256 (SHA-1($pass)))",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "GPG (AES-128/AES-256 (SHA-512($pass)))",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "GPG (AES-128/AES-256 (SHA-512($pass)))",
+    "hashcat_mode": 1700,
+    "salt_position": "internal"
+  },
+  {
+    "name": "GPG (AES-128/AES-256 (SHA-256($pass)))",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "GPG (AES-128/AES-256 (SHA-256($pass)))",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "GPG (CAST5 (SHA-1($pass)))",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "GPG (CAST5 (SHA-1($pass)))",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "RSA/DSA/EC/OpenSSH Private Keys ($0$)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "RSA/DSA/EC/OpenSSH Private Keys ($0$)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "RSA/DSA/EC/OpenSSH Private Keys ($6$)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "RSA/DSA/EC/OpenSSH Private Keys ($6$)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "RSA/DSA/EC/OpenSSH Private Keys ($1, $3$)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "RSA/DSA/EC/OpenSSH Private Keys ($1, $3$)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "RSA/DSA/EC/OpenSSH Private Keys ($4$)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "RSA/DSA/EC/OpenSSH Private Keys ($4$)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "RSA/DSA/EC/OpenSSH Private Keys ($5$)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "RSA/DSA/EC/OpenSSH Private Keys ($5$)",
+    "hashcat_mode": null,
+    "salt_position": "internal"
+  },
+  {
+    "name": "XMPP SCRAM PBKDF2-SHA1",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "XMPP SCRAM PBKDF2-SHA1",
+    "hashcat_mode": 100,
+    "salt_position": "none"
+  },
+  {
+    "name": "Teamspeak 3 (channel hash)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Teamspeak 3 (channel hash)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Telegram Desktop < v2.1.14 (PBKDF2-HMAC-SHA1)",
+    "pattern": "^[0-9a-fA-F]{40}$",
+    "lengths": [
+      40
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Telegram Desktop < v2.1.14 (PBKDF2-HMAC-SHA1)",
+    "hashcat_mode": 100,
+    "salt_position": "none"
+  },
+  {
+    "name": "Telegram Desktop >= v2.1.14 (PBKDF2-HMAC-SHA512)",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Telegram Desktop >= v2.1.14 (PBKDF2-HMAC-SHA512)",
+    "hashcat_mode": 1700,
+    "salt_position": "none"
+  },
+  {
+    "name": "Telegram Mobile App Passcode (SHA256)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Telegram Mobile App Passcode (SHA256)",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "Skype",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Skype",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Anope IRC Services (enc_sha256)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Anope IRC Services (enc_sha256)",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "Terra Station Wallet (AES256-CBC(PBKDF2($pass)))",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "Terra Station Wallet (AES256-CBC(PBKDF2($pass)))",
+    "hashcat_mode": 12000,
+    "salt_position": "internal"
+  },
+  {
+    "name": "MetaMask Mobile Wallet",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MetaMask Mobile Wallet",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MetaMask Wallet (AES-GCM tag)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MetaMask Wallet (AES-GCM tag)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "MetaMask Wallet (short hash, plaintext check)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "MetaMask Wallet (short hash, plaintext check)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Bisq .wallet (scrypt)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "Bisq .wallet (scrypt)",
+    "hashcat_mode": 8900,
+    "salt_position": "internal"
+  },
+  {
+    "name": "BitShares v0.x - sha512(sha512_bin(pass))",
+    "pattern": "^[0-9a-fA-F]{128}$",
+    "lengths": [
+      128
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "BitShares v0.x - sha512(sha512_bin(pass))",
+    "hashcat_mode": 1700,
+    "salt_position": "none"
+  },
+  {
+    "name": "Bitcoin WIF private key (P2PKH), comp",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Bitcoin WIF private key (P2PKH), comp",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Bitcoin WIF private key (P2PKH), uncomp",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Bitcoin WIF private key (P2PKH), uncomp",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Bitcoin WIF private key (P2WPKH, Bech32), comp",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Bitcoin WIF private key (P2WPKH, Bech32), comp",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Bitcoin WIF private key (P2WPKH, Bech32), uncomp",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Bitcoin WIF private key (P2WPKH, Bech32), uncomp",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Bitcoin WIF private key (P2SH(P2WPKH)), comp",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Bitcoin WIF private key (P2SH(P2WPKH)), comp",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Bitcoin WIF private key (P2SH(P2WPKH)), uncomp",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Bitcoin WIF private key (P2SH(P2WPKH)), uncomp",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Bitcoin raw private key (P2PKH), comp",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Bitcoin raw private key (P2PKH), comp",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Bitcoin raw private key (P2PKH), uncomp",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Bitcoin raw private key (P2PKH), uncomp",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Bitcoin raw private key (P2WPKH, Bech32), comp",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Bitcoin raw private key (P2WPKH, Bech32), comp",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Bitcoin raw private key (P2WPKH, Bech32), uncomp",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Bitcoin raw private key (P2WPKH, Bech32), uncomp",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Bitcoin raw private key (P2SH(P2WPKH)), comp",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Bitcoin raw private key (P2SH(P2WPKH)), comp",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Bitcoin raw private key (P2SH(P2WPKH)), uncomp",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Bitcoin raw private key (P2SH(P2WPKH)), uncomp",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Bitcoin/Litecoin wallet.dat",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Bitcoin/Litecoin wallet.dat",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Electrum Wallet (Salt-Type 1-3)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Electrum Wallet (Salt-Type 1-3)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Electrum Wallet (Salt-Type 4)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Electrum Wallet (Salt-Type 4)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Electrum Wallet (Salt-Type 5)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Electrum Wallet (Salt-Type 5)",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Blockchain, My Wallet",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Blockchain, My Wallet",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Blockchain, My Wallet, V2",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Blockchain, My Wallet, V2",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Blockchain, My Wallet, Second Password (SHA256)",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Blockchain, My Wallet, Second Password (SHA256)",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "Blockchain, My Wallet, Legacy Wallets",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Blockchain, My Wallet, Legacy Wallets",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Dogechain.info Wallet",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "Dogechain.info Wallet",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "Stargazer Stellar Wallet XLM",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 100,
+    "notes": "Stargazer Stellar Wallet XLM",
+    "hashcat_mode": 3000,
+    "salt_position": "none"
+  },
+  {
+    "name": "Ethereum Pre-Sale Wallet, PBKDF2-HMAC-SHA256",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Ethereum Pre-Sale Wallet, PBKDF2-HMAC-SHA256",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "Ethereum Wallet, PBKDF2-HMAC-SHA256",
+    "pattern": "^[0-9a-fA-F]{64}$",
+    "lengths": [
+      64
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "Ethereum Wallet, PBKDF2-HMAC-SHA256",
+    "hashcat_mode": 1400,
+    "salt_position": "none"
+  },
+  {
+    "name": "Ethereum Wallet, SCRYPT",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "Ethereum Wallet, SCRYPT",
+    "hashcat_mode": 8900,
+    "salt_position": "internal"
+  },
+  {
+    "name": "MultiBit Classic .key (MD5)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "MultiBit Classic .key (MD5)",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "MultiBit Classic .wallet (scrypt)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "MultiBit Classic .wallet (scrypt)",
+    "hashcat_mode": 8900,
+    "salt_position": "internal"
+  },
+  {
+    "name": "MultiBit HD (scrypt)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "MultiBit HD (scrypt)",
+    "hashcat_mode": 8900,
+    "salt_position": "internal"
+  },
+  {
+    "name": "Exodus Desktop Wallet (scrypt)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "Exodus Desktop Wallet (scrypt)",
+    "hashcat_mode": 8900,
+    "salt_position": "internal"
+  },
+  {
+    "name": "ENCsecurity Datavault (PBKDF2/no keychain)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "ENCsecurity Datavault (PBKDF2/no keychain)",
+    "hashcat_mode": 12000,
+    "salt_position": "none"
+  },
+  {
+    "name": "ENCsecurity Datavault (PBKDF2/keychain)",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 100,
+    "notes": "ENCsecurity Datavault (PBKDF2/keychain)",
+    "hashcat_mode": 12000,
+    "salt_position": "none"
+  },
+  {
+    "name": "ENCsecurity Datavault (MD5/no keychain)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "ENCsecurity Datavault (MD5/no keychain)",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "ENCsecurity Datavault (MD5/keychain)",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "lengths": [
+      32
+    ],
+    "charset": "hex",
+    "weight": 170,
+    "notes": "ENCsecurity Datavault (MD5/keychain)",
+    "hashcat_mode": 0,
+    "salt_position": "none"
+  },
+  {
+    "name": "SQLCipher",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "SQLCipher",
+    "hashcat_mode": null,
+    "salt_position": "none"
+  },
+  {
+    "name": "SecureCRT MasterPassphrase v2",
+    "pattern": "",
+    "lengths": [],
+    "charset": "",
+    "weight": 30,
+    "notes": "SecureCRT MasterPassphrase v2",
+    "hashcat_mode": null,
+    "salt_position": "none"
   }
 ]
-

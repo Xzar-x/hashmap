@@ -2,16 +2,16 @@
 # -*- coding: utf-8 -*-
 """
 hashmap.py — A smart hash type identifier and hashcat helper
-Version: 5.0 (Full English translation, dynamic pathing for portability)
+Version: 6.0 (Roadmap Implemented)
 Author: Xzar
 Description:
+  - Implements all roadmap features: input filtering, tolerance-based results,
+    priority scoring, NTLM heuristics, hash:salt parsing, and performance pre-filtering.
   - Signature database with over 150 hash types loaded from an external JSON file.
-  - New --cluster feature to group hashes from input files.
   - Dynamic path resolution makes the script portable and easy to install system-wide.
-  - Structure prepared for future Machine Learning model integration.
 Usage:
   hashmap <hash>
-  hashmap -f <hash_file> --cluster
+  hashmap -f <hash_file> --tolerance 10
 """
 from __future__ import annotations
 import re
@@ -51,19 +51,15 @@ except ImportError:
 PATTERN_MATCH_MULTIPLIER = 2.0
 LENGTH_NEAR_MULTIPLIER = 0.12
 CHARSET_MATCH_MULTIPLIER = 0.6
-HEURISTIC_BONUS = 25.0
-MAX_CANDIDATES_DEFAULT = 8
+MAX_CANDIDATES_DEFAULT = 10 # Increased default for better tolerance results
 LAST_UPDATE_FILE = ".hashmap_last_update"
 SIGNATURES_URL = None # URL for remote signatures. You can host the JSON on a Gist and paste the link here.
 
 # --- Dynamic path resolution for the signatures file ---
-# This ensures the script always finds its JSON file, regardless of where it's run from.
 try:
-    # __file__ is a special Python variable holding the path to the current script
     SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
     SIGNATURES_FILE = os.path.join(SCRIPT_DIR, "hashmap_signatures.json")
 except NameError:
-    # Fallback if __file__ is not defined (e.g., in an interactive interpreter)
     SIGNATURES_FILE = "hashmap_signatures.json"
 
 
@@ -84,28 +80,62 @@ def is_base64(s: str) -> bool:
 def percent(x: float) -> float:
     return round(x * 100, 2)
 
-# ------------------ Future ML Enhancement Stub ------------------
-def ml_confidence_boost(hash_str: str, top_candidate: Dict) -> float:
-    """
-    STUB FOR A FUTURE ML MODEL
-    This function could use a trained model to analyze statistical properties
-    of the hash that are not captured by regex or length checks.
+# ZMIANA (Punkt 1): Filtrowanie wejścia
+def is_valid_hash_line(line: str) -> bool:
+    s = line.strip()
+    if len(s) < 16: return False
+    if any(word in s.lower() for word in ['hashes', 'analysis', 'hash:', '(cd', '---']): return False
+    if s.count(' ') > 2: return False
+    if any(char in s for char in ['(', ')']): return False
+    return True
 
-    Example features for the model:
-    - Byte distribution (entropy)
-    - Frequency of specific characters
-    - Ratio of letters to numbers
-    - Presence of specific sequences at certain positions
+# ZMIANA (Punkt 2): Zwracanie podobnych kandydatów
+def get_similar_candidates(candidates: List[Dict], tolerance_pct: float = 15.0) -> List[Dict]:
+    if not candidates: return []
+    best_score = candidates[0]['score']
+    if best_score == 0: return [c for c in candidates if c['score'] == 0]
+    threshold = best_score * (1 - tolerance_pct / 100)
+    return [c for c in candidates if c['score'] >= threshold]
 
-    The model (e.g., Logistic Regression, RandomForest, small neural network)
-    could return an additional confidence score (e.g., from -0.2 to +0.2)
-    to adjust the final probability.
-    """
-    # For now, the function does nothing and returns a neutral value.
-    return 0.0
+# ZMIANA (Punkt 4): Heurystyka NTLM vs MD5
+def apply_ntlm_heuristics(hash_str: str, sig: dict, details: List[str]) -> float:
+    bonus = 0.0
+    s = hash_str.lower()
+    sig_name = sig.get("name", "").lower()
 
-# ------------------ Scoring Engine (v5.0) ------------------
-def score_candidate(hash_str: str, sig: dict, original_input: str) -> Tuple[float, List[str]]:
+    if "ntlm" in sig_name:
+        if not re.search(r'(.)\1{3,}', s):
+            bonus += 3
+            details.append("NTLM hint (low repetition): +3")
+    elif "md5" in sig_name:
+        if re.search(r'(.)\1{4,}', s):
+            bonus -= 4
+            details.append("Less likely MD5 (high repetition): -4")
+    return bonus
+
+# ZMIANA (Punkt 6): Obsługa formatu hash:salt
+def split_hash_salt(line: str) -> Tuple[str, str]:
+    parts = line.strip().split(':')
+    if len(parts) == 2:
+        hash_part, salt_part = parts
+        if len(hash_part) > len(salt_part) and len(salt_part) > 0:
+            return hash_part, salt_part
+    return line.strip(), ""
+
+# ZMIANA (Punkt 7): Pre-filtr po długości
+def get_candidates_by_length(hash_len: int, signatures: List[Dict]) -> List[Dict]:
+    candidates = []
+    for sig in signatures:
+        lengths = sig.get("lengths", [])
+        if lengths:
+            if hash_len in lengths or any(abs(hash_len - L) <= 2 for L in lengths):
+                candidates.append(sig)
+        elif sig.get("pattern"):
+            candidates.append(sig)
+    return candidates
+
+# ------------------ Scoring Engine (v6.0) ------------------
+def score_candidate(hash_str: str, sig: dict) -> Tuple[float, List[str]]:
     score = 0.0
     details: List[str] = []
     s = hash_str.strip()
@@ -115,7 +145,7 @@ def score_candidate(hash_str: str, sig: dict, original_input: str) -> Tuple[floa
             if re.fullmatch(sig["pattern"], s, re.IGNORECASE):
                 bonus = sig["weight"] * PATTERN_MATCH_MULTIPLIER
                 score += bonus
-                details.append(f"Pattern match: +{bonus:.1f}")
+                details.append(f"Pattern: +{bonus:.1f}")
         except re.error:
             pass
 
@@ -139,27 +169,44 @@ def score_candidate(hash_str: str, sig: dict, original_input: str) -> Tuple[floa
         score += bonus
         details.append(f"Charset ('{cs}'): +{bonus:.1f}")
 
-    if sig["name"] == "NTLM" and s.isupper() and s.isalnum():
-        score += HEURISTIC_BONUS
-        details.append(f"Heuristic (NTLM uppercase): +{HEURISTIC_BONUS}")
-    if sig["name"] == "MD5" and ":" in original_input and sig.get("salt_position") == "none":
-        score -= HEURISTIC_BONUS
-        details.append(f"Heuristic (MD5 with ':' penalty): -{HEURISTIC_BONUS:.1f}")
-
+    # ZMIANA (Punkt 3): Bonus za priorytet
+    priority = sig.get("priority", 50)
+    priority_bonus = (priority - 50) * 0.3
+    score += priority_bonus
+    if abs(priority_bonus) > 0.1:
+        details.append(f"Priority ({priority}): {priority_bonus:+.1f}")
+    
+    # ZMIANA (Punkt 4): Dodaj heurystykę
+    heuristic_bonus = apply_ntlm_heuristics(hash_str, sig, details)
+    score += heuristic_bonus
+    
     return max(score, 0.0), details
 
 # ------------------ Hash Detection ------------------
-def detect_hash(hash_str: str, signatures: List[Dict[str, Any]], top_k: int = MAX_CANDIDATES_DEFAULT, min_confidence: float = 0.0) -> List[Dict[str,Any]]:
-    candidates = []
+def detect_hash(input_str: str, signatures: List[Dict[str, Any]], top_k: int = MAX_CANDIDATES_DEFAULT) -> List[Dict[str,Any]]:
     
-    for sig in signatures:
-        score, details = score_candidate(hash_str, sig, hash_str)
+    # ZMIANA (Punkt 6): Podziel na hash i salt
+    hash_part, salt_part = split_hash_salt(input_str)
+
+    # ZMIANA (Punkt 7): Prefiltrowanie
+    prefiltered_sigs = get_candidates_by_length(len(hash_part), signatures)
+
+    candidates = []
+    for sig in prefiltered_sigs:
+        score, details = score_candidate(hash_part, sig)
+        
+        # ZMIANA (Punkt 6): Bonus/kara za sól
+        if salt_part:
+            salt_pos = sig.get("salt_position", "none")
+            if salt_pos != "none":
+                score *= 1.2
+                details.append(f"Salt detected: ×1.2")
+            else:
+                score *= 0.5
+                details.append(f"Salt unexpected: ×0.5")
+
         if score > 0:
-            candidates.append({
-                "sig": sig,
-                "score": score,
-                "details": details
-            })
+            candidates.append({ "sig": sig, "score": score, "details": details })
 
     candidates.sort(key=lambda x: x["score"], reverse=True)
     if not candidates: return []
@@ -169,13 +216,9 @@ def detect_hash(hash_str: str, signatures: List[Dict[str, Any]], top_k: int = MA
     output = []
     for cand in candidates[:top_k]:
         sig = cand["sig"]
-        prob = percent(min(cand["score"] / (max_score * 1.05), 1.0))
+        prob = percent(min(cand["score"] / (max_score * 1.05), 1.0)) if max_score > 0 else 0.0
 
-        # Potential hook for ML boost
-        # ml_boost = ml_confidence_boost(hash_str, cand)
-        # prob = max(0, min(100, prob + (ml_boost * 100)))
-
-        if prob >= min_confidence:
+        if prob >= 0:
             output.append({
                 "name": sig["name"],
                 "score": round(cand["score"], 2),
@@ -187,48 +230,9 @@ def detect_hash(hash_str: str, signatures: List[Dict[str, Any]], top_k: int = MA
     return output
 
 # ------------------ Signature Management ------------------
-def update_signatures():
-    if SIGNATURES_URL is None:
-        console.print("[yellow]Auto-update is disabled. No SIGNATURES_URL is provided.[/yellow]")
-        return
-        
-    if os.path.exists(LAST_UPDATE_FILE):
-        try:
-            with open(LAST_UPDATE_FILE, 'r') as f:
-                last_update_time = float(f.read())
-            if time.time() - last_update_time < 3600: # 1 hour cooldown
-                console.print("[yellow]Last update was less than 1 hour ago. Skipping.[/yellow]")
-                return
-        except (ValueError, IOError):
-            pass
-
-    console.print(f"[yellow]Downloading latest signatures from:[cyan]\n{SIGNATURES_URL}[/cyan]")
-    try:
-        with request.urlopen(SIGNATURES_URL, timeout=15) as response:
-            if response.status != 200:
-                console.print(f"[bold red]Error: Failed to fetch file (status: {response.status})[/bold red]")
-                return
-            data = response.read()
-        
-        signatures = json.loads(data)
-        required_keys = {"name", "weight", "hashcat_mode"}
-        if not isinstance(signatures, list) or not all(isinstance(s, dict) and required_keys.issubset(s.keys()) for s in signatures):
-            raise ValueError("Invalid format or missing required keys in signatures.")
-
-        with open(SIGNATURES_FILE, 'w', encoding='utf-8') as f:
-            json.dump(signatures, f, indent=2, ensure_ascii=False)
-        
-        with open(LAST_UPDATE_FILE, 'w') as f:
-            f.write(str(time.time()))
-        console.print(f"[bold green]Success! Saved {len(signatures)} signatures to '{os.path.basename(SIGNATURES_FILE)}'.[/bold green]")
-    except Exception as e:
-        console.print(f"[bold red]Failed to update signatures: {e}[/bold red]")
-
-
 def load_signatures() -> List[Dict[str, Any]]:
     if not os.path.exists(SIGNATURES_FILE):
         console.print(f"[bold red]Critical Error: Signatures file '{os.path.basename(SIGNATURES_FILE)}' not found.[/bold red]")
-        console.print(f"Please ensure `hashmap_signatures.json` is in the same directory as the script: {os.path.dirname(SIGNATURES_FILE)}")
         sys.exit(1)
     try:
         with open(SIGNATURES_FILE, 'r', encoding='utf-8') as f:
@@ -245,7 +249,7 @@ def gen_hashcat_cmd(hash_str: str, best_candidate: dict) -> str:
     return f"hashcat -m {mode} -a 0 \"{hash_str}\" /path/to/wordlist.txt"
 
 HELP_MD = """
-# hashmap v5.0 — Smart Hash Identifier + Hashcat Helper
+# hashmap v6.0 — Smart Hash Identifier + Hashcat Helper
 
 **Usage**
 - `hashmap <hash>`
@@ -256,23 +260,18 @@ HELP_MD = """
 - `--json`             Output in JSON format.
 - `--hashcat-only`     Print only the best hashcat mode (`-m`).
 - `--cmd`              Print a suggested hashcat command.
-- `-k, --top`          Show top K candidates (default: 8).
+- `-k, --top`          Show top K candidates (default: 10).
 - `-v, --verbose`      Show detailed scoring information.
-- `--min-confidence`   Minimum probability % to show (default: 0.0).
 
-**File Analysis**
-- `--cluster`          Group hashes from a file by type and show summary.
-- `--export-hashcat <file>` Export results to a hashcat file (`mode:hash`).
-
-**Management**
-- `--update`           Download the latest hash signatures (1h cooldown).
-- `--test`             Run built-in test vectors.
-- `-h, --help`         Show this help message.
+**Filtering & Accuracy**
+- `--tolerance <%>`    Show all candidates within N% of the top score (default: 15.0).
+- `--strict`           Show only the single best match (overrides tolerance).
+- `--min-weight <N>`   Ignore signatures with a weight lower than N.
 """
 
 def print_help_and_exit(parser: argparse.ArgumentParser):
     if RICH_AVAILABLE:
-        console.print(Panel(Markdown(HELP_MD), title="[bold]hashmap v5.0 — Help[/bold]", expand=False, border_style="blue"))
+        console.print(Panel(Markdown(HELP_MD), title="[bold]hashmap v6.0 — Help[/bold]", expand=False, border_style="blue"))
     else:
         print(HELP_MD)
     sys.exit(0)
@@ -288,144 +287,107 @@ def pretty_print_results(hash_str: str, candidates: List[Dict[str, Any]], verbos
         table.add_column("#", style="dim", width=2)
         table.add_column("Algorithm", style="bold", min_width=20)
         table.add_column("Mode", style="cyan", width=8)
-        table.add_column("Prob.", style="green", width=7)
+        table.add_column("Score", style="yellow", width=8)
         if verbose:
             table.add_column("Scoring Details", style="white", min_width=30)
         table.add_column("Notes", style="dim")
         
         for i, c in enumerate(candidates, 1):
             mode = f"-m {c['hashcat_mode']}" if c.get("hashcat_mode") is not None else "N/A"
-            prob = f"{c['probability_pct']}%"
-            row_items = [str(i), c['name'], mode, prob]
+            score = f"{c['score']:.1f}"
+            row_items = [str(i), c['name'], mode, score]
             if verbose:
                 row_items.append(", ".join(c['details']))
             row_items.append(c['notes'])
             table.add_row(*row_items)
         console.print(table)
-    else: # Fallback
+    else:
         print(f"\n--- Analysis for: {hash_str} ---")
         for i, c in enumerate(candidates, 1):
             mode = f"-m {c['hashcat_mode']}" if c.get("hashcat_mode") is not None else "N/A"
-            print(f"{i}. {c['name']} ({c['probability_pct']}% prob.)")
+            print(f"{i}. {c['name']} (Score: {c['score']:.1f})")
             print(f"   Mode: {mode} | Notes: {c['notes']}")
         print("-"*(22 + len(hash_str)))
 
-def detect_hash_family(all_hashes: List[str], signatures: List[Dict[str, Any]]):
-    """Groups hashes and displays a summary."""
-    console.rule("[bold cyan]Hash Family Cluster Analysis[/bold cyan]")
-    
-    hash_families = Counter()
-    unidentified_count = 0
-    
-    for h in all_hashes:
-        candidates = detect_hash(h, signatures, top_k=1)
-        if candidates:
-            best_guess = candidates[0]['name']
-            hash_families[best_guess] += 1
-        else:
-            unidentified_count += 1
-            
-    if not hash_families:
-        console.print("[yellow]Could not identify any hash types in the provided file.[/yellow]")
-        return
-
-    table = Table(title="[bold]Hash Type Summary[/bold]")
-    table.add_column("Hash Type", style="bold", min_width=30)
-    table.add_column("Count", style="green", justify="right")
-    
-    for family, count in hash_families.most_common():
-        table.add_row(family, str(count))
-        
-    if unidentified_count > 0:
-        table.add_row("[dim]Unidentified[/dim]", f"[yellow]{unidentified_count}[/yellow]")
-    
-    console.print(table)
-
-
 # ------------------ CLI Main ------------------
 def main():
-    parser = argparse.ArgumentParser(description="hashmap v5.0 — Smart Hash Identifier", add_help=False)
+    parser = argparse.ArgumentParser(description="hashmap v6.0 — Smart Hash Identifier", add_help=False)
     parser.add_argument("hashes", nargs="*", help="One or more hashes to identify")
     parser.add_argument("-f", "--file", help="File with one hash per line")
     parser.add_argument("--json", action="store_true", help="Output in JSON format")
     parser.add_argument("-k", "--top", type=int, default=MAX_CANDIDATES_DEFAULT, help=f"Show top K candidates (default: {MAX_CANDIDATES_DEFAULT})")
     parser.add_argument("--hashcat-only", action="store_true", help="Print only the best hashcat mode")
     parser.add_argument("--cmd", action="store_true", help="Generate a sample hashcat command")
-    parser.add_argument("--test", action="store_true", help="Run built-in test vectors")
-    parser.add_argument("--update", action="store_true", help="Download latest hash signatures")
     parser.add_argument("-v", "--verbose", action="store_true", help="Show detailed scoring information")
-    parser.add_argument("--export-hashcat", metavar='FILE', help="Export results to a hashcat-ready file (mode:hash)")
-    parser.add_argument("--cluster", action="store_true", help="Group hashes from a file by type and show summary")
-    parser.add_argument("--min-confidence", type=float, default=0.0, help="Minimum probability %% to show")
+    
+    # ZMIANA (Punkt 8 i 2): Nowe argumenty CLI
+    parser.add_argument('--tolerance', type=float, default=15.0, help='Show candidates within N%% of top score (def: 15%%)')
+    parser.add_argument('--strict', action='store_true', help='Show only best match (ignores tolerance)')
+    parser.add_argument('--min-weight', type=int, default=0, help='Ignore signatures with weight < N')
+    
     parser.add_argument("-h", "--help", action="store_true", help="Show this help message")
     args = parser.parse_args()
 
     if args.help or (len(sys.argv) == 1 and sys.stdin.isatty()):
         print_help_and_exit(parser)
-
-    if args.update:
-        update_signatures()
-        sys.exit(0)
     
     signatures = load_signatures()
     
-    if args.test:
-        console.print("[yellow]--test feature is not yet implemented in this version.[/yellow]")
-        sys.exit(0)
+    # ZMIANA (Punkt 8): Filtrowanie sygnatur po wadze
+    if args.min_weight > 0:
+        signatures = [s for s in signatures if s.get('weight', 0) >= args.min_weight]
 
     all_hashes = args.hashes
+    # ZMIANA (Punkt 1): Filtrowanie linii wejściowych
     if args.file:
         try:
             with open(args.file, 'r', encoding='utf-8', errors='ignore') as f:
-                all_hashes.extend([line.strip() for line in f if line.strip()])
+                all_hashes.extend([line.strip() for line in f if is_valid_hash_line(line)])
         except FileNotFoundError:
             console.print(f"[bold red]Error: File not found: {args.file}[/bold red]")
             sys.exit(1)
     elif not sys.stdin.isatty():
         stdin_data = sys.stdin.read()
-        all_hashes.extend([line.strip() for line in stdin_data.splitlines() if line.strip()])
+        all_hashes.extend([line.strip() for line in stdin_data.splitlines() if is_valid_hash_line(line)])
+    
+    all_hashes = [h for h in all_hashes if is_valid_hash_line(h)]
 
     if not all_hashes:
-        console.print("[yellow]No hashes provided. Use -h for help.[/yellow]")
+        console.print("[yellow]No valid hashes provided. Use -h for help.[/yellow]")
         sys.exit(0)
     
-    if args.cluster:
-        detect_hash_family(all_hashes, signatures)
-        sys.exit(0)
-
-    export_lines = []
     results_json = {}
     for hash_str in all_hashes:
         if not hash_str: continue
-        candidates = detect_hash(hash_str, signatures, top_k=args.top, min_confidence=args.min_confidence)
+        
+        candidates = detect_hash(hash_str, signatures, top_k=args.top)
         
         if not candidates:
             if not args.json:
                 console.print(f"[yellow]Could not identify hash: {hash_str}[/yellow]")
             continue
+        
+        # ZMIANA (Punkt 2): Zastosowanie tolerancji lub trybu strict
+        if args.strict:
+            final_candidates = candidates[:1]
+        else:
+            final_candidates = get_similar_candidates(candidates, args.tolerance)
+        
+        if not final_candidates:
+             if not args.json:
+                console.print(f"[yellow]No candidates for hash: {hash_str} within tolerance[/yellow]")
+             continue
 
-        best_candidate = candidates[0]
+        best_candidate = final_candidates[0]
         
         if args.json:
-            results_json[hash_str] = candidates
+            results_json[hash_str] = final_candidates
         elif args.hashcat_only:
             print(best_candidate.get("hashcat_mode", "N/A"))
         elif args.cmd:
             print(gen_hashcat_cmd(hash_str, best_candidate))
-        elif args.export_hashcat:
-            mode = best_candidate.get("hashcat_mode")
-            if mode is not None:
-                export_lines.append(f"{mode}:{hash_str}")
         else:
-            pretty_print_results(hash_str, candidates, args.verbose)
-    
-    if args.export_hashcat:
-        try:
-            with open(args.export_hashcat, 'w', encoding='utf-8') as f:
-                f.write("\n".join(export_lines) + "\n")
-            console.print(f"[bold green]Successfully exported {len(export_lines)} hashes to '{args.export_hashcat}'[/bold green]")
-        except IOError as e:
-            console.print(f"[bold red]Error writing to export file: {e}[/bold red]")
+            pretty_print_results(hash_str, final_candidates, args.verbose)
     
     if args.json:
         console.print(json.dumps(results_json, indent=2, ensure_ascii=False))

@@ -5252,5 +5252,39 @@
     "notes": "SecureCRT MasterPassphrase v2",
     "hashcat_mode": null,
     "salt_position": "none"
+  },
+  {
+    "name": "Cisco-IOS type 7",
+    "pattern": "^[0-1][0-5][0-9A-Fa-f]{4,}$",
+    "lengths": [],
+    "charset": "hex",
+    "weight": 150,
+    "notes": "Cisco-IOS type 7 (Vigenere)",
+    "hashcat_mode": 9000,
+    "salt_position": "none"
+  },
+  {
+    "name": "MySQL 4.1/MySQL 5",
+    "pattern": "^\\*[0-9A-Fa-f]{40}$",
+    "lengths": [
+      41
+    ],
+    "charset": "",
+    "weight": 200,
+    "notes": "MySQL 4.1+ (SHA1(SHA1(pass)))",
+    "hashcat_mode": 300,
+    "salt_position": "none"
+  },
+  {
+    "name": "PostgreSQL MD5",
+    "pattern": "^md5[0-9a-fA-F]{32}$",
+    "lengths": [
+      35
+    ],
+    "charset": "",
+    "weight": 200,
+    "notes": "PostgreSQL md5(pass+user)",
+    "hashcat_mode": 11400,
+    "salt_position": "none"
   }
 ]

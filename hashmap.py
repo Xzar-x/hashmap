@@ -133,6 +133,9 @@ KNOWN_PREFIXES: Dict[str, PrefixMatch] = {
     "$pbkdf2-sha256$": PrefixMatch("PBKDF2-HMAC-SHA256", 10900, "PBKDF2-SHA256"),
     "$pbkdf2-sha512$": PrefixMatch("PBKDF2-HMAC-SHA512", 12100, "PBKDF2-SHA512"),
     "$pbkdf2$": PrefixMatch("PBKDF2-HMAC-SHA1", 12000, "PBKDF2-SHA1"),
+    # Bazy danych
+    "*": PrefixMatch("MySQL 4.1/MySQL 5", 300, "MySQL 4.1+"),
+    "md5": PrefixMatch("PostgreSQL MD5", 11400, "PostgreSQL md5(pass+user)"),
 }
 
 
